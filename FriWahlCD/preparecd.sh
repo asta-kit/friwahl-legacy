@@ -27,7 +27,7 @@ echo "Erstelle Wahl-Splash..."
 usta/scripts/splashy.sh people.dat usta/data/wahlsplash.png work/root-image/usr/share/splashy/themes/usta/background.png
 
 echo Erstelle InitCPIO...
-mkarchroot -n -r "mkinitcpio -v -k /boot/vmlinuz-linux -g /boot/archiso.img" work/root-image
+mkarchroot -n -r "mkinitcpio -k /boot/vmlinuz-linux -g /boot/archiso.img" work/root-image
 
 echo Installiere Kernel, InitCPIO und Bootloader...
 
