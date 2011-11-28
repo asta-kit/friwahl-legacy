@@ -1,0 +1,42 @@
+#
+# /etc/inittab
+#
+
+#  Runlevels:
+#    0    Halt
+#    1(S)   Single-user
+#    2    Not used
+#    3    Multi-user
+#    4    Not used
+#    5    X11
+#    6    Reboot
+
+## Only one of the following two lines can be uncommented!
+# Boot to console
+id:3:initdefault:
+# Boot to X11
+#id:5:initdefault:
+
+rc::sysinit:/etc/rc.sysinit
+rs:S1:wait:/etc/rc.single
+rm:2345:wait:/etc/rc.multi
+rh:06:wait:/etc/rc.shutdown
+su:S:wait:/sbin/sulogin -p
+
+# friwahl
+c1:2345:respawn:/usr/bin/openvt -f -w -c2 /usr/local/usta/verwaltung.sh
+c2:2345:respawn:/usr/bin/openvt -f -w -c3 /usr/local/usta/wavemon.sh
+c3:2345:respawn:/usr/bin/openvt -f -w -c5 -- /usr/bin/tail -F /var/log/messages.log
+
+# maintenance shell on terminal 6
+c4:2345:respawn:/sbin/agetty -8 38400 tty6 linux
+
+# console 1
+c5:2345:wait:/usr/bin/openvt -s -e -f -w -c1 /usr/local/usta/netsetup.sh
+c6:2345:respawn:/usr/bin/openvt -s -f -w -c1 /usr/local/usta/friwahl-run.sh
+c7:2345:respawn:/usr/bin/openvt -f -w -c4 /usr/local/usta/irssi.sh
+
+ca::ctrlaltdel:/sbin/shutdown -t3 -r now
+
+# End of file
+

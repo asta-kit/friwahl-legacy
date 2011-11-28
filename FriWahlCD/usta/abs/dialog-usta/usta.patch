@@ -1,0 +1,287 @@
+diff -Nur dialog-1.1-20100428/checklist.c dialog-1.1-20100428.patched/checklist.c
+--- dialog-1.1-20100428/checklist.c	2010-01-17 20:32:17.000000000 +0100
++++ dialog-1.1-20100428.patched/checklist.c	2010-12-25 02:37:10.954616762 +0100
+@@ -145,7 +145,8 @@
+ 	      DIALOG_LISTITEM * items,
+ 	      const char *states,
+ 	      int flag,
+-	      int *current_item)
++	      int *current_item,
++	      int auto_toggle)
+ {
+     /* *INDENT-OFF* */
+     static DLG_KEYS_BINDING binding[] = {
+@@ -177,6 +178,7 @@
+ #endif
+     int i, j, key2, found, x, y, cur_x, cur_y, box_x, box_y;
+     int key = 0, fkey;
++    int nextkey = -1;
+     int button = dialog_state.visit_items ? -1 : dlg_defaultno_button();
+     int choice = dlg_default_listitem(items);
+     int scrollamt = 0;
+@@ -312,7 +314,18 @@
+ 	if (button < 0)		/* --visit-items */
+ 	    wmove(dialog, box_y + choice + 1, box_x + check_x + 2);
+ 
+-	key = dlg_mouse_wgetch(dialog, &fkey);
++	/* 
++	 * ugly hack, but i did not really want to understand
++	 * the interaction of the remaining code parts in depth... 
++	 */
++	if (nextkey >= 0) {
++		key = nextkey;
++		nextkey = -1;
++	}
++	else {
++		key = dlg_mouse_wgetch(dialog, &fkey);
++	}
++
+ 	if (dlg_result_key(key, fkey, &result))
+ 	    break;
+ 
+@@ -406,6 +419,7 @@
+ 		    if (dlg_match_char(dlg_last_getc(), items[j].name)) {
+ 			found = TRUE;
+ 			i = j - scrollamt;
++			if (auto_toggle) nextkey=' ';
+ 			break;
+ 		    }
+ 		}
+@@ -414,6 +428,7 @@
+ 			if (dlg_match_char(dlg_last_getc(), items[j].name)) {
+ 			    found = TRUE;
+ 			    i = j - scrollamt;
++			    if (auto_toggle) nextkey=' ';
+ 			    break;
+ 			}
+ 		    }
+@@ -437,6 +452,7 @@
+ 	    && (key - '1' < max_choice)) {
+ 	    found = TRUE;
+ 	    i = key - '1';
++	    if (auto_toggle) nextkey=' ';
+ 	}
+ 
+ 	if (!found) {
+@@ -622,7 +638,8 @@
+ 		 int list_height,
+ 		 int item_no,
+ 		 char **items,
+-		 int flag)
++		 int flag,
++		 int auto_toggle)
+ {
+     int result;
+     int i;
+@@ -654,7 +671,8 @@
+ 			   listitems,
+ 			   NULL,
+ 			   flag,
+-			   &current);
++			   &current,
++			   auto_toggle);
+ 
+     switch (result) {
+     case DLG_EXIT_OK:		/* FALLTHRU */
+diff -Nur dialog-1.1-20100428/dialog.1 dialog-1.1-20100428.patched/dialog.1
+--- dialog-1.1-20100428/dialog.1	2010-01-18 11:19:07.000000000 +0100
++++ dialog-1.1-20100428.patched/dialog.1	2010-12-25 02:37:10.954616762 +0100
+@@ -142,11 +142,20 @@
+ It represents width / height.
+ The default is 9, which means 9 characters wide to every 1 line high.
+ .
++.IP "\fB--auto-toggle"
++When an item in a list is activated by typing an initial letter or
++line number, the state of that item is also toggled.
++.
+ .IP "\fB--backtitle \fIbacktitle"
+ Specifies a
+ \fIbacktitle\fP
+ string to be displayed on the backdrop, at the top of the screen.
+ .
++.IP "\fB--backfoot \fIbackfoot"
++Specifies a
++\fIbackfoot\fP
++string to be displayed on the backdrop, at the bottom of the screen.
++.
+ .IP "\fB--begin \fIy x"
+ Specify the position of the upper left corner of a dialog box on the screen.
+ .
+diff -Nur dialog-1.1-20100428/dialog.3 dialog-1.1-20100428.patched/dialog.3
+--- dialog-1.1-20100428/dialog.3	2010-02-23 11:33:59.000000000 +0100
++++ dialog-1.1-20100428.patched/dialog.3	2010-12-25 02:37:10.954616762 +0100
+@@ -195,6 +195,12 @@
+ \fIbacktitle\fP
+ string to be displayed on the backdrop, at the top of the screen.
+ .\" ---------------------------------------------------------------------------
++.IP \fIDIALOG_VARS.backfoot
++This corresponds to the command-line option "\fB--backfoot\fP \fIbackfoot\fP".
++It specifies a
++\fIbackfoot\fP
++string to be displayed on the backdrop, at the bottom of the screen.
++.\" ---------------------------------------------------------------------------
+ .IP \fIDIALOG_VARS.beep_after_signal
+ This corresponds to the command-line option "\fB--beep-after\fP".
+ If true, beep after a user has completed a widget by pressing one of the buttons.
+diff -Nur dialog-1.1-20100428/dialog.c dialog-1.1-20100428.patched/dialog.c
+--- dialog-1.1-20100428/dialog.c	2010-01-18 10:21:14.000000000 +0100
++++ dialog-1.1-20100428.patched/dialog.c	2010-12-25 02:37:11.077951706 +0100
+@@ -44,7 +44,9 @@
+     ,o_ascii_lines
+     ,o_aspect
+     ,o_auto_placement
++    ,o_auto_toggle
+     ,o_backtitle
++    ,o_backfoot
+     ,o_beep
+     ,o_beep_after
+     ,o_begin
+@@ -182,6 +184,8 @@
+     { "aspect",		o_aspect,		1, "<ratio>" },
+     { "auto-placement", o_auto_placement,	1, NULL },
+     { "backtitle",	o_backtitle,		1, "<backtitle>" },
++    { "auto-toggle",	o_auto_toggle,		1, "" },
++    { "backfoot",	o_backfoot,		1, "<backfoot>" },
+     { "beep",		o_beep,			1, NULL },
+     { "beep-after",	o_beep_after,		1, NULL },
+     { "begin",		o_begin,		1, "<y> <x>" },
+@@ -774,7 +778,8 @@
+ 			    numeric_arg(av, 2),
+ 			    numeric_arg(av, 3),
+ 			    numeric_arg(av, 4),
+-			    tags, av + 5, FLAG_CHECK);
++			    tags, av + 5, FLAG_CHECK,
++			    dialog_vars.auto_toggle);
+     dialog_vars.quoted = save_quoted;
+     return code;
+ }
+@@ -789,7 +794,8 @@
+ 			    numeric_arg(av, 2),
+ 			    numeric_arg(av, 3),
+ 			    numeric_arg(av, 4),
+-			    tags, av + 5, FLAG_RADIO);
++			    tags, av + 5, FLAG_RADIO,
++			    dialog_vars.auto_toggle);
+ }
+ 
+ static int
+@@ -1211,9 +1217,15 @@
+ 	case o_title:
+ 	    dialog_vars.title = optionString(argv, &offset);
+ 	    break;
++	case o_auto_toggle:
++	    dialog_vars.auto_toggle = TRUE;
++	    break;
+ 	case o_backtitle:
+ 	    dialog_vars.backtitle = optionString(argv, &offset);
+ 	    break;
++	case o_backfoot:
++	    dialog_vars.backfoot = optionString(argv, &offset);
++	    break;
+ 	case o_separate_widget:
+ 	    dialog_state.separate_str = optionString(argv, &offset);
+ 	    break;
+@@ -1609,6 +1621,7 @@
+ 	    dialog_state.aspect_ratio = DEFAULT_ASPECT_RATIO;
+ 
+ 	dlg_put_backtitle();
++	dlg_put_backfoot();
+ 
+ 	/* use a table to look for the requested mode, to avoid code duplication */
+ 
+@@ -1650,6 +1663,7 @@
+ 	    case o_unknown:
+ 	    case o_title:
+ 	    case o_backtitle:
++	    case o_backfoot:
+ 		break;
+ 	    default:
+ 		if (argv[j] != 0) {
+diff -Nur dialog-1.1-20100428/dialog.h dialog-1.1-20100428.patched/dialog.h
+--- dialog-1.1-20100428/dialog.h	2010-04-28 23:11:49.000000000 +0200
++++ dialog-1.1-20100428.patched/dialog.h	2010-12-25 02:37:11.167952881 +0100
+@@ -293,6 +293,7 @@
+ #define print_autowrap(win,s,h,w)         dlg_print_autowrap(win,s,h,w)
+ #define print_size(h,w)                   dlg_print_size(h,w)
+ #define put_backtitle()                   dlg_put_backtitle()
++#define put_backfoot()                    dlg_put_backfoot()
+ #define strclone(cprompt)                 dlg_strclone(cprompt)
+ #define sub_window(win,h,w,y,x)           dlg_sub_window(win,h,w,y,x)
+ #define tab_correct_str(s)                dlg_tab_correct_str(s)
+@@ -397,6 +398,7 @@
+  * Global variables, which dialog resets before each widget
+  */
+ typedef struct {
++    bool auto_toggle;
+     bool beep_after_signal;	/* option "--beep-after" */
+     bool beep_signal;		/* option "--beep" */
+     bool begin_set;		/* option "--begin y x" was used */
+@@ -421,6 +423,7 @@
+     bool tab_correct;		/* option "--tab-correct" */
+     bool trim_whitespace;	/* option "--trim" */
+     char *backtitle;		/* option "--backtitle backtitle" */
++    char *backfoot;		/* option "--backfoot backfoot" */
+     char *cancel_label;		/* option "--cancel-label string" */
+     char *default_item;		/* option "--default-item string" */
+     char *exit_label;		/* option "--exit-label string" */
+@@ -502,7 +505,7 @@
+ 
+ /* widgets, each in separate files */
+ extern int dialog_calendar(const char * /*title*/, const char * /*subtitle*/, int /*height*/, int /*width*/, int /*day*/, int /*month*/, int /*year*/);
+-extern int dialog_checklist(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*list_height*/, int /*item_no*/, char ** /*items*/, int /*flag*/);
++extern int dialog_checklist(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*list_height*/, int /*item_no*/, char ** /*items*/, int /*flag*/, int /*auto_toggle*/);
+ extern int dialog_dselect(const char * /*title*/, const char * /*path*/, int /*height*/, int /*width*/);
+ extern int dialog_editbox(const char * /*title*/, const char * /*file*/, int /*height*/, int /*width*/);
+ extern int dialog_form(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*form_height*/, int /*item_no*/, char ** /*items*/);
+@@ -548,7 +551,7 @@
+ 
+ typedef	int (DIALOG_INPUTMENU) (DIALOG_LISTITEM * /*items*/, int /*current*/, char * /*newtext*/);
+ 
+-extern int dlg_checklist(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*list_height*/, int /*item_no*/, DIALOG_LISTITEM * /*items*/, const char * /*states*/, int /*flag*/, int * /*current_item*/);
++extern int dlg_checklist(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*list_height*/, int /*item_no*/, DIALOG_LISTITEM * /*items*/, const char * /*states*/, int /*flag*/, int * /*current_item*/, int /*auto_toggle*/);
+ extern int dlg_form(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*form_height*/, int /*item_no*/, DIALOG_FORMITEM * /*items*/, int * /*current_item*/);
+ extern int dlg_menu(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*menu_height*/, int /*item_no*/, DIALOG_LISTITEM * /*items*/, int * /*current_item*/, DIALOG_INPUTMENU /*rename_menu*/);
+ 
+@@ -661,6 +664,7 @@
+ extern void dlg_print_size(int /*height*/, int /*width*/);
+ extern void dlg_print_text(WINDOW * /*win*/, const char * /*txt*/, int /*len*/, chtype * /*attr*/);
+ extern void dlg_put_backtitle(void);
++extern void dlg_put_backfoot(void);
+ extern void dlg_restore_vars(DIALOG_VARS * /* save */);
+ extern void dlg_save_vars(DIALOG_VARS * /* save */);
+ extern void dlg_set_focus(WINDOW * /*parent*/, WINDOW * /*win*/);
+diff -Nur dialog-1.1-20100428/util.c dialog-1.1-20100428.patched/util.c
+--- dialog-1.1-20100428/util.c	2010-04-28 23:12:42.000000000 +0200
++++ dialog-1.1-20100428.patched/util.c	2010-12-25 02:37:11.257954055 +0100
+@@ -129,6 +129,31 @@
+ }
+ 
+ /*
++ * Display background foot title if it exists ...
++ */
++void
++dlg_put_backfoot(void)
++{
++    int i;
++
++    if (dialog_vars.backfoot != NULL) {
++	chtype attr = A_NORMAL;
++	int backwidth = dlg_count_columns(dialog_vars.backfoot);
++
++	wattrset(stdscr, screen_attr);
++	(void) wmove(stdscr, LINES-1, 1);
++	dlg_print_text(stdscr, dialog_vars.backfoot, COLS - 2, &attr);
++	for (i = 0; i < COLS - backwidth; i++)
++	    (void) waddch(stdscr, ' ');
++	(void) wmove(stdscr, LINES-2, 1);
++	for (i = 0; i < COLS - 2; i++)
++	    (void) waddch(stdscr, dlg_boxchar(ACS_HLINE));
++    }
++
++    (void) wnoutrefresh(stdscr);
++}
++
++/*
+  * Set window to attribute 'attr'.  There are more efficient ways to do this,
+  * but will not work on older/buggy ncurses versions.
+  */

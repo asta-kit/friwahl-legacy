@@ -1,0 +1,31 @@
+pkgname=splashy-usta-theme
+pkgver=1.1
+pkgrel=1
+pkgdesc="UStA-Wahl theme for splashy"
+arch=('i686' 'x86_64')
+url="http://www.usta.de"
+license=('GPL')
+depends=('splashy')
+makedepends=()
+install=(splashy-usta-theme.install)
+source=(config.xml
+	theme.xml
+	background.png
+	shutdown.png
+	error.png	
+	FreeSans.ttf)
+md5sums=('6aebb0deeeb70ec539a434dd27348ed1'
+         '51fd01ea2d0ebd240ab0e7e632fa16ce'
+	 'ba6932efa213ea97c3ba48e80c13947c'
+         '57fe98f917fc69934688489f05da6ac1'
+	 'd4cbdca721c879cd2338d20a33492daf'
+	 '386bc37d7641e0cde8afc540bb2f0f57')
+
+build() {
+	install -D -m644 ${startdir}/config.xml ${startdir}/pkg/etc/splashy/config.usta.xml
+	install -D -m644 ${startdir}/theme.xml ${startdir}/pkg/usr/share/splashy/themes/usta/theme.xml
+	install -D -m644 ${startdir}/background.png ${startdir}/pkg/usr/share/splashy/themes/usta/background.png
+	install -D -m644 ${startdir}/shutdown.png ${startdir}/pkg/usr/share/splashy/themes/usta/shutdown.png
+	install -D -m644 ${startdir}/error.png ${startdir}/pkg/usr/share/splashy/themes/usta/error.png
+	install -D -m644 ${startdir}/FreeSans.ttf ${startdir}/pkg/usr/share/splashy/themes/usta/FreeSans.ttf
+}
