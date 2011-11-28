@@ -1,0 +1,27 @@
+audimax:		
+	wiwi		10		0.59
+	mach		4.5		0.26
+	ciw		0.5		0.03
+	info		2		0.12
+
+gerthsen:
+	physik		4		0.25
+	mach		3.5		0.22
+	ciw		1.5		0.09
+	wiwi		3		0.19
+	info		2		0.13
+	etec		1		0.06
+	bio		0.7		0.04
+	geo		0.3		0.02
+
+hmu/hmo
+	mach		10		0.26
+	ciw		2		0.05
+	info		4		0.11
+	mathe		3		0.08
+	etec		5.8		0.15
+	bau		6		0.16
+	wiwi		3		0.08
+	physik		2.2		0.06
+	bio		1		0.03
+	geist		1		0.03

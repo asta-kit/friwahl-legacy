@@ -1,0 +1,15 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{store}[2001/10/03 text storage commands, Kristof]
+
+\newcommand{\newstore}[2][]{%
+    \long\expandafter\def\csname#2\endcsname##1{%
+       \long\expandafter\gdef\csname the#2\endcsname{##1}}%
+    \long\expandafter\def\csname add#2\endcsname##1{%
+       \long\expandafter\g@addto@macro\csname the#2\endcsname{##1}}%
+    \long\expandafter\gdef\csname the#2\endcsname{#1}}
+\newcommand{\newstorename}[3][]{%
+    \long\expandafter\def\csname#2\endcsname##1{%
+       \long\expandafter\gdef\csname #3\endcsname{##1}}%
+    \long\expandafter\def\csname add#2\endcsname##1{%
+       \long\expandafter\g@addto@macro\csname #3\endcsname{##1}}%
+    \long\expandafter\gdef\csname #3\endcsname{#1}}

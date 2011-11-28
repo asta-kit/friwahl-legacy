@@ -1,0 +1,41 @@
+Die aktuelle Wahlbeteiligung beträgt (Stand %(date)s):
+
+Allgemein:              %(global).2f %% 
+Studierendenparlament:  %(wahl1).2f %%	(%(votes1)i Wähler von %(berechtigte1)i Berechtigten)
+Fachschaften:           %(wahl2).2f %%	(%(votes2)i Wähler von %(berechtigte2)i Berechtigten)
+Ausländerreferat:       %(wahl3).2f %%	(%(votes3)i Wähler von %(berechtigte3)i Berechtigten)
+Frauenreferat:          %(wahl4).2f %%	(%(votes4)i Wähler von %(berechtigte4)i Berechtigten)
+
+Die aktuelle Wahlbeteiligung an den Fachschaftswahlen (Achtung Schätzung!):
+
+BauIng:                 %(fs_bau).2f %%	(geschätzte %(fsvotes_bau).2f Wähler von %(fsberechtigte_bau)g Wahlberechtigten)
+Bio/Chemie:             %(fs_bio).2f %%	(geschätzte %(fsvotes_bio).2f Wähler von %(fsberechtigte_bio)g Wahlberechtigten)
+ETEC:                   %(fs_etec).2f %%	(geschätzte %(fsvotes_etec).2f Wähler von %(fsberechtigte_etec)g Wahlberechtigten)
+GeistSoz:               %(fs_geist).2f %%	(geschätzte %(fsvotes_geist).2f Wähler von %(fsberechtigte_geist)g Wahlberechtigten)
+Geo:                    %(fs_geo).2f %%	(geschätzte %(fsvotes_geo).2f Wähler von %(fsberechtigte_geo)g Wahlberechtigten)
+Info:                   %(fs_info).2f %%	(geschätzte %(fsvotes_info).2f Wähler von %(fsberechtigte_info)g Wahlberechtigten)
+Mach/CIW:               %(fs_machciw).2f %%	(geschätzte %(fsvotes_machciw).2f Wähler von %(fsberechtigte_machciw)g Wahlberechtigten)
+Mathe:                  %(fs_mathe).2f %%	(geschätzte %(fsvotes_mathe).2f Wähler von %(fsberechtigte_mathe)g Wahlberechtigten)
+Physik:                 %(fs_physik).2f %%	(geschätzte %(fsvotes_physik).2f Wähler von %(fsberechtigte_physik)g Wahlberechtigten)
+WiWi:                   %(fs_wiwi).2f %%	(geschätzte %(fsvotes_wiwi).2f Wähler von %(fsberechtigte_wiwi)g Wahlberechtigten)
+    
+Stimmzettel in den Urnen:
+
+Bio/Chemie:             %(zettel_bio)i Zettel
+ETEC:                   %(zettel_etec)i Zettel
+GeistSoz:               %(zettel_geist)i Zettel
+Geo:                    %(zettel_geo)i Zettel
+Info:                   %(zettel_info)i Zettel
+Mach/CIW:               %(zettel_machciw)i Zettel
+Mathe:                  %(zettel_mathe)i Zettel
+Physik:                 %(zettel_physik)i Zettel
+WiWi:                   %(zettel_wiwi)i Zettel
+AKK:                    %(zettel_akk)i Zettel
+Mensa:                  %(zettel_mensa)i Zettel
+RZ:                     %(zettel_rz)i Zettel
+Audimax:                %(zettel_audimax)i Zettel
+Gerthsen:               %(zettel_gerthsen)i Zettel
+Daimler/Benz:           %(zettel_hmu)i Zettel
+West-Urne:              %(zettel_west)i Zettel
+Mobil:			%(zettel_stuko)i Zettel
+

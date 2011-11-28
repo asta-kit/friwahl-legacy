@@ -1,0 +1,57 @@
+-- Wahl-Auszaehlungs-Datenbank
+-- root-Erzeugung, Rechte
+-- $Id$
+--
+-- (c) 2003, 2004 Kristof Koehler <Kristof.Koehler@stud.uni-karlsruhe.de>
+--
+-- Published under GPL
+
+CREATE DATABASE IF NOT EXISTS auszaehl;
+
+-- Database-Manager user
+
+INSERT INTO mysql.user (Host,User,Password) 
+                VALUES ('localhost','auszaehl-root', PASSWORD('ROTZ')) ;
+
+INSERT INTO mysql.db (Host,User,Db, 
+                      Select_priv,Insert_priv,Update_priv,Delete_priv,
+                      Index_priv, Alter_priv, Create_priv, Drop_priv)
+              VALUES ('localhost', 'auszaehl-root', 'auszaehl',
+                      'Y', 'Y', 'Y', 'Y',
+                      'Y', 'Y', 'Y', 'Y' ) ;
+
+-- Database-Editor user
+
+INSERT INTO mysql.user (Host,User,Password) 
+                VALUES ('localhost','auszaehl', PASSWORD('KKAzC')) ;
+
+INSERT INTO mysql.db (Host,User,Db, 
+                      Select_priv,Insert_priv,Update_priv,Delete_priv)
+              VALUES ('localhost', 'auszaehl', 'auszaehl',
+                      'Y', 'Y', 'Y', 'Y' ) ;
+
+-- Automated evaluation user
+
+INSERT INTO mysql.user (Host,User,Password) 
+                VALUES ('localhost','auszaehl-ro', PASSWORD('')) ;
+
+INSERT INTO mysql.db (Host,User,Db, 
+                      Select_priv)
+              VALUES ('localhost', 'auszaehl-ro', 'auszaehl',
+                      'Y') ;
+
+-- Allow update of calculated columns
+
+INSERT INTO mysql.tables_priv(Host,User,Db,Table_name,Column_priv)
+  VALUES ('%','auszaehl-ro','auszaehl','wahl','Update');
+
+INSERT INTO mysql.columns_priv(Host,User,Db,Table_name,Column_name,Column_priv)
+  VALUES ('%','auszaehl-ro','auszaehl','wahl','sitze_wert',         'Update');
+INSERT INTO mysql.columns_priv(Host,User,Db,Table_name,Column_name,Column_priv)
+  VALUES ('%','auszaehl-ro','auszaehl','wahl','max_stimmen_wert',   'Update');
+INSERT INTO mysql.columns_priv(Host,User,Db,Table_name,Column_name,Column_priv)
+  VALUES ('%','auszaehl-ro','auszaehl','wahl','max_kumulieren_wert','Update');
+
+FLUSH PRIVILEGES;
+
+-- ----------------------------------------

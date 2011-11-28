@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Requires "usta" to be configured in .ssh/config.
+# Something like:
+# Host  usta
+# HostName login.usta.de
+# User XXX
+# IdentityFile ~/.ssh/id_rsa
+
+
+dir=`dirname $0`
+
+cd $dir
+
+./wahlbet.py wahlbet.html >/tmp/wahlbet.html
+
+scp /tmp/wahlbet.html usta:/www/UStA/Wahl/wahlbet_2011.html
+ssh usta chgrp wahl /www/UStA/Wahl/wahlbet_2011.html
+ssh usta /usr/usta/OpenBSD/bin/publish wahl
+
+exit 0
+

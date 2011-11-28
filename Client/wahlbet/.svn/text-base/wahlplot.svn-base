@@ -1,0 +1,14 @@
+#!/bin/bash
+
+dir=`dirname $0`
+
+cd $dir
+
+./wahlbet.py wahlbet.plot.txt > /tmp/wahlbet.plot.txt
+DATE=`date +"%s"`
+
+echo -n -e "$DATE\t" >> ~/data/wahlplot.dat
+cat /tmp/wahlbet.plot.txt >> ~/data/wahlplot.dat
+
+./wahlplot.plot
+

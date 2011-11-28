@@ -1,0 +1,42 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{kkpaper}[2004/01/01 generic paper handler, Kristof]
+
+\newdimen\oddrightmargin
+\newdimen\footmargin
+
+\newcommand{\settextsize}{
+  \textheight=\paperheight
+  \advance\textheight by -\topmargin
+  \advance\textheight by -\footmargin
+  \advance\textheight by -\headheight
+  \advance\textheight by -\headsep
+  \advance\textheight by -\footskip
+
+  \textwidth=\paperwidth
+  \advance\textwidth by -\oddsidemargin
+  \advance\textwidth by -\oddrightmargin
+}
+
+\newcommand{\setafourpaper}{
+  \hoffset=-1in
+  \voffset=-1in
+  \paperheight=29.7cm
+  \paperwidth=21cm
+}
+
+\newcommand{\setathreepaper}{
+  \hoffset=-1in
+  \voffset=-1in
+  \advance\voffset by 29.7cm
+  \advance\voffset by -42cm
+  \paperheight=42cm
+  \paperwidth=29.7cm
+}
+\newcommand{\setatwopaper}{
+  \hoffset=-1in
+  \voffset=-1in
+  %\advance\voffset by 42cm
+  %\advance\voffset by -59.4cm
+  \paperheight=59.4cm
+  \paperwidth=42cm
+}

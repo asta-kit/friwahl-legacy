@@ -1,0 +1,23 @@
+> show-elections
+  +ok
+  -error-code text
+  election-id election-name [\n]
+  ...
+  [\n]
+> show-queue
+  +ok
+  -error-code text
+  voter-id list-of-space-seperated-election-ids [\n]
+  ...
+  [\n]
+> insert-queue-element voter-id list-of-space-seperated-election-ids
+  +ok
+  -error-code text
+> commit-queue-element voter-id
+  +ok
+  -error-code text
+> delete-queue-element voter-id
+  +ok
+  -error-code text
+> quit
+  +ok

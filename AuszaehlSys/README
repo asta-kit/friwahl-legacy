@@ -1,0 +1,14 @@
+Liebe Wahlleitende Person!
+(sorry, an die komische UStA-Schreibweise für geschlechtsneutralität kann ich mich einfach nicht gewöhnen...)
+
+Zum Wahlprogramm:
+
+AuszaehlEdit.pl ist das Programm, es redet mit einer Datenbank namens "auszaehl"
+Mit db-nonroot.txt könnt ihr die alte Datenbank putzen
+Das Passwort steht in der Datei "pass"
+
+
+BUGS:
+
+Achtung: Wenn Werte eingegeben werden, vor dem Schließen des Fensters in ein anders Feld wechseln, denn erst dann wird die Eingabe gespeichert!
+Achtung2: Das Programm ist relativ wenig fehlertolerant, wenn z.B. die Ausgabe der Schriftsätze komisch aussieht, nachschauen, ob die Daten vollständig eingegeben wurden - z.B. ist die Ausschreibung seltsam, wenn den Listen keine Anzeigereihenfolge angegeben wurde.

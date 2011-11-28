@@ -1,0 +1,51 @@
+-- Wahl-Auszaehlungs-Datenbank
+-- $Id: db-nonroot.txt 55 2006-01-25 23:40:02Z djpig $
+--
+-- (c) 2003, 2004 Kristof Koehler <Kristof.Koehler@stud.uni-karlsruhe.de>
+--
+-- Published under GPL
+
+USE auszaehl;
+
+-- ----------------------------------------
+
+DELETE FROM config;
+DELETE FROM wahl;
+DELETE FROM liste;
+DELETE FROM kandidat;
+DELETE FROM kandidat_status;
+DELETE FROM kandidat_typ;
+DELETE FROM urne_status;
+DELETE FROM urne ;
+DELETE FROM wahl_urne;
+DELETE FROM liste_urne;
+DELETE FROM kandidat_urne;
+
+-- ----------------------------------------
+
+INSERT INTO config (tag,name) VALUES ("from_date","Anfangsdatum");
+INSERT INTO config (tag,name) VALUES ("to_date","Enddatum");
+INSERT INTO config (tag,name) VALUES ("in_charge","Wahlleiter");
+
+-- ----------------------------------------
+
+INSERT INTO kandidat_typ VALUES ( 0, 'Kandidat' ) ;
+INSERT INTO kandidat_typ VALUES ( 1, 'Ja' ) ;
+INSERT INTO kandidat_typ VALUES ( 2, 'Nein/Enth' ) ;
+
+INSERT INTO kandidat_status VALUES ( 0, '' ) ;
+INSERT INTO kandidat_status VALUES ( 1, 'gewaehlt' ) ;
+INSERT INTO kandidat_status VALUES ( 2, 'Los' ) ;
+INSERT INTO kandidat_status VALUES ( 3, 'nicht gewaehlt' ) ;
+
+-- ----------------------------------------
+
+INSERT INTO urne_status VALUES ( 0, 'noch nicht ausgegeben', 0.4, 0.4, 0.4 );
+INSERT INTO urne_status VALUES ( 1, 'ausgegeben',            1,   1,   1   ) ;
+INSERT INTO urne_status VALUES ( 2, 'geschlossen',           0.6, 0.6, 0.6 ) ;
+INSERT INTO urne_status VALUES ( 3, 'wird gezaehlt',         0,   0,   1   ) ;
+INSERT INTO urne_status VALUES ( 4, 'gezaehlt',              0,   1,   0   ) ;
+INSERT INTO urne_status VALUES ( 5, 'kritisch',              1,   1,   0   ) ;
+INSERT INTO urne_status VALUES ( 6, 'ungueltig',             1,   0,   0   ) ;
+
+-- ----------------------------------------

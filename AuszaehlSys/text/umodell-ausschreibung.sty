@@ -1,0 +1,121 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{umodell-ausschreibung}[2004/01/26 Definitionen fuer die 
+                                        Unabhaengigen Wahlen, Kristof]
+
+\RequirePackage[latin1]{inputenc}
+\RequirePackage[ngerman]{babel}
+\RequirePackage{a4ultra}
+\RequirePackage{denselist}
+\RequirePackage{store}
+\RequirePackage{keyval}
+
+\parindent=0pt
+
+\newstore{WahlBeginn}
+\newstore{WahlEnde}
+
+\newcount\partycnt
+\newif\ifelection@CrossList
+
+\define@key{election}{Election}{\gdef\election@Election{#1}}
+\define@key{election}{CandidateVotes}{\gdef\election@CandidateVotes{#1}}
+\define@key{election}{MaxCumulate}{\gdef\election@MaxCumulate{#1}}
+\define@key{election}{CrossList}[]{\global\election@CrossListtrue}
+\define@key{election}{NoCrossList}[]{\global\election@CrossListfalse}
+
+\newenvironment{election}[1]{
+  \newpage
+  \setcounter{page}{1}
+  \sloppy
+  \gdef\election@Election{}%
+  \gdef\election@CandidateVotes{1}%
+  \gdef\election@MaxCumulate{1}%
+  \global\election@CrossListfalse%
+  \setkeys{election}{#1}%
+  \begin{center}
+    \bfseries\Huge
+    Bekanntmachung der Wahlvorschläge
+    \bigskip
+
+    \LARGE
+    \election@Election
+    \bigskip
+
+  \end{center}
+  \raggedright
+  \global\partycnt=0
+}{
+
+  \begin{minipage}{\hsize}
+  \textbf{Hinweise:}
+  \begin{itemize}
+
+  \item Die Wahl findet vom \theWahlBeginn\ bis zum \theWahlEnde\ statt.
+
+  \ifnum\the\partycnt>1
+    \item Es steht eine Listenstimme zur Verfügung.
+  \fi
+
+  \item Es 
+    \ifnum\election@CandidateVotes>1 
+      stehen \election@CandidateVotes~Kandidierendenstimmen
+    \else 
+      steht eine Kandidierendenstimme
+    \fi
+    zur Verfügung.
+
+  \ifnum\election@MaxCumulate>1
+    \item Auf Kandidierende dürfen bis zu \election@MaxCumulate~Stimmen 
+      vereinigt werden. (kumulieren)
+  \fi
+
+  \ifelection@CrossList
+    \item Die Stimmen dürfen auf Kandidierende mehrerer Listen 
+      verteilt werden. (panaschieren)
+  \fi
+
+  \item Es darf nur mit den amtlichen Stimmzetteln des Wahlausschusses
+    gewählt werden.
+
+  \item Eine Bindung an eine bestimmte Wahlurne besteht nicht.
+
+  \def\auslref{Ausländer Innen referat}
+  \ifx\election@Election\auslref
+    \item Das Wahlrecht muss mit Hilfe des gültigen Studienausweises für 
+      das Semester, in dem die Wahl stattfindet, nachgewiesen werden. 
+      Weiterhin muss der Status als AusländerIn durch ein gültiges Dokument 
+      (ausländischer Personalausweis/Paß) nachgewiesen werden.
+  \else
+    \item Das Wahlrecht muss mit Hilfe des gültigen Studienausweises für 
+      das Semester, in dem die Wahl stattfindet, nachgewiesen werden.
+  \fi
+
+  \end{itemize}
+  \bigskip
+  
+  Der Wahlausschuss
+  \end{minipage}
+}
+
+\newenvironment{party}[3]{
+  \global\advance\partycnt by 1
+  \begin{minipage}[t]{5cm}
+    \raggedright
+    \sloppy
+    {\large\bfseries Liste #3: #1\par}
+    {\large#2\medskip\par}
+}{
+  \strut
+  \end{minipage}
+  \hspace{1cm}
+}
+
+\newcommand{\candidate}[3]{
+  \hangafter1\hangindent=2em
+  #1%
+  \quad%
+  {\small#2}
+  \par
+}
+
+

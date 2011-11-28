@@ -1,0 +1,73 @@
+Header:
+Zwischenstand nach n von m Urnen, ca. x% der Stimmzettel
+----------------------------------------------------------------------
+Status der Urnen
+  Archi   1 ausgegeben 2348   2 ....
+  Etec    1 ausgegeben 159    2 ....
+  ...
+[Halbkreis: Stimmen nach Urnenstatus]
+----------------------------------------------------------------------
+StuPa Listen
+  Wahlber:        Stimmen:       Wahlbet
+  gueltig         ungueltig
+  enth
+
+  Liste     n (n%)       Sitze m
+  Liste     n (n%)       Sitze m
+  Liste     n (n%)       Sitze m
+
+[Halbkreis-StuPa]
+
+StuPa Kandidaten
+  gueltig         ungueltig
+    
+  Liste1           Liste 2
+  Kn        x      ...
+  km        y      ---------
+  -----------
+  ...
+
+----------------------------------------------------------------------
+StuPa nach Fakultaeten
+  Archi   Liste1 x%  Liste2 x%  ...               [Halbkreis-Diagram]
+  ...
+
+----------------------------------------------------------------------
+aut. Ref
+  FRf
+    Wahlber: 2329  Stimmen: 345  Wahlbet: x%
+    gueltig:  342  ungueltig: 3
+    enth:      43 (x%)
+
+    Simone    290 (x%)
+    Nein        9 (x%)
+
+  ARf
+    ...
+----------------------------------------------------------------------
+  Fachschaft X
+
+  Wahlber:        Stimmen:       Wahlbet
+  gueltig         ungueltig
+
+  Sprecher: n    
+
+  Liste       
+  Kn        x
+  km        y
+  -----------
+  ...
+  ...
+----------------------------------------------------------------------
+
+cycle1:
+  urnenstatus
+  stupa
+  stupa_fakultaeten
+  autonome_referate
+
+cycle2:
+  fs
+  fs
+  fs
+  ..

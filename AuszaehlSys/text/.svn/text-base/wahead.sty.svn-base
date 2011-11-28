@@ -1,0 +1,21 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{wahead}[2003/03/15 Wahlausschuss-Kopf, Kristof] 
+
+\RequirePackage{graphicx}
+
+\def\wahead{%
+ \includegraphics[width=2cm]{wahl-logo.eps}%
+  \hskip1cm%
+  \parbox[b]{7cm}{\Large\sffamily\raggedright
+    Der Wahlausschuss\\
+    für die Unabhängigen Wahlen\\
+    an der Universität Karlsruhe
+  }
+  \hfill
+  \parbox[b]{5cm}{\sffamily\raggedleft%
+    Wahlausschuss\\
+    c/o UStA\\
+    Universität\\
+    76128 Karlsruhe
+  }
+}

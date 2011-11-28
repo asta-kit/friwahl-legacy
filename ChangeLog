@@ -1,0 +1,98 @@
+2008-12-22  Mario Prausa <mario.prausa@usta.de>
+	* FriWahlCD: Umstellung auf lArch
+	* UrneFrontend/verwaltung.sh: für lArch komplett überarbeitet
+	* UrneFrontend/friwahl-client.pl: elektronische Wahl entfernt
+
+2006-12-09  Holger Brunn <hb@usta.de>
+	* FriWahlCD/makecd.sh: RZ-Passwort verschlüsseln (von openssl abhängig)
+	* FriWahlCD/knoppix/vpnc/*.conf: mit vpn.uni-karlsruhe.de verbinden
+	* UrneFrontend/verwaltung.sh: Ermittlen der IP-Adresse entkompliziert
+
+2006-01-15  Holger Brunn <hb@usta.de>
+
+	* FriWahlCD/cds: Skript zum automatisierten Erstellen mehrerer CDs
+	* UrneFrontend/verwaltung.sh: manuelles VPNC einbauen 
+	
+2006-01-14  Frank Lichtenheld  <frank@lichtenheld.de>
+
+	* FriWahlCD/makecd.sh: Teste, ob die richtige Anzahl
+	  an Parametern uebergeben wurde und gib eine
+	  Usage-Information aus, falls nicht
+	* Client/admin.pl: Deaktiviere Menuepunkt
+	  "Administrativa" -> "Urne registrieren", da er im Moment
+	  nicht verwendet wird und nur zur Verwirrungen fuehrt
+
+2006-01-13  Malte Cornils <malte@cornils.net>
+
+	* FriWahlCD/knoppix/friwahl/*: Größtenteils statische Dateien
+	* FriWahlCD/knoppix/friwahl/netconf/*: Aktualisierung statische IPs
+	* FriWahlCD/makecd.sh: Konferenzaccounts können übergeben werden
+
+2006-01-13  Frank Lichtenheld  <frank@lichtenheld.de>
+
+	* Client/FriCardWahl.sql (reset_vorb register_urne):
+	  "log" ist ein Keyword in PL/pgSQL und darf nicht als
+	  Variablenbezeichner verwendet werden.
+	* Client/FriCardWahl.sql (reset_db):
+	  Neue Funktion zum kompletten Loeschen der
+	  eingebenen Daten (Wahlen und Waehler)
+	* Client/admin.pl (logwin):
+	  Weitere Spalte fuer die Anzeige der IP-Adresse.
+	* Client/admin.pl (fehler meldung):
+	  Wrappe Text bei 50 Zeichen mit Hilfe von Text::Wrap.
+	* Client/admin.pl (waehler_bearbeiten):
+	  Code aufraeumen (Sinnvolle Variablennamen und so).
+	  Fixe einen "off-by-one"-Fehler in der Bestimmung der
+	  zu aendernden Wahlen.
+	* Client/admin.pl (vorb_zeiten):
+	  Initialisiere die Matrix mit sinnvollen Default-Werten.
+	  Enthaelt einige ueble Hacks um Cdk-Merkwuerdigkeiten
+	  herum
+	* Client/admin.pl (datenbank_zurueck):
+	  Neuer Menuepunkt "Datenbank zuruecksetzen", der im
+	  wesentlichen reset_db() aufruft
+	* Client/admin.pl (urnemelden_schnell):
+	  Neuer Menuepunkt "Urne schnell registrieren", der
+	  von der Funktionalitaet dem register_fast.pl
+	  Skript entspricht
+	* FriWahlCD/makecd.sh: Neues Skript zum Erstellen
+	  personalisierter ISO-Images. Entstanden aus dem
+	  alten make-cd.sh und panicreg.sh
+
+2006-01-12  Malte Cornils <malte@cornils.net>
+
+	* FriWahlCD/knoppix/vpnc/*.conf: Stelle auf numerische gateway-
+	  IPs um.
+	* UrneFrontend/verwaltung.sh: vpnc.conf statt vpnc-auto.conf, fping 
+	  auf numerische hart kodierte IPs statt auf $SERVER, 
+	  Autodial-Automatik.
+	* UrneFrontend/wlanconf.sh: WLAN-Access point auswählen ermöglichen.
+	* FriWahlCD/bootmsg: Credits der Wahlleitenden etc.
+	* UrneFrontend/verwaltung.sh: Accountdaten einlesen aus
+	  /etc/friwahl/rzaccount.sh
+	* FriWahlCD/makecd-demo.sh: Neu angelegt.
+	* FriWahlCD/knoppix/ssh_known_hosts: Beispieldatei neu angelegt.
+
+2006-01-12  Frank Lichtenheld  <frank@lichtenheld.de>
+
+	* ChangeLog: Beginne ein ChangeLog
+	* Client/FriCardWahl.sql (t_fehler t_loglevel):
+	  Definiere primary keys für t_fehler und t_loglevel
+	  um zu verhindern, dass für eine Nummer
+	  mehrere Meldungen definiert werden können.
+	* Client/FriCardWahl.sql (check_urne_ok):
+	  Ändere einen Aufruf von urnenoffen() nach
+	  urnenOffen(). Postgres ist das zwar egal,
+	  aber es führt zu einem konsequenteren
+	  Code-Stil, da wir es sonst ebenso halten
+	* Client/FriCardWahl.sql: Ändere current_time
+	  überall in current_timestamp, da current_time
+	  anscheinend in neueren Versionen kein Datum
+	  mehr enthält, nur die Uhrzeit
+	* Client/*: Lösche CVS $Id$ Keywords, ausser
+	  in FriCardWahl.sql, da es dort auch in die
+	  Datenbank geschrieben wird
+	* Client/init.sh: Registriere Sprache plpgsql
+	  für die Datenbank, da diese nicht unbedingt
+	  aktiviert sein muss
+
