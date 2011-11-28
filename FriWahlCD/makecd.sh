@@ -1,5 +1,8 @@
 #!/bin/bash
 
+RED="\033[40;1;31m"
+BLACK="\033[0m"
+
 usage() {
        echo "Usage: $1 urne [konf_account konf_pw]"
        exit 1
@@ -24,7 +27,7 @@ esac
 
 [ -d "$HOME/keys/$urne" ] || mkdir -p "$HOME/keys/$urne"
 if [ ! -f "$HOME/keys/$urne/key" ]; then
-	echo Generiere Key in "$HOME/keys/$urne/key"..
+	echo -e $RED"Generiere Key in $HOME/keys/$urne/key..."$BLACK
 	ssh-keygen -q -t rsa -N '' -f "$HOME/keys/$urne/key"
 fi
 
@@ -35,7 +38,7 @@ if [ ! -f "$HOME/accounts/$urne/rzaccount.sh" ]; then
 		exit 1
 	fi
 	konf_pw=`echo $konf_pw | sed 's/(/\\(/g;s/)/\\)/g'`
-	echo Erstelle RZ-Accountdatei in "$HOME/accounts/$urne/rzaccount.sh"...
+	echo -e $RED"Erstelle RZ-Accountdatei in $HOME/accounts/$urne/rzaccount.sh..."$BLACK
 	echo RZACCOUNT=$konf_account > $HOME/accounts/$urne/rzaccount.sh
 	echo 'RZPASSWORD=`mkfifo fin && mkfifo fout && mkfifo encode_out && { { cat > fin << EOT ' >> $HOME/accounts/$urne/rzaccount.sh
 	mkfifo fin && mkfifo fout && mkfifo encode_out && { echo $konf_pw > fin & openssl rsautl -inkey $HOME/keys/$urne/key -encrypt -in fin -out fout & openssl base64 -in fout -out encode_out & cat encode_out && rm -f fin fout encode_out; } >> $HOME/accounts/$urne/rzaccount.sh
@@ -45,7 +48,7 @@ fi
 
 DEST=$(pwd)/work/root-image
 
-echo Kopiere Keys in das Arbeitsverzeichnis...
+echo -e $RED"Kopiere Keys in das Arbeitsverzeichnis..."$BLACK
 mkdir "$DEST/etc/friwahl"
 chmod +w "$DEST/etc/friwahl"
 cp -v "$HOME/keys/$urne/key" "$DEST/etc/friwahl"
@@ -63,7 +66,7 @@ sed -i "s|__irc_password__|`cat usta/data/ircpassword`|g;s|__urne__|$urne|g" $DE
 
 # touch $(pwd)/workdir/profile.$urne/cd-root/boot/$urne TODO
 
-echo Kopiere Key in die authorized_keys-Datei der Urne...
+echo -e $RED"Kopiere Key in die authorized_keys-Datei der Urne..."$BLACK
 echo -n "command=\"/usr/local/FriCardWahl/clearing.pl\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,permitopen=\"127.0.0.1:5557\" " > "$HOME/keys/$urne/ssh_key"
 cat "$HOME/keys/$urne/key.pub" >>"$HOME/keys/$urne/ssh_key"
 mkdir -p "/home/urnen/$urne/.ssh"
@@ -71,8 +74,8 @@ cp "$HOME/keys/$urne/ssh_key" "/home/urnen/$urne/.ssh/authorized_keys"
 
 sed "s|%ISOLABEL%|WAHLCD_$1|g" usta/data/syslinux.cfg > work/iso/arch/boot/syslinux/syslinux.cfg
 
-echo Bereite ISO vor...
+echo -e $RED"Bereite ISO vor..."$BLACK
 mkarchiso prepare
-echo Erstelle ISO unter out/WAHL-CD.$urne.iso
+echo -e $RED"Erstelle ISO unter out/WAHL-CD.$urne.iso..."$BLACK
 mkarchiso -L "WAHLCD_$1" -P "UStA - Wahlausschuss" -A "Wahl-CD" iso WAHL-CD.$urne.iso
 

@@ -1,11 +1,14 @@
 #!/bin/bash
 
+RED="\033[40;1;31m"
+BLACK="\033[0m"
+
 umount $(grep $(readlink -f work) /etc/mtab | cut '-d ' -f2 | sort -r)
 rm -rf work
 
 sed "s|%ustarepo%|$(readlink -f usta/repo)|g" usta/data/pacman.conf > /tmp/pacman.conf
 
-echo Installiere Pakete...
+echo -e $RED"Installiere Pakete..."$BLACK
 
 mkarchiso -v -C /tmp/pacman.conf -p base create
 mkarchiso -v -C /tmp/pacman.conf -p syslinux create
@@ -14,22 +17,22 @@ mkarchiso -v -C /tmp/pacman.conf -p "openssh unzip zip irssi ipw2100-fw ipw2200-
 
 #fehlende pakete: madwifi madwifi-utils
 
-echo Kopiere System Dateien...
+echo -e $RED"Kopiere System Dateien..."$BLACK
 
 cp -a usta/sysfiles/* work/root-image
 
 mkdir -p work/iso/arch/boot/i686
 
-echo Installiere ArchISO Hooks...
+echo -e $RED"Installiere ArchISO Hooks..."$BLACK
 make -C archiso/archiso DESTDIR=$(readlink -f work/root-image) install
 
-echo "Erstelle Wahl-Splash..."
+echo -e $RED"Erstelle Wahl-Splash..."$BLACK
 usta/scripts/splashy.sh people.dat usta/data/wahlsplash.png work/root-image/usr/share/splashy/themes/usta/background.png
 
-echo Erstelle InitCPIO...
+echo -e $RED"Erstelle InitCPIO..."$BLACK
 mkarchroot -n -r "mkinitcpio -k /boot/vmlinuz-linux -g /boot/archiso.img" work/root-image
 
-echo Installiere Kernel, InitCPIO und Bootloader...
+echo -e $RED"Installiere Kernel, InitCPIO und Bootloader..."$BLACK
 
 mv work/root-image/boot/archiso.img work/iso/arch/boot/i686
 mv work/root-image/boot/vmlinuz-linux work/iso/arch/boot/i686/vmlinuz
