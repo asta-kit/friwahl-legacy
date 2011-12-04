@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thememeta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://fbsplash.berlios.de/schemas/1.0/thememeta.xsd">
+	<name>UStA Theme</name>
+	<version>0.1</version>
+	<author>
+		<name>Mario Prausa</name>
+	</author>
+	<description>fbsplash theme fuer die UStA Wahl CD</description>
+	<license>GNU General Public License v2</license>
+	<url>http://www.usta.de</url>
+</thememeta>
