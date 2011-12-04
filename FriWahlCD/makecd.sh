@@ -62,7 +62,8 @@ echo -n "asta-wahl.asta.uni-karlsruhe.de ssh-rsa " > "$DEST/etc/ssh/ssh_known_ho
 cut -f2 -d' ' /etc/ssh/ssh_host_rsa_key.pub >> "$DEST/etc/ssh/ssh_known_hosts"
 chmod -w "$DEST/etc/friwahl"
 
-sed -i "s|__irc_password__|`cat usta/data/ircpassword`|g;s|__urne__|$urne|g" $DEST/home/irc/.irssi/config
+echo -e $RED"Setze IRC User und Passwort..."$BLACK
+sed "s|__irc_password__|`cat usta/data/ircpassword`|g;s|__urne__|$urne|g" usta/data/irssi.conf > $DEST/home/irc/.irssi/config
 
 echo -e $RED"Setze Hostname zu $urne"$BLACK
 sed -i "s/HOSTNAME=\".*\"/HOSTNAME=\"$urne\"/g" $DEST/etc/rc.conf
