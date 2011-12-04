@@ -1,5 +1,5 @@
 pkgname=fbsplash-theme-usta
-pkgver=0.1
+pkgver=0.2
 pkgrel=1
 pkgdesc="UStA-Wahl theme for fbsplash"
 arch=('i686' 'x86_64')
@@ -14,11 +14,11 @@ source=(800x600.cfg
         bar-800x600.png
         FreeSans.ttf
        )
-md5sums=('ff351a31746832d66514ce1296906dc9'
-         '40a9ae9901b1407485cde91af1e75c3f'
-	 'ba6932efa213ea97c3ba48e80c13947c'
+md5sums=('b7059a26ac4c44b57737122b0b24484e'
+         'aa54bb1a27b5ef1bb0eb69ed34799217'
+	 'c2a8382cf4c24b59fe1d5099762fe857'
          '57fe98f917fc69934688489f05da6ac1'
-	 'd186ecdff035559c72bb2925eb4a51a2'
+	 'e3c2d00a63ed6479933a21f3536cb605'
 	 '386bc37d7641e0cde8afc540bb2f0f57')
 
 build() {
