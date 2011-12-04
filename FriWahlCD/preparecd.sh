@@ -26,9 +26,10 @@ mkdir -p work/iso/arch/boot/i686
 echo -e $RED"Installiere ArchISO Hooks..."$BLACK
 make -C archiso/archiso DESTDIR=$(readlink -f work/root-image) install
 
-# TODO: auf fbsplash anpassen
-#echo -e $RED"Erstelle Wahl-Splash..."$BLACK
-#usta/scripts/splashy.sh people.dat usta/data/wahlsplash.png work/root-image/usr/share/splashy/themes/usta/background.png
+echo -e $RED"Erstelle Wahl-Splash..."$BLACK
+cp work/root-image/etc/splash/usta/images/background.png /tmp
+usta/scripts/splash.sh people.dat /tmp/background.png work/root-image/etc/splash/usta/images/background.png
+rm /tmp/background.png
 
 echo -e $RED"Erstelle InitCPIO..."$BLACK
 mkarchroot -n -r "mkinitcpio -k /boot/vmlinuz-linux -g /boot/archiso.img" work/root-image
