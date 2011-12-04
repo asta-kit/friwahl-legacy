@@ -1,0 +1,31 @@
+pkgname=fbsplash-theme-usta
+pkgver=0.1
+pkgrel=1
+pkgdesc="UStA-Wahl theme for fbsplash"
+arch=('i686' 'x86_64')
+url="http://www.usta.de"
+license=('GPL')
+depends=('fbsplash')
+makedepends=()
+source=(800x600.cfg
+        metadata.xml
+        background.png
+        shutdown.png
+        bar-800x600.png
+        FreeSans.ttf
+       )
+md5sums=('ff351a31746832d66514ce1296906dc9'
+         '40a9ae9901b1407485cde91af1e75c3f'
+	 'ba6932efa213ea97c3ba48e80c13947c'
+         '57fe98f917fc69934688489f05da6ac1'
+	 'd186ecdff035559c72bb2925eb4a51a2'
+	 '386bc37d7641e0cde8afc540bb2f0f57')
+
+build() {
+	install -D -m644 ${startdir}/800x600.cfg ${startdir}/pkg/etc/splash/usta/800x600.cfg
+	install -D -m644 ${startdir}/metadata.xml ${startdir}/pkg/etc/splash/usta/metadata.xml
+	install -D -m644 ${startdir}/background.png ${startdir}/pkg/etc/splash/usta/images/background.png
+	install -D -m644 ${startdir}/shutdown.png ${startdir}/pkg/etc/splash/usta/images/shutdown.png
+	install -D -m644 ${startdir}/bar-800x600.png ${startdir}/pkg/etc/splash/usta/icons/bar-800x600.png
+	install -D -m644 ${startdir}/FreeSans.ttf ${startdir}/pkg/etc/splash/usta/FreeSans.ttf
+}

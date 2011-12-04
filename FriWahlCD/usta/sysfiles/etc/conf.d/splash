@@ -10,7 +10,7 @@
 
 ## Themes to include into initcpio
 ## For a smaller initcpio you may try theme cfg files instead of directories.
-SPLASH_THEMES="darikol"
+SPLASH_THEMES="usta"
 
 ## Override the initial silent splash screen status message defaults.
 ## Note: '$progress' will be replaced by Fbsplash itself.
