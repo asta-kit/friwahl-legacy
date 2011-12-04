@@ -13,7 +13,7 @@ echo -e $RED"Installiere Pakete..."$BLACK
 mkarchiso -v -C /tmp/pacman.conf -p base create
 mkarchiso -v -C /tmp/pacman.conf -p syslinux create
 
-mkarchiso -v -C /tmp/pacman.conf -p "openssh unzip zip irssi ipw2100-fw ipw2200-fw wireless_tools zd1211-firmware broadcom-wl net-tools openssl perl vpnc iptables dhcp dhclient fping curl perl-www-curl expect netcfg pygobject vim wavemon dialog-usta splashy-full splashy-usta-theme" create
+mkarchiso -v -C /tmp/pacman.conf -p "openssh unzip zip irssi ipw2100-fw ipw2200-fw wireless_tools zd1211-firmware broadcom-wl net-tools openssl perl vpnc iptables dhcp dhclient fping curl perl-www-curl expect netcfg pygobject vim wavemon dialog-usta fbsplash fbsplash-theme-darikol" create
 
 #fehlende pakete: madwifi madwifi-utils
 
@@ -26,8 +26,9 @@ mkdir -p work/iso/arch/boot/i686
 echo -e $RED"Installiere ArchISO Hooks..."$BLACK
 make -C archiso/archiso DESTDIR=$(readlink -f work/root-image) install
 
-echo -e $RED"Erstelle Wahl-Splash..."$BLACK
-usta/scripts/splashy.sh people.dat usta/data/wahlsplash.png work/root-image/usr/share/splashy/themes/usta/background.png
+# TODO: auf fbsplash anpassen
+#echo -e $RED"Erstelle Wahl-Splash..."$BLACK
+#usta/scripts/splashy.sh people.dat usta/data/wahlsplash.png work/root-image/usr/share/splashy/themes/usta/background.png
 
 echo -e $RED"Erstelle InitCPIO..."$BLACK
 mkarchroot -n -r "mkinitcpio -k /boot/vmlinuz-linux -g /boot/archiso.img" work/root-image
