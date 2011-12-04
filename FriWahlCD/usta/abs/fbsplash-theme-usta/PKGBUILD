@@ -1,5 +1,5 @@
 pkgname=fbsplash-theme-usta
-pkgver=0.2
+pkgver=0.3
 pkgrel=1
 pkgdesc="UStA-Wahl theme for fbsplash"
 arch=('i686' 'x86_64')
@@ -12,13 +12,15 @@ source=(800x600.cfg
         background.png
         shutdown.png
         bar-800x600.png
+        archlogo.mng
         FreeSans.ttf
        )
-md5sums=('b7059a26ac4c44b57737122b0b24484e'
+md5sums=('0364cecc1cf25d726db1ac30cf9572e3'
          'aa54bb1a27b5ef1bb0eb69ed34799217'
 	 'c2a8382cf4c24b59fe1d5099762fe857'
-         '57fe98f917fc69934688489f05da6ac1'
+         'bc6c10b9c1e8c40fbfe9d65a402e1ce1'
 	 'e3c2d00a63ed6479933a21f3536cb605'
+         'b0a97195d26309944ac60e83a896e8e5'
 	 '386bc37d7641e0cde8afc540bb2f0f57')
 
 build() {
@@ -27,5 +29,6 @@ build() {
 	install -D -m644 ${startdir}/background.png ${startdir}/pkg/etc/splash/usta/images/background.png
 	install -D -m644 ${startdir}/shutdown.png ${startdir}/pkg/etc/splash/usta/images/shutdown.png
 	install -D -m644 ${startdir}/bar-800x600.png ${startdir}/pkg/etc/splash/usta/icons/bar-800x600.png
+	install -D -m644 ${startdir}/archlogo.mng ${startdir}/pkg/etc/splash/usta/images/archlogo.mng
 	install -D -m644 ${startdir}/FreeSans.ttf ${startdir}/pkg/etc/splash/usta/FreeSans.ttf
 }
