@@ -64,6 +64,9 @@ chmod -w "$DEST/etc/friwahl"
 
 sed -i "s|__irc_password__|`cat usta/data/ircpassword`|g;s|__urne__|$urne|g" $DEST/home/irc/.irssi/config
 
+echo -e $RED"Setze Hostname zu $urne"$BLACK
+sed -i "s/HOSTNAME=\".*\"/HOSTNAME=\"$urne\"/g" $DEST/etc/rc.conf
+
 # touch $(pwd)/workdir/profile.$urne/cd-root/boot/$urne TODO
 
 echo -e $RED"Kopiere Key in die authorized_keys-Datei der Urne..."$BLACK
