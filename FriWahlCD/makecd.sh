@@ -49,13 +49,13 @@ fi
 DEST=$(pwd)/work/root-image
 
 echo -e $RED"Kopiere Keys in das Arbeitsverzeichnis..."$BLACK
-mkdir "$DEST/etc/friwahl"
+mkdir -p "$DEST/etc/friwahl"
 chmod +w "$DEST/etc/friwahl"
 cp -v "$HOME/keys/$urne/key" "$DEST/etc/friwahl"
 cp -v "$HOME/accounts/$urne/rzaccount.sh" "$DEST/etc/friwahl/rzaccount.sh"
 echo "$urne" > "$DEST/etc/friwahl/user"
 cp -v usta/data/server "$DEST/etc/friwahl/server"
-mkdir "$DEST/etc/ssh"
+mkdir -p "$DEST/etc/ssh"
 # asta-wahl.asta.uni-karlsruhe.de is entered as the HostKeyAlias, it will also
 # work if the server is on another IP Adress (ie. inside the UStA subnet)
 echo -n "asta-wahl.asta.uni-karlsruhe.de ssh-rsa " > "$DEST/etc/ssh/ssh_known_hosts"
