@@ -3,7 +3,6 @@
 RED="\033[40;1;31m"
 BLACK="\033[0m"
 
-umount $(grep $(readlink -f work) /etc/mtab | cut '-d ' -f2 | sort -r)
 rm -rf work
 
 sed "s|%ustarepo%|$(readlink -f usta/repo)|g" usta/data/pacman.conf > /tmp/pacman.conf
