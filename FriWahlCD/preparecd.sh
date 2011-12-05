@@ -24,7 +24,7 @@ cp -a usta/sysfiles/* work/root-image
 mkdir -p work/iso/arch/boot/i686
 
 echo -e $RED"Installiere ArchISO Hooks..."$BLACK
-make -C archiso/archiso DESTDIR=$(readlink -f work/root-image) install
+make -C archiso/archiso DESTDIR=$(readlink -f work/root-image) install-hooks
 
 echo -e $RED"Erstelle Wahl-Splash..."$BLACK
 cp work/root-image/etc/splash/usta/images/background.png /tmp
