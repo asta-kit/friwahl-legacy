@@ -20,8 +20,8 @@ do
 	fi
 done < $1
 
-convert $2 -pointsize 12 -undercolor white \
-	-fill black -annotate +40+180  "$STR_A1" \
+convert $2 -pointsize 12 -undercolor black \
+	-fill white -annotate +40+180  "$STR_A1" \
 	-fill red   -annotate +210+180 "$STR_A2" \
-	-fill black -annotate +465+180 "$STR_L1" \
+	-fill white -annotate +465+180 "$STR_L1" \
 	-fill blue  -annotate +635+180 "$STR_L2" $3
