@@ -45,7 +45,7 @@ for dev in $lans; do
 	if [ $up = 1 ]; then
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.." 3 60
 		dhclient $dev
-		ifconfig $dev | grep "inet addr:" > /dev/null
+		ifconfig $dev | grep "inet .*\..*\..*\..*" > /dev/null
 		if [ $? -eq 0 ]; then
 			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. Erfolg" 3 60			 
 			con=1
@@ -70,7 +70,7 @@ if [ $con = 0 ]; then
 		sleep 5
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.." 3 60
 		dhclient $dev
-		ifconfig $dev | grep "inet addr:" > /dev/null
+		ifconfig $dev | grep "inet .*\..*\..*\..*" > /dev/null
 		if [ $? -eq 0 ]; then
 			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. Erfolg" 3 60
 			con=1
