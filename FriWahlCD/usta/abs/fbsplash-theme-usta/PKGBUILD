@@ -11,7 +11,7 @@ source=(800x600.cfg
         metadata.xml
         background.png
         shutdown.png
-        bar-800x600.png
+        bar.png
         archlogo.mng
         FreeSans.ttf
        )
