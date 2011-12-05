@@ -12,5 +12,5 @@ network={
     phase2="auth=MSCHAPV2"
     identity="__rzaccount__"
     password="__rzpassword__"
-    ca_cert="/etc/ssl/certs/deutsche-telekom-root-ca-2.pem"
+    ca_cert="/usr/share/ca-certificates/mozilla/Deutsche_Telekom_Root_CA_2.crt"
 }
