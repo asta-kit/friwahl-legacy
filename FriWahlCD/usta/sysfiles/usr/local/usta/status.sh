@@ -21,7 +21,7 @@ while : ; do
 	SERVER_STATUS="erreichbar"
 	fping -q -r1 -t100 "$SERVER" &>/dev/null || SERVER_STATUS="nicht erreichbar"
 	INTF=$(route | gawk "/*/ { print \$NF; exit }\\")
-	IP=$(ifconfig $INTF | gawk -F"[ :]+" '/inet / { print $4 }')
+	IP=$(ifconfig $INTF | gawk -F"[ :]+" '/inet / { print $3 }')
 	echo "$VPNC_STATUS, Server: $SERVER_STATUS, IP: $INTF/$IP" >> $STATUSFILE
 	sleep 1
 done
