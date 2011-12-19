@@ -19,6 +19,7 @@ mkarchiso -v -C /tmp/pacman.conf -p "openssh unzip zip irssi ipw2100-fw ipw2200-
 echo -e $RED"Kopiere System Dateien..."$BLACK
 
 cp -a usta/sysfiles/* work/root-image
+chown -R 1000:100 work/root-image/home/irc
 
 mkdir -p work/iso/arch/boot/i686
 
