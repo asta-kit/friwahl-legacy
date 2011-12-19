@@ -76,7 +76,7 @@ cat "$HOME/keys/$urne/key.pub" >>"$HOME/keys/$urne/ssh_key"
 mkdir -p "/home/urnen/$urne/.ssh"
 cp "$HOME/keys/$urne/ssh_key" "/home/urnen/$urne/.ssh/authorized_keys"
 
-sed "s|%ISOLABEL%|WAHLCD_$1|g" usta/data/syslinux.cfg > work/iso/arch/boot/syslinux/syslinux.cfg
+sed "s|%ISOLABEL%|WAHLCD_$urne|g" usta/data/syslinux.cfg > work/iso/arch/boot/syslinux/syslinux.cfg
 
 echo -e $RED"Bereite ISO vor..."$BLACK
 mkarchiso prepare
