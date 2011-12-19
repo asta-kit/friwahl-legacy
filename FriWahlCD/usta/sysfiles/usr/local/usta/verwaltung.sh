@@ -19,7 +19,7 @@ export LANG=de_DE.utf8
 STATUSFILE=/tmp/wahl-status
 TIMEFILE=/tmp/timefile.tmp
 SERVER=$(cat /etc/friwahl/server)
-export BACKTITLE="UStA Wahl 2011 - Verwaltung"
+export BACKTITLE="UStA Wahl 2012 - Verwaltung"
 
 # Accountdaten einlesen
 . /etc/friwahl/rzaccount.sh
