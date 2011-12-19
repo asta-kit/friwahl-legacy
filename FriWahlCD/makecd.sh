@@ -81,5 +81,5 @@ sed "s|%ISOLABEL%|WAHLCD_$1|g" usta/data/syslinux.cfg > work/iso/arch/boot/sysli
 echo -e $RED"Bereite ISO vor..."$BLACK
 mkarchiso prepare
 echo -e $RED"Erstelle ISO unter out/WAHL-CD.$urne.iso..."$BLACK
-mkarchiso -L "WAHLCD_$1" -P "UStA - Wahlausschuss" -A "Wahl-CD" iso WAHL-CD.$urne.iso
+mkarchiso -L "WAHLCD_$urne" -P "UStA - Wahlausschuss" -A "Wahl-CD" iso WAHL-CD.$urne.iso
 
