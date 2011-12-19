@@ -6,7 +6,7 @@
 # $Id: friwahl-client.pl 447 2011-01-15 14:46:27Z mariop $
 #
 
-$semester="Wintersemester 2010/11";	# notwendig für die Überprüfung von Studienbescheinigungen
+$semester="Wintersemester 2011/12";	# notwendig für die Überprüfung von Studienbescheinigungen
 
 $timeout = 30 ;
 
