@@ -10,7 +10,7 @@
 
 setterm -blank 0
 
-sed "s/__rzaccount__/$RZACCOUNT@uni-karlsruhe.de/g;s/__rzpassword__/$RZPASSWORD/g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
+sed "s|__rzaccount__|$RZACCOUNT@uni-karlsruhe.de|g;s|__rzpassword__|$RZPASSWORD|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
 
 for devdir in /sys/class/net/*; do
 	dev=`echo $devdir | sed "s|/sys/class/net/||g"`
