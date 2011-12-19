@@ -71,7 +71,7 @@ sed -i "s/HOSTNAME=\".*\"/HOSTNAME=\"$urne\"/g" $DEST/etc/rc.conf
 # touch $(pwd)/workdir/profile.$urne/cd-root/boot/$urne TODO
 
 echo -e $RED"Kopiere Key in die authorized_keys-Datei der Urne..."$BLACK
-echo -n "command=\"/usr/local/FriCardWahl/clearing.pl\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding\" " > "$HOME/keys/$urne/ssh_key"
+echo -n "command=\"/usr/local/FriCardWahl/clearing.pl\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding" > "$HOME/keys/$urne/ssh_key"
 cat "$HOME/keys/$urne/key.pub" >>"$HOME/keys/$urne/ssh_key"
 mkdir -p "/home/urnen/$urne/.ssh"
 cp "$HOME/keys/$urne/ssh_key" "/home/urnen/$urne/.ssh/authorized_keys"
