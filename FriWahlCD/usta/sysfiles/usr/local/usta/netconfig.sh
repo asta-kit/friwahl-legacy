@@ -35,7 +35,9 @@ while true ; do
     else
 	netcfg -a
 	ifconfig eth0 up
-	sleep 20
+	echo "waiting for device eth0"
+	for i in `seq 1 20`; do sleep 1; echo -n "."; done
+	echo
 	netcfg $choice
         exit 0
     fi
