@@ -41,31 +41,46 @@ isip() {
 	return 1
 }
 
-num=0
-i=0
+#IP-Adressen für Interface auslesen
+getip() {
+	device=$1
+	ip=$(/sbin/ip -4 addr show dev $device | grep -Eoh '([0-9]{1,3}.){3}[0-9]{1,3}/[0-9]{1,2}' | tr '\n' '; ')
+	if [ -z "$ip" ]; then
+		ip="unset"
+	fi
+	echo $ip
+}
 
-for dev in /sys/class/net/* ; do
-	name=`ifconfig $(basename $dev) | grep "Link encap" | sed 's/^.*Link encap://g;s/HWaddr.*//g;s/\x20*$//;s/ /-/'`
-	if [ $name == "UNSPEC" ]; then continue; fi
-	array[$i]=$(basename $dev)
-	let i=$i+1
-	array[$i]=$name
-	let i=$i+1
-	array[$i]=off
-	let i=$i+1
-	let num=$num+1
+#Alle Netzwerkschnittstellen auslesen, die vom Typ Ethernet sind
+#abwechselnd mit IP-Adressen toggle wert  für den Dialog in ein
+#array speichern.
+i=0
+for devicepath in /sys/class/net/* ; do
+	if [ $(cat $devicepath/type) -eq 1 ]; then
+		device=$(basename $devicepath)
+		devicelist[$i]=$device;
+		((i++))
+		devicelist[$i]=$(getip $device)
+		((i++))
+		devicelist[$i]="off"
+		((i++))
+	fi;
 done
 
-array[2]=on
+#den ersten Eintrag als default-Auswahl setzen.
+devicelist[2]="on"
+
+#Wiviel devices sollen angezeigt werden, bevor gescrollt werden muss?
+showdev=5
 
 DATA=$(dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkeinstellungen" \
-	--auto-toggle --radiolist "Schnittstelle" 0 40 $num ${array[@]} \
+	--auto-toggle --radiolist "Schnittstelle" 0 40 $showdev ${devicelist[@]} \
         --output-separator ";" --backtitle "$BACKTITLE" --backfoot "(*) optional" --form "Einstellungen" \
 	12 45 0 \
-        "IP:"       1 1 ""       1 23 16 15 \
-        "Netmask:"  2 1 ""  2 23 16 15 \
-        "Gateway:"  3 1 ""  3 23 16 15 \
-        "DNS1:"     4 1 ""     4 23 16 15 \
+        "IP:"       1 1 "192.168.178.100"       1 23 16 15 \
+        "Netmask:"  2 1 "255.255.255.0"  2 23 16 15 \
+        "Gateway:"  3 1 "192.168.178.1"  3 23 16 15 \
+        "DNS1:"     4 1 "8.8.8.8"     4 23 16 15 \
 	"DNS2(*):"     5 1 ""     5 23 16 15) || exit 1
 
 intf=$(echo $DATA    | sed 's/ /\;/g' | cut -d ";" -f 1)
