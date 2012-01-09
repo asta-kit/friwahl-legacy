@@ -16,7 +16,7 @@ sed "s|__rzaccount__|$RZACCOUNT@uni-karlsruhe.de|g;s|__rzpassword__|$RZPASSWORD|
 OVPNPWD="/tmp/openvpn.passwd"
 touch $OVPNPWD
 chmod 400 $OVPNPWD
-echo "$RZACCOUNT@kit.edu/cs" > $OVPNPWD
+echo "$RZACCOUNT@usta/cs" > $OVPNPWD
 echo "$RZPASSWORD" >> $OVPNPWD
 
 for devdir in /sys/class/net/*; do
