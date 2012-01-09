@@ -10,7 +10,7 @@
 # $Id: verwaltung.sh 401 2011-01-09 18:33:05Z mariop $
 #
 
-# Dependencies: expect, vpnc-login, fping
+# Dependencies: expect, fping
 
 cd $(dirname $0)
 
@@ -24,43 +24,29 @@ export BACKTITLE="UStA Wahl 2012 - Verwaltung"
 # Accountdaten einlesen
 . /etc/friwahl/rzaccount.sh
 
-function vpnc_gui
+function openvpn_gui
 {
-	[ -e /var/run/vpnc/pid ] && vpnc-disconnect
-	VPNC_ERROR=""
-	killall vpnc
+	killall openvpn
 	if [ "$1" = "manual" ]
 	then
-		echo -n "Username: "
-		read VPNC_USER || return
-		echo -n "Password: "
-		read -s VPNC_PASSWORD || return
-		echo "user=$VPNC_USER#pass=$VPNC_PASSWORD" | ./vpnc-login /etc/vpnc/vpnc.conf
+		openvpn --daemon --config /etc/openvpn/openvpn-manual.conf
+		echo "Versuche Verbindung herzustellen"
+		for i in `seq 1 10`; do sleep 1; echo -n "."; done; echo
+		if [ -z "`pidof openvpn`" ]
+		then
+			OPENVPN_ERROR="Manuelle VPN-Verbindung konnte nicht hergestellt werden!"
+		fi
 	else
-		echo -e "user=$RZACCOUNT#pass=$RZPASSWORD" | ./vpnc-login /etc/vpnc/vpnc.conf
+		openvpn --daemon --config /etc/openvpn/openvpn.conf
+		echo "Versuche Verbindung herzustellen"
+		for i in `seq 1 10`; do sleep 1; echo -n "."; done; echo
+		if [ -z "`pidof openvpn`" ]
+		then
+			OPENVPN_ERROR="Automatische VPN-Verbindung konnte nicht hergestellt werden!"
+		fi
 	fi
-	case $? in
-		0)
-			# all ok
-		;;
-		1)
-			VPNC_ERROR="Authentification fehlgeschlagen."
-		;;
-		3)
-			VPNC_ERROR="VPNC läuft schon."
-		;;
-		4)
-			VPNC_ERROR="VPNC läuft nicht als root."
-		;;
-		*)
-			VPNC_ERROR="Unbekannter Fehler."
-		;;
-			
-	esac
-	unset VPNC_PASSWORD
-	unset VPNC_USER
-	sleep 1
-	[ -n "$VPNC_ERROR" ] && dialog --backtitle "$BACKTITLE" --title "VPN-Einwahl fehlgeschlagen" --timeout 10 --msgbox "$VPNC_ERROR" 0 0 || reset -I
+	[ -n "$OPENVPN_ERROR" ] && dialog --backtitle "$BACKTITLE" --title "VPN-Einwahl fehlgeschlagen" --timeout 10 --msgbox "$OPENVPN_ERROR" 0 0 || reset -I
+	unset 	OPENVPN_ERROR
 }
 
 function wkit_gui
@@ -127,13 +113,13 @@ function expert_gui
 		case "$EXP_CHOICE"
 		in
 			1)
-				vpnc_gui
+				openvpn_gui
 			;;
 			2)
-				vpnc_gui manual
+				openvpn_gui manual
 			;;
 			3)
-				killall vpnc
+				killall openvpn
 			;;
 			4)
 				wkit_gui

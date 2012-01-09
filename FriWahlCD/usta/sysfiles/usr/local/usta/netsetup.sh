@@ -30,7 +30,7 @@ for devdir in /sys/class/net/*; do
 	fi
 done
 
-killall vpnc 2> /dev/null
+killall openvpn 2> /dev/null
 killall wpa_supplicant 2> /dev/null
 killall dhclient 2> /dev/null
 
