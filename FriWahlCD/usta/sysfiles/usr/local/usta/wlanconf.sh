@@ -57,6 +57,7 @@ else
 fi
 
 killall vpnc 2> /dev/null
+killall dhclient 2> /dev/null
 killall wpa_supplicant 2> /dev/null
 
 ifconfig $WLDEV up
