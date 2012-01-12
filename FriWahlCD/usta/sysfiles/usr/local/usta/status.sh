@@ -12,17 +12,17 @@ SERVER=$(cat /etc/friwahl/server)
 
 while : ; do
 	ANZ_NETWORKDEVICES=$(cat /proc/net/dev | gawk -F: '/eth.:|tr.:|wlan.:|ath.:/{print $1}' | wc -l)
-	if [ -e /var/run/vpnc/pid ]
+	if [ -n "`pidof openvpn`" ]
 	then
-		VPNC_STATUS="VPNC: läuft"
+		VPN_STATUS="OpenVPN: läuft"
 	else
-		VPNC_STATUS="VPNC: läuft nicht"
+		VPN_STATUS="OpenVPN: läuft nicht"
 	fi
 	SERVER_STATUS="erreichbar"
 	fping -q -r1 -t100 "$SERVER" &>/dev/null || SERVER_STATUS="nicht erreichbar"
 	INTF=$(route | gawk "/*/ { print \$NF; exit }\\")
 	IP=$(ifconfig $INTF | gawk -F"[ :]+" '/inet / { print $3 }')
-	echo "$VPNC_STATUS, Server: $SERVER_STATUS, IP: $INTF/$IP" >> $STATUSFILE
+	echo "$VPN_STATUS, Server: $SERVER_STATUS, IP: $INTF/$IP" >> $STATUSFILE
 	sleep 1
 done
 

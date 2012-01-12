@@ -12,6 +12,13 @@ setterm -blank 0
 
 sed "s|__rzaccount__|$RZACCOUNT@uni-karlsruhe.de|g;s|__rzpassword__|$RZPASSWORD|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
 
+#Zugangsdaten für openvpn anlegen.
+OVPNPWD="/tmp/openvpn.passwd"
+touch $OVPNPWD
+chmod 400 $OVPNPWD
+echo "$RZACCOUNT@usta/cs" > $OVPNPWD
+echo "$RZPASSWORD" >> $OVPNPWD
+
 for devdir in /sys/class/net/*; do
 	dev=`echo $devdir | sed "s|/sys/class/net/||g"`
 	if [ `cat $devdir/type` = "1" ]; then
@@ -23,7 +30,7 @@ for devdir in /sys/class/net/*; do
 	fi
 done
 
-killall vpnc 2> /dev/null
+killall openvpn 2> /dev/null
 killall wpa_supplicant 2> /dev/null
 killall dhclient 2> /dev/null
 

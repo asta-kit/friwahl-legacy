@@ -56,7 +56,7 @@ else
         WLDEV=$($DIALOG --stdout --backtitle "$BACKTITLE" --menu "$MESSAGE2" 18 45 12 $DEVICELIST) || exit 0
 fi
 
-killall vpnc 2> /dev/null
+killall openvpn 2> /dev/null
 killall dhclient 2> /dev/null
 killall wpa_supplicant 2> /dev/null
 
