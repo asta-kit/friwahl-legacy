@@ -70,7 +70,7 @@ choice=$($DIALOG \
         --title "WLAN-Einrichtung" \
         --ok-label "Ok" \
         --menu "Bitte einen Netzwerk-Namen auswählen:" \
-        0 0 0 $(iwlist $WLDEV scan 2>/dev/null | grep ESSID | cut -d'"' -f2 | grep -v "^$" | sed 's/ /_/g; s/$/ Funknetz/g') manual "Manuelle Einrichtung (Experten)") || exit 0
+        0 0 0 $(iwlist $WLDEV scan 2>/dev/null | grep ESSID | cut -d'"' -f2 | grep -v "^$" | sed 's| |_|g; s|$| Funknetz|g') manual "Manuelle Einrichtung (Experten)") || exit 0
 
     if [ "$choice" == manual ] ; then
 	choice=$($DIALOG --stdout --backtitle "$BACKTITLE" --title "WLAN-Einstellungen" --ok-label "Ok" --inputbox "ESSID" 8 40) || exit 0
@@ -82,7 +82,7 @@ choice=$($DIALOG \
 
     if [ "$choice" == "wkit-802.1x" ] ; then
 	 echo "Starte WPA Supplikanten ..."
-	 sed "s/__rzaccount__/$RZACCOUNT@uni-karlsruhe.de/g;s/__rzpassword__/$RZPASSWORD/g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
+	 sed "s|__rzaccount__|$RZACCOUNT@uni-karlsruhe.de|g;s|__rzpassword__|$RZPASSWORD|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
 	 wpa_supplicant -c /tmp/wpa_supplicant.conf -i$WLDEV -B
 	 sleep 5
     fi
