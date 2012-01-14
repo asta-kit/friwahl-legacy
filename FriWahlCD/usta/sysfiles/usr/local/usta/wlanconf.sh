@@ -60,8 +60,12 @@ killall openvpn 2> /dev/null
 killall dhclient 2> /dev/null
 killall wpa_supplicant 2> /dev/null
 
+echo "Schalte $WLDEV ab..."
+iwconfig $WLDEV essid any
+ifconfig $WLDEV down
+sleep 5
+echo "... um es danach wieder einzuschalten."
 ifconfig $WLDEV up
-
 sleep 5
 
 choice=$($DIALOG \
