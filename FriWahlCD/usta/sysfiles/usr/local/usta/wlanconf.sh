@@ -86,7 +86,7 @@ choice=$($DIALOG \
 
     if [ "$choice" == "wkit-802.1x" ] ; then
 	 echo "Starte WPA Supplikanten ..."
-	 sed "s|__rzaccount__|$RZACCOUNT@uni-karlsruhe.de|g;s|__rzpassword__|$RZPASSWORD|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
+	 sed "s|__rzaccount__|$RZACCOUNT@uni-karlsruhe.de|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
 	 wpa_supplicant -c /tmp/wpa_supplicant.conf -i$WLDEV -B
 	 sleep 5
     fi
