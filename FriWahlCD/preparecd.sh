@@ -12,7 +12,7 @@ echo -e $RED"Installiere Pakete..."$BLACK
 mkarchiso -v -C /tmp/pacman.conf -p base create
 mkarchiso -v -C /tmp/pacman.conf -p syslinux create
 
-mkarchiso -v -C /tmp/pacman.conf -p "openssh unzip zip irssi ipw2100-fw ipw2200-fw wireless_tools zd1211-firmware broadcom-wl b43-firmware-latest net-tools openssl openvpn perl iptables dhcp dhclient fping curl perl-www-curl expect netcfg pygobject vim wavemon dialog-usta fbsplash fbsplash-theme-usta" create
+mkarchiso -v -C /tmp/pacman.conf -p "openssh unzip zip irssi ipw2100-fw ipw2200-fw rfkill wireless_tools zd1211-firmware broadcom-wl b43-firmware-latest net-tools openssl openvpn perl iptables dhcp dhclient fping curl perl-www-curl expect netcfg pygobject vim wavemon dialog-usta fbsplash fbsplash-theme-usta" create
 
 #fehlende pakete: madwifi madwifi-utils
 
