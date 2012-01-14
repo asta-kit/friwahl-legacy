@@ -16,7 +16,7 @@ berechtigte[3] = 3466
 berechtigte[4] = 5691
 
 fs_berechtigte = {}
-fs_berechtigte['bio'] = 1499.75
+fs_berechtigte['chembio'] = 1499.75
 fs_berechtigte['geo'] = 536
 fs_berechtigte['bau'] = 1167
 fs_berechtigte['mathe'] = 1222
@@ -28,7 +28,7 @@ fs_berechtigte['geist'] = 1459
 fs_berechtigte['machciw'] = 3660.25+1221 # mach+ciw
 
 fs_frauen = {}
-fs_frauen['bio'] = 767
+fs_frauen['chembio'] = 767
 fs_frauen['geo'] = 288
 fs_frauen['bau'] = 339
 fs_frauen['mathe'] = 395
@@ -40,7 +40,7 @@ fs_frauen['geist'] = 791
 fs_frauen['machciw'] = 398.5+388 #mach+ciw
 
 fs_auslaender = {}
-fs_auslaender['bio'] = 113.5
+fs_auslaender['chembio'] = 113.5
 fs_auslaender['geo'] = 71
 fs_auslaender['bau'] = 223
 fs_auslaender['mathe'] = 117
@@ -53,7 +53,7 @@ fs_auslaender['machciw'] = 786.5+188 #mach+ciw
 
 urne2fs = {}
 urne2fs['bau'] = {'bau':1}
-urne2fs['bio'] = {'bio':1}
+urne2fs['chembio'] = {'chembio':1}
 urne2fs['etec'] = {'etec':1}
 urne2fs['geist'] = {'geist':1}
 urne2fs['geo'] = {'geo':1}
@@ -62,14 +62,11 @@ urne2fs['machciw'] = {'machciw':1}
 urne2fs['mathe'] = {'mathe':1}
 urne2fs['physik'] = {'physik':1}
 urne2fs['wiwi'] = {'wiwi':1}
-urne2fs['akk'] = {'bio':0.022,'geo':0.078,'bau':0.039,'mathe':0.052,'info':0.200,'wiwi':0.087,'physik':0.096,'etec':0.113,'geist':0.035,'machciw':0.279}  # nach rohdaten von wahl 2010
-urne2fs['mensa'] = {'bio':0.028,'geo':0.044,'bau':0.066,'mathe':0.021,'info':0.135,'wiwi':0.141,'physik':0.030,'etec':0.081,'geist':0.012,'machciw':0.441} # nach rohdaten von wahl 2010
-urne2fs['rz'] = {'bio':0.067,'geo':0.027,'bau':0.056,'mathe':0.055,'info':0.129,'wiwi':0.188,'physik':0.073,'etec':0.093,'geist':0.064,'machciw':0.243} # nach berechtige(fs)/sum(berechtigte)
-urne2fs['audimax'] = {'wiwi':0.59,'machciw':0.29,'info':0.12} # nach hs belegung
-urne2fs['gerthsen'] = {'physik':0.25,'machciw':0.31,'wiwi':0.19,'info':0.13,'etec':0.06,'bio':0.04,'geo':0.02} # nach hs belegung
-urne2fs['hmu'] = {'machciw':0.31,'info':0.11,'mathe':0.08,'etec':0.15,'bau':0.16,'wiwi':0.08,'physik':0.06,'bio':0.03,'geist':0.03} # nach hs belegung
+urne2fs['akk'] = {'chembio':0.022,'geo':0.078,'bau':0.039,'mathe':0.052,'info':0.200,'wiwi':0.087,'physik':0.096,'etec':0.113,'geist':0.035,'machciw':0.279}  # nach rohdaten von wahl 2010
+urne2fs['mensa'] = {'chembio':0.028,'geo':0.044,'bau':0.066,'mathe':0.021,'info':0.135,'wiwi':0.141,'physik':0.030,'etec':0.081,'geist':0.012,'machciw':0.441} # nach rohdaten von wahl 2010
+urne2fs['rz'] = {'chembio':0.067,'geo':0.027,'bau':0.056,'mathe':0.055,'info':0.129,'wiwi':0.188,'physik':0.073,'etec':0.093,'geist':0.064,'machciw':0.243} # nach berechtige(fs)/sum(berechtigte)
+urne2fs['benz'] = {'machciw':0.31,'info':0.11,'mathe':0.08,'etec':0.15,'bau':0.16,'wiwi':0.08,'physik':0.06,'chembio':0.03,'geist':0.03} # nach hs belegung
 urne2fs['west'] = {'physik':0.92,'etec':0.08} # schaetzung
-urne2fs['stuko'] = {}
 
 for value in fs_berechtigte.itervalues():
     berechtigte[fs_wahl] += value
@@ -118,9 +115,6 @@ for urne in urnen.iterkeys():
     if not urnen_commulated.has_key(key):
         urnen_commulated[key] = 0
     urnen_commulated[key] += urnen[urne]
-
-urnen_commulated['akk'] += urnen['stuko01']-104		# akk hat jetzt die stuko urne
-urnen_commulated['stuko'] = 104
 
 data = {}
 data['date'] = str(time.strftime('%d.%m.%y %H:%M %Z', time.localtime()))
