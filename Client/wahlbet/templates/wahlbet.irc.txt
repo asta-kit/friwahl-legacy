@@ -8,12 +8,13 @@ Frauenreferat:          %(wahl4).2f %%
 
 Die aktuelle Wahlbeteiligung an den Fachschaftswahlen (Achtung Schätzung!):
 
-Bio/Chemie:             %(fs_bio).2f %%
+Bio/Chemie:             %(fs_chembio).2f %%
+CIW:			%(fs_ciw).2f %%
 ETEC:                   %(fs_etec).2f %%
 GeistSoz:               %(fs_geist).2f %%
 Geo:                    %(fs_geo).2f %%
 Info:                   %(fs_info).2f %%
-Mach/CIW:               %(fs_machciw).2f %%
+Maschinenbau:           %(fs_mach).2f %%
 Mathe:                  %(fs_mathe).2f %%
 Physik:                 %(fs_physik).2f %%
 WiWi:                   %(fs_wiwi).2f %%
