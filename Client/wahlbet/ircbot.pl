@@ -19,7 +19,7 @@ $conn->{channel} = '#uwahl';
 sub send_wahlbet {
 	my ($conn, $nick) = @_;
 
-	system('./wahlbet.py wahlbet.irc.txt > /tmp/wahlbet.irc.txt');
+	system('ssh -i ~/.ssh/wahlbet_key wahlprognose@asta-wahl.asta.uni-karlsruhe.de wahl/Client/wahlbet/wahlbet.py wahl/Client/wahlbet/templates/wahlbet.irc.txt > /tmp/wahlbet.irc.txt');
 
 	open (FILE,"</tmp/wahlbet.irc.txt");
 

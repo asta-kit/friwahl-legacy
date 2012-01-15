@@ -1,14 +1,12 @@
 #!/bin/bash
 
-dir=`dirname $0`
-
-cd $dir
-
-./wahlbet.py wahlbet.plot.txt > /tmp/wahlbet.plot.txt
 DATE=`date +"%s"`
 
 echo -n -e "$DATE\t" >> ~/data/wahlplot.dat
-cat /tmp/wahlbet.plot.txt >> ~/data/wahlplot.dat
+ssh -i ~/.ssh/wahlbet_key wahlprognose@asta-wahl.asta.uni-karlsruhe.de wahl/Client/wahlbet/wahlbet.py wahl/Client/wahlbet/templates/wahlbet.plot.txt >> ~/data/wahlplot.dat
 
-./wahlplot.plot
+#TODO
+#./wahlplot.plot
+
+exit 0
 

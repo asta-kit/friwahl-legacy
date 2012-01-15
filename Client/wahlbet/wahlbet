@@ -8,15 +8,12 @@
 # IdentityFile ~/.ssh/id_rsa
 
 
-dir=`dirname $0`
+ssh -i ~/.ssh/wahlbet_key wahlprognose@asta-wahl.asta.uni-karlsruhe.de wahl/Client/wahlbet/wahlbet.py wahl/Client/wahlbet/templates/wahlbet.html > /tmp/wahlbet.html
 
-cd $dir
-
-./wahlbet.py wahlbet.html >/tmp/wahlbet.html
-
-scp /tmp/wahlbet.html usta:/www/UStA/Wahl/wahlbet_2011.html
-ssh usta chgrp wahl /www/UStA/Wahl/wahlbet_2011.html
-ssh usta /usr/usta/OpenBSD/bin/publish wahl
+#TODO
+#scp /tmp/wahlbet.html usta:/www/UStA/Wahl/wahlbet_2011.html
+#ssh usta chgrp wahl /www/UStA/Wahl/wahlbet_2011.html
+#ssh usta /usr/usta/OpenBSD/bin/publish wahl
 
 exit 0
 
