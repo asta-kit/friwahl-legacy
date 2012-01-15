@@ -7,7 +7,7 @@ my $irc = new Net::IRC;
 
 my $conn = $irc->newconn(
 	Server 		=> '127.0.0.1',
-	Port		=> '5557', 
+	Port		=> '6667', 
 	Nick		=> 'WahlBot',
 	Ircname		=> 'Wahlbeteiligungs-Bot - say hello to me!',
 	Username	=> 'wahlbot',
