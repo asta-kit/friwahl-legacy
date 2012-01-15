@@ -4,8 +4,8 @@ prevfs=""
 fssum=0
 sum=0
 
-if [ $# -ne 2 ]; then 
-	echo $0 raw-wahlen.csv urne
+if [ $# -ne 3 ]; then 
+	echo $0 raw-wahlen.csv urne fs-identifier
 	exit 1
 fi
 
@@ -23,7 +23,7 @@ while read line; do
 	fssum=$(( $fssum+$zettel ))
 	sum=$(( $sum+$zettel ))
 	prevfs=$fs
-done < <(grep "^Fachschaft .*, .*, $2, .*, [0-9][0-9]*, .*, .*, .*, .*, .*" $1 | sed 's/^Fachschaft \(.*\), .*, .*, .*, \(.*\), .*, .*, .*, .*, .*/\1,\2/g')
+done < <(grep "^$3 .*, .*, $2, .*, [0-9][0-9]*, .*, .*, .*, .*, .*" $1 | sed "s|^$3 \\(.*\\), .*, .*, .*, \\(.*\\), .*, .*, .*, .*, .*|\1,\2|g")
 
 echo $prevfs,$fssum >> /tmp/urne.dat
 
