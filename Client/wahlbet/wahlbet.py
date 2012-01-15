@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python2
 
 import pgdb
 import time
@@ -12,7 +12,7 @@ berechtigte = {}
 berechtigte[0] = 22552
 berechtigte[1] = 22552	# StuPa
 berechtigte[2] = 0	# FS
-berechtigte[3] = 3543	# Ausländer
+berechtigte[3] = 3543	# Auslaender
 berechtigte[4] = 5998	# Frauen
 
 fs_berechtigte = {}
