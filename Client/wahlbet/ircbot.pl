@@ -11,7 +11,7 @@ my $conn = $irc->newconn(
 	Nick		=> 'WahlBot',
 	Ircname		=> 'Wahlbeteiligungs-Bot - say hello to me!',
 	Username	=> 'wahlbot',
-	Password	=> 'Kie4uJo1'
+	Password	=> 'EimaCh7i'
 );
 
 $conn->{channel} = '#uwahl';
