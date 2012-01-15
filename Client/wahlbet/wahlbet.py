@@ -55,20 +55,20 @@ fs_auslaender['physik']  = 75
 fs_auslaender['wiwi']    = 378+9.75+54
 
 urne2fs = {}
-urne2fs['chembio'] = {'bau':0.000,'chembio':0.961,'ciw':0.000,'etec':0.000,'geist':0.000,'geo':0.000,'info':0.026,'mach':0.000,'mathe':0.000,'physik':0.000,'wiwi':0.013}
-urne2fs['etec']    = {'bau':0.024,'chembio':0.008,'ciw':0.014,'etec':0.847,'geist':0.000,'geo':0.000,'info':0.008,'mach':0.040,'mathe':0.016,'physik':0.014,'wiwi':0.028}
+urne2fs['chembio'] = {'bau':0.000,'chembio':0.964,'ciw':0.000,'etec':0.000,'geist':0.000,'geo':0.000,'info':0.026,'mach':0.000,'mathe':0.000,'physik':0.000,'wiwi':0.010}
+urne2fs['etec']    = {'bau':0.025,'chembio':0.009,'ciw':0.015,'etec':0.847,'geist':0.000,'geo':0.000,'info':0.008,'mach':0.040,'mathe':0.015,'physik':0.013,'wiwi':0.028}
 urne2fs['geist']   = {'bau':0.000,'chembio':0.000,'ciw':0.000,'etec':0.000,'geist':1.000,'geo':0.000,'info':0.000,'mach':0.000,'mathe':0.000,'physik':0.000,'wiwi':0.000}
-urne2fs['geo']     = {'bau':0.000,'chembio':0.000,'ciw':0.000,'etec':0.000,'geist':0.000,'geo':0.948,'info':0.000,'mach':0.000,'mathe':0.000,'physik':0.052,'wiwi':0.000}
-urne2fs['info']    = {'bau':0.000,'chembio':0.000,'ciw':0.004,'etec':0.004,'geist':0.008,'geo':0.000,'info':0.842,'mach':0.017,'mathe':0.054,'physik':0.000,'wiwi':0.071}
-urne2fs['machciw'] = {'bau':0.020,'chembio':0.000,'ciw':0.242,'etec':0.002,'geist':0.010,'geo':0.000,'info':0.005,'mach':0.711,'mathe':0.007,'physik':0.000,'wiwi':0.002}
-urne2fs['mathe']   = {'bau':0.032,'chembio':0.005,'ciw':0.013,'etec':0.053,'geist':0.011,'geo':0.016,'info':0.232,'mach':0.063,'mathe':0.549,'physik':0.018,'wiwi':0.008}
-urne2fs['physik']  = {'bau':0.000,'chembio':0.012,'ciw':0.000,'etec':0.024,'geist':0.000,'geo':0.000,'info':0.010,'mach':0.005,'mathe':0.007,'physik':0.964,'wiwi':0.000}
-urne2fs['wiwi']    = {'bau':0.000,'chembio':0.008,'ciw':0.006,'etec':0.000,'geist':0.004,'geo':0.000,'info':0.008,'mach':0.001,'mathe':0.006,'physik':0.001,'wiwi':0.966}
+urne2fs['geo']     = {'bau':0.000,'chembio':0.000,'ciw':0.000,'etec':0.000,'geist':0.000,'geo':0.955,'info':0.000,'mach':0.000,'mathe':0.000,'physik':0.044,'wiwi':0.000}
+urne2fs['info']    = {'bau':0.000,'chembio':0.000,'ciw':0.004,'etec':0.004,'geist':0.009,'geo':0.000,'info':0.840,'mach':0.016,'mathe':0.057,'physik':0.000,'wiwi':0.071}
+urne2fs['machciw'] = {'bau':0.021,'chembio':0.000,'ciw':0.253,'etec':0.002,'geist':0.011,'geo':0.000,'info':0.004,'mach':0.699,'mathe':0.007,'physik':0.000,'wiwi':0.002}
+urne2fs['mathe']   = {'bau':0.033,'chembio':0.005,'ciw':0.013,'etec':0.052,'geist':0.012,'geo':0.019,'info':0.226,'mach':0.062,'mathe':0.553,'physik':0.018,'wiwi':0.008}
+urne2fs['physik']  = {'bau':0.000,'chembio':0.014,'ciw':0.000,'etec':0.022,'geist':0.000,'geo':0.000,'info':0.010,'mach':0.004,'mathe':0.008,'physik':0.962,'wiwi':0.000}
+urne2fs['wiwi']    = {'bau':0.000,'chembio':0.009,'ciw':0.006,'etec':0.000,'geist':0.004,'geo':0.000,'info':0.008,'mach':0.001,'mathe':0.005,'physik':0.001,'wiwi':0.965}
 
-urne2fs['akk']     = {'bau':0.035,'chembio':0.054,'ciw':0.112,'etec':0.144,'geist':0.051,'geo':0.038,'info':0.173,'mach':0.163,'mathe':0.035,'physik':0.051,'wiwi':0.141}
-urne2fs['mensa']   = {'bau':0.074,'chembio':0.021,'ciw':0.162,'etec':0.081,'geist':0.016,'geo':0.019,'info':0.098,'mach':0.274,'mathe':0.038,'physik':0.058,'wiwi':0.156}
-urne2fs['rz']      = {'bau':0.074,'chembio':0.021,'ciw':0.162,'etec':0.081,'geist':0.016,'geo':0.019,'info':0.098,'mach':0.274,'mathe':0.038,'physik':0.058,'wiwi':0.156}
-urne2fs['west']    = {'bau':0.000,'chembio':0.000,'ciw':0.000,'etec':0.063,'geist':0.000,'geo':0.000,'info':0.000,'mach':0.000,'mathe':0.000,'physik':0.938,'wiwi':0.000}
+urne2fs['akk']     = {'bau':0.036,'chembio':0.059,'ciw':0.115,'etec':0.142,'geist':0.056,'geo':0.043,'info':0.169,'mach':0.158,'mathe':0.035,'physik':0.047,'wiwi':0.138}
+urne2fs['mensa']   = {'bau':0.077,'chembio':0.023,'ciw':0.168,'etec':0.081,'geist':0.017,'geo':0.022,'info':0.096,'mach':0.268,'mathe':0.039,'physik':0.054,'wiwi':0.155}
+urne2fs['rz']      = {'bau':0.077,'chembio':0.023,'ciw':0.168,'etec':0.081,'geist':0.017,'geo':0.022,'info':0.096,'mach':0.268,'mathe':0.039,'physik':0.054,'wiwi':0.155}
+urne2fs['west']    = {'bau':0.000,'chembio':0.000,'ciw':0.000,'etec':0.057,'geist':0.000,'geo':0.000,'info':0.000,'mach':0.000,'mathe':0.000,'physik':0.943,'wiwi':0.000}
 
 for value in fs_berechtigte.itervalues():
     berechtigte[fs_wahl] += value
