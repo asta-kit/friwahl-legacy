@@ -19,4 +19,4 @@ Mathe:                  %(fs_mathe).2f %%
 Physik:                 %(fs_physik).2f %%
 WiWi:                   %(fs_wiwi).2f %%
 
-mehr Infos unter http://www.usta.de/Wahl/wahlbet_2011.html
+mehr Infos unter http://www.usta.de/Wahl/wahlbet_2012.html
