@@ -5,8 +5,7 @@ DATE=`date +"%s"`
 echo -n -e "$DATE\t" >> ~/data/wahlplot.dat
 ssh -i ~/.ssh/wahlbet_key wahlprognose@asta-wahl.asta.uni-karlsruhe.de wahl/Client/wahlbet/wahlbet.py wahl/Client/wahlbet/templates/wahlbet.plot.txt >> ~/data/wahlplot.dat
 
-#TODO
-#./wahlplot.plot
+wahl/Client/wahlbet/wahlplot.plot
 
 exit 0
 
