@@ -90,7 +90,7 @@ for wahl in wahlen.iterkeys():
 
 stupa_bet = waehler[1]/float(berechtigte[1])
 auslaender_bet = waehler[3]/float(berechtigte[3])
-frauen_bet = wehler[4]/float(berechtigte[4])
+frauen_bet = waehler[4]/float(berechtigte[4])
 
 fs_quote = {}
 for fs in fs_berechtigte.iterkeys():
