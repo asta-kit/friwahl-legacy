@@ -1,6 +1,5 @@
 Die aktuelle Wahlbeteiligung beträgt:
 
-Allgemein:              %(global).2f %%
 Studierendenparlament:  %(wahl1).2f %%
 Fachschaften:           %(wahl2).2f %%
 Ausländerreferat:       %(wahl3).2f %%
