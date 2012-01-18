@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "set xtics ("`(awk '{if (((int(($1-1326697200)/(24*3600))*13+int(($1-1326697200)/3600)%24)%1) == 0) print "\""int(($1-1326697200)/(24*3600))+1". Tag "int(($1-1295218800)/3600)%24 ":00 Uhr\" " int(($1-1326697200)/(24*3600))*13+int(($1-1326697200)/3600)%24}' ~/data/wahlplot.dat) |tr "\n" ","`")"|sed s/",)"/")"/ > /tmp/wahlplot.gp
+echo "set xtics ("`(awk '{if (((int(($1-1326697200)/(24*3600))*13+int(($1-1326697200)/3600)%24)%2) == 0) print "\""int(($1-1326697200)/(24*3600))+1". Tag "int(($1-1295218800)/3600)%24 ":00 Uhr\" " int(($1-1326697200)/(24*3600))*13+int(($1-1326697200)/3600)%24}' ~/data/wahlplot.dat) |tr "\n" ","`")"|sed s/",)"/")"/ > /tmp/wahlplot.gp
 
 cat >> /tmp/wahlplot.gp << EOT
-set terminal png font '/usr/share/fonts/truetype/freefont/FreeSerif.ttf' size 900,550
+set terminal png font '/usr/share/fonts/truetype/freefont/FreeSerif.ttf' size 900,550 transparent
 set output '~/public_html/wahlbet/wahlplot.png'
 
 set size 0.96,1
