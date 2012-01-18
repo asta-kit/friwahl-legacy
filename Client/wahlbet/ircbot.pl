@@ -16,10 +16,12 @@ my $conn = $irc->newconn(
 
 $conn->{channel} = '#uwahl';
 
+sub get_wahlbet {
+	system('ssh -i ~/.ssh/wahlbet_key wahlprognose@asta-wahl.asta.uni-karlsruhe.de wahl/Client/wahlbet/wahlbet.py wahl/Client/wahlbet/templates/wahlbet.irc.txt > /tmp/wahlbet.irc.txt');
+}
+
 sub send_wahlbet {
 	my ($conn, $nick) = @_;
-
-	system('ssh -i ~/.ssh/wahlbet_key wahlprognose@asta-wahl.asta.uni-karlsruhe.de wahl/Client/wahlbet/wahlbet.py wahl/Client/wahlbet/templates/wahlbet.irc.txt > /tmp/wahlbet.irc.txt');
 
 	open (FILE,"</tmp/wahlbet.irc.txt");
 
@@ -42,6 +44,8 @@ sub on_msg {
 	my ($conn, $event) = @_;
 
 	print "request from $event->{nick}\n";
+
+	get_wahlbet();
 
 	$conn->privmsg($event->{nick}, "Hallo $event->{nick},");
 	$conn->privmsg($event->{nick}, " ");
