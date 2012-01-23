@@ -28,6 +28,7 @@ fs_berechtigte['mathe']   = 1061
 fs_berechtigte['physik']  = 1475
 fs_berechtigte['wiwi']    = 4256
 
+fs_quote = {}
 fs_quote['bau']     = 0.47
 fs_quote['chembio'] = 0.45979899
 fs_quote['ciw']     = 0.45933457
@@ -55,7 +56,6 @@ urne2fs['akk']     = {'bau':0.036,'chembio':0.059,'ciw':0.115,'etec':0.142,'geis
 urne2fs['mensa']   = {'bau':0.077,'chembio':0.023,'ciw':0.168,'etec':0.081,'geist':0.017,'geo':0.022,'info':0.096,'mach':0.268,'mathe':0.039,'physik':0.054,'wiwi':0.155}
 urne2fs['rz']      = {'bau':0.077,'chembio':0.023,'ciw':0.168,'etec':0.081,'geist':0.017,'geo':0.022,'info':0.096,'mach':0.268,'mathe':0.039,'physik':0.054,'wiwi':0.155}
 urne2fs['west']    = {'bau':0.000,'chembio':0.000,'ciw':0.000,'etec':0.057,'geist':0.000,'geo':0.000,'info':0.000,'mach':0.000,'mathe':0.000,'physik':0.943,'wiwi':0.000}
-
 
 for value in fs_berechtigte.itervalues():
     berechtigte[fs_wahl] += value
