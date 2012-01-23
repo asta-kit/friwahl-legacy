@@ -1,0 +1,16 @@
+Allgemein: %(global).2f%%
+StuPa: %(wahl1).2f%%
+Fachschaften: %(wahl2).2f%%
+Ausländerreferat: %(wahl3).2f%%
+Frauenreferat: %(wahl4).2f%%
+Bau: %(fs_bau).2f%%
+Bio/Chemie: %(fs_chembio).2f%%
+CIW: %(fs_ciw).2f%%
+Etec: %(fs_etec).2f%%
+GeistSoz: %(fs_geist).2f%%
+Geo: %(fs_geo).2f%%
+Info: %(fs_info).2f%%
+Maschinenbau: %(fs_mach).2f%%
+Mathe: %(fs_mathe).2f%%
+Physik: %(fs_physik).2f%%
+WiWi: %(fs_wiwi).2f%%

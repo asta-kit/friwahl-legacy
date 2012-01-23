@@ -1,1 +1,0 @@
-%(global)f	%(wahl1)f	%(wahl2)f	%(wahl3)f	%(wahl4)f	%(fs_bau)f	%(fs_bio)f	%(fs_etec)f	%(fs_geist)f	%(fs_geo)f	%(fs_info)f	%(fs_machciw)f	%(fs_mathe)f	%(fs_physik)f	%(fs_wiwi)f
