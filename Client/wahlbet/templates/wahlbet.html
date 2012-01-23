@@ -1,23 +1,19 @@
 <HTML>
-  <HEAD><TITLE>Unabh&auml;ngige Wahlen Uni Karlsruhe - Wahlbeteiligung</TITLE>
+  <head><TITLE>Unabh&auml;ngige Wahlen Uni Karlsruhe - Wahlbeteiligung</TITLE>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta http-equiv="refresh" content="60" />
-  </HEAD>
-  <BODY bgcolor="#cccccc">
-    <TABLE width="100%%" cellspacing=0 border=0 cellpadding=3>
-      <TR bgcolor="#000099">
-        <TD width="100%%">
-          <FONT size=+1 color="#ffffff"><B>
-            Wahlen zum Unabh&auml;ngigen Modell
-            an der Universit&auml;t Karlsruhe</B></FONT><BR><BR>
-          <FONT size=+2 color="#ffffff"><B>
-            Stand der Wahlbeteiligung</B></FONT>
-          </TD>
-      </TR>
-    </TABLE>
-    <BR>
-    <i>Die aktuelle Wahlbeteiligung betr&auml;gt (Stand %(date)s):</i><br>
-    <table border="0"><td>&nbsp;&nbsp;&nbsp;</td><td>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="http://www.usta.de/sites/www.usta.de/themes/usta/font.css">
+  </head>
+  <body>
+     <div id="content" style="width: 85%%">
+       <div id="header">
+         <h2>Wahlen zum Unabh&auml;ngigen Modell am Karlsruher Institut f&uuml;r Technologie (KIT)</h2>
+         <h1>Stand der Wahlbeteiligung</h1>
+       </div>
+    <div style="border-top: 2px solid #e17900"></div>
+    <h3 style="text-align: center">Die aktuelle Wahlbeteiligung betr&auml;gt (Stand %(date)s):</h3>
+    <table border="0" style="margin-left:auto; margin-right:auto"><td>&nbsp;&nbsp;&nbsp;</td><td>
 	<table border="0">
 <!--		<tr><td><b>Allgemein:</b></td><td>&nbsp;&nbsp;&nbsp;</td><td style="text-align: right;">%(global).2f %%</td></tr> -->
 		<tr><td><b>Studierendenparlament:</b></td><td>&nbsp;&nbsp;&nbsp;</td><td style="text-align: right;">%(wahl1).2f %%</td><td>&nbsp;&nbsp;&nbsp;</td><td>(%(votes1)i W&auml;hler von %(berechtigte1)i Berechtigten)</td></tr>
@@ -26,8 +22,9 @@
 		<tr><td><b>Frauenreferat:</b></td><td>&nbsp;&nbsp;&nbsp;</td><td style="text-align: right;">%(wahl4).2f %%</td><td>&nbsp;&nbsp;&nbsp;</td><td>(%(votes4)i W&auml;hler von %(berechtigte4)i Berechtigten)</td></tr>
 	</table>
     </td></table>
-    <i>Die aktuelle Wahlbeteiligung an den Fachschaftswahlen (<b>Achtung Sch&auml;tzung!</b>):</i><br>
-    <table border="0"><td>&nbsp;&nbsp;&nbsp;</td><td>
+    <div style="border-top: 2px solid #e17900"></div>
+    <h3 style="text-align: center">Die aktuelle Wahlbeteiligung an den Fachschaftswahlen (<b>Achtung Sch&auml;tzung!</b>):</h3>
+    <table border="0" style="margin-left:auto; margin-right:auto"><td>&nbsp;&nbsp;&nbsp;</td><td>
 	<table border="0">
 		<tr><td><b>BauIng:</b></td><td>&nbsp;&nbsp;&nbsp;</td><td style="text-align: right;">%(fs_bau).2f %%</td><td>&nbsp;&nbsp;&nbsp;</td><td>(gesch&auml;tzte %(fsvotes_bau).2f W&auml;hler von %(fsberechtigte_bau)g Wahlberechtigten)</td></tr>
 		<tr><td><b>Bio/Chemie:</b></td><td>&nbsp;&nbsp;&nbsp;</td><td style="text-align: right;">%(fs_chembio).2f %%</td><td>&nbsp;&nbsp;&nbsp;</td><td>(gesch&auml;tzte %(fsvotes_chembio).2f W&auml;hler von %(fsberechtigte_chembio)g Wahlberechtigten)</td></tr>
@@ -42,9 +39,9 @@
 		<tr><td><b>WiWi:</b></td><td>&nbsp;&nbsp;&nbsp;</td><td style="text-align: right;">%(fs_wiwi).2f %%</td><td>&nbsp;&nbsp;&nbsp;</td><td>(gesch&auml;tzte %(fsvotes_wiwi).2f W&auml;hler von %(fsberechtigte_wiwi)g Wahlberechtigten)</td></tr>
 	</table>
     </td></table>
-    <BR>
-    <i>Stimmzettel in den Urnen:</i><br>
-    <table border="0"><td>&nbsp;&nbsp;&nbsp;</td><td>
+    <div style="border-top: 2px solid #e17900"></div>
+    <h3 style="text-align: center">Stimmzettel in den Urnen:</h3>
+    <table border="0" style="margin-left:auto; margin-right:auto"><td>&nbsp;&nbsp;&nbsp;</td><td>
 	<table border="0">
 	    <tr><td><b>Bio/Chemie:</b></td><td>&nbsp;&nbsp;&nbsp;</td><td style="text-align: right;">%(zettel_chembio)i Zettel</td></tr>
 	    <tr><td><b>ETEC:</b></td><td>&nbsp;&nbsp;&nbsp;</td><td style="text-align: right;">%(zettel_etec)i Zettel</td></tr>
@@ -61,16 +58,11 @@
 	    <tr><td><b>West-Urne:</b></td><td>&nbsp;&nbsp;&nbsp;</td><td style="text-align: right;">%(zettel_west)i Zettel</td></tr>
 	</table>
     </td></table>
-    <BR>
-      <img src="http://fachschaft.physik.uni-karlsruhe.de/~mario/wahlbet/wahlplot.png"><br> 
-      <font size="-1">(die Daten von Geo wurden bis 2. Tag 17:00 vergessen aufzuzeichnen, und wurden mit Hilfe der ETEC Daten abgesch&auml;tzt)</font>
+    <div style="border-top: 2px solid #e17900"></div>
+    <h3 style="text-align: center">Grafische Darstellung der Wahlbeteiligung:</h3>
+      <img src="http://fachschaft.physik.uni-karlsruhe.de/~mario/wahlbet/wahlplot.png" style="margin-left:auto; margin-right:auto; display: block"><br> 
     <p>
-    <TABLE width="100%%" cellspacing=0 border=0 cellpadding=3>
-      <TR bgcolor="#000099">
-        <TD width="100%%"><FONT color="#ffffff">
-          Der Wahlausschuss
-        </B></FONT></TD>
-      </TR>
-    </TABLE>
-  </BODY>
-</HTML>
+    </div>
+    <div id="footer">Der Wahlausschuss</div>
+  </body>
+</html>
