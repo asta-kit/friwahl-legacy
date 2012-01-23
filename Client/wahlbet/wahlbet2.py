@@ -96,8 +96,6 @@ fs_quote = {}
 for fs in fs_berechtigte.iterkeys():
     fs_quote[fs] = fs_berechtigte[fs] / float(fs_berechtigte[fs]*2 + fs_auslaender[fs]*auslaender_bet/stupa_bet + fs_frauen[fs]*frauen_bet/stupa_bet)
 
-print fs_quote
-
 votes = 0
 fsvotes = 0
 for key, this_votes in waehler.iteritems():
