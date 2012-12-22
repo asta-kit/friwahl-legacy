@@ -14,7 +14,7 @@ include("querysys.php") ;
 include("headfoot.php") ;
 include("graph.php") ;
 
-head ( "Stand der Auszählung", "status.html" ) ;
+head ( "Stand der Ausz&auml;hlung", "status.html" ) ;
 
 function show_urnen($row) {
 	extract ( $row ) ;

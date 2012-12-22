@@ -55,6 +55,7 @@ function do_query ( $query, $function ) {
 }
 
 function do_query_pass ( $query, $function, &$pass ) {
+	$row_number = 0;
 	$result = mysql_query ( $query ) ;
 	if (!$result) {
 		print "<B><FONT color='red'>Database error: ".
@@ -65,8 +66,10 @@ function do_query_pass ( $query, $function, &$pass ) {
 	while ( $row = $qq->retrieve() ) {
 		$function( array_merge ( $row,
 					 $qq->diff_prev ( "_", "" ),
-					 $qq->diff_next ( "", "_" ) ),
-			   $pass ) ;
+					 $qq->diff_next ( "", "_" ),
+					 array("row_number" => $row_number) ),
+			   $pass );
+		$row_number++;
 	}
 	mysql_free_result ( $result ) ;
 }

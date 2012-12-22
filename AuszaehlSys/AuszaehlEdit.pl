@@ -233,7 +233,7 @@ sub TopWahl {
 		  },
 		{ type      => "entry",
 		  field     => "wahl.wahlberechtigt",
-		  header    => "Wahlber.",
+		  header    => "Wahlberechtige",
 		  width     => 7,
 		  emptynull => 1
 		  },
@@ -514,7 +514,7 @@ sub TopUrne {
 		  },
 		{ type      => "entry",
 		  field     => "urne.stimmen",
-		  header    => "Stimmen",
+		  header    => "Stimmzettel",
 		  width     => 10,
 		  emptynull => 1 
 		  },

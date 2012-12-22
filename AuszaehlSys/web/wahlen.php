@@ -45,12 +45,16 @@ function show_kandidaten ( $row, &$cnt ) {
 						"Nachr&uuml;cker" ).
 					"</B>","center", 0.3,0.3,0.3, 2).
 				"</TR>\n" ) ;
+				if ($cnt % 2)
+					$cnt = 0;
+				else
+					$cnt = 1;
 			break ;
 		}
 	}
 
-	print ( "<TR><TD>$kandidat_vorname $kandidat_nachname</TD>".
-		"<TD align=right>$stimmen</TD></TR>\n" );
+	printf ( "<TR class=\"%s\"><TD>$kandidat_vorname $kandidat_nachname</TD>".
+		"<TD align=right>$stimmen</TD></TR>\n", ($cnt % 2) ? "even" : "odd" );
 	$cnt++ ;
 	
 	if ( $liste_id_ ) {
@@ -173,7 +177,7 @@ function show_wahlen ( $row ) {
 	}
 	
 	// Kandidaten
-	print "<TABLE><TR valign=top>\n" ;
+	print "<p><div class=\"auswert_tab\"><TABLE><TR valign=top>\n" ;
 	do_query ( "SELECT liste.id AS liste_id, ".
 		   "liste.name_kurz AS liste_name_kurz, ".
 		   "anzeige_red AS r, ".
@@ -193,7 +197,7 @@ function show_wahlen ( $row ) {
 		   "ORDER BY liste.nummer, status, stimmen DESC, ".
 		   "kandidat.listenplatz",
 		   show_kandidaten ) ;
-	print "</TR></TABLE>\n" ;
+	print "</TR></TABLE></div></p>\n" ;
 	if ( $num_los != 0 ) {
 		print ( "(*): $num_los Restsitze werden per Los auf ".
 			"die gekennzeichneten Listen verteilt.<BR>" ) ;

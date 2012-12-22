@@ -29,15 +29,15 @@ function show_kandidaten ( $row, &$cnt ) {
 	if ( $_status || $_liste_id ) {
 		switch ( $status ) {
 		case 1:
-			show_kandidaten_status ( "Gewählt" ) ;
+			show_kandidaten_status ( "GewÃ¤hlt" ) ;
 			break ;
 		case 2:
 			show_kandidaten_status ( "Los \\footnotemark{(*)}" ) ;
 			break ;
 		case 3:
 			show_kandidaten_status ( 
-				$cnt == 0 ? "Nicht gewählt" : 
-				"Nachrückende / Nicht gewählt" ) ;
+				$cnt == 0 ? "Nicht gewÃ¤hlt" : 
+				"NachrÃ¼ckende / Nicht gewÃ¤hlt" ) ;
 			break ;
 		}
 	}
@@ -88,9 +88,9 @@ function show_wahlen ( $row ) {
 			"Wahlbeteiligung: ".
 			percent($stimmen_gesamt,$wahlberechtigt)."\%".
 			"\n\n".
-			"ungültige Stimmzettel: $stimmzettel_ungueltig, ".
-			"ungültige Stimmen: $listen_ungueltig ".
-			"gültige Stimmen: $listen_gueltig, ".
+			"ungÃ¼ltige Stimmzettel: $stimmzettel_ungueltig, ".
+			"ungÃ¼ltige Stimmen: $listen_ungueltig ".
+			"gÃ¼ltige Stimmen: $listen_gueltig, ".
 			"\n\n".
 			"Enthaltungen: $listen_enthaltungen ".
 			"\n\n" ) ;
@@ -132,9 +132,9 @@ function show_wahlen ( $row ) {
 		"Wahlbeteiligung: ".percent($stimmen_gesamt,
 					    $wahlberechtigt)."\%".
 		"\n\n".
-		"ungültige Stimmzettel: $stimmzettel_ungueltig, ".
-		"ungültige Stimmen: $kandidaten_ungueltig, ".
-		"gültig: $kandidaten_gueltig ".
+		"ungÃ¼ltige Stimmzettel: $stimmzettel_ungueltig, ".
+		"ungÃ¼ltige Stimmen: $kandidaten_ungueltig, ".
+		"gÃ¼ltig: $kandidaten_gueltig ".
 		"\n\n" ) ;
 	if ( $max_stimmen_wert == 1 ) {
 		print ( "Enthaltungen: $kandidaten_enthaltungen ".
@@ -179,7 +179,7 @@ function show_wahlen ( $row ) {
 \begin{document}
 \wahead
 \begin{center}
-\bfseries\Huge Ergebnisse der Wahlen zum Unabhängigen Modell
+\bfseries\Huge Ergebnisse der Wahlen zum UnabhÃ¤ngigen Modell
 \end{center}
 
 <?php

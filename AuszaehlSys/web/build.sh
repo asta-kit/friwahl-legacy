@@ -40,5 +40,6 @@ perl -ne '/^FS[-_]/ && print' < all.cycle > fs.cycle
 perl -ne '/^FS[-_]/ || print' < all.cycle > nofs.cycle
 
 cp $SRC_DIR/wahl-logo.png $SRC_DIR/cycle.php .
+cp $SRC_DIR/style.css $SRC_DIR/sternchen.svg .
 
 rm index.lst

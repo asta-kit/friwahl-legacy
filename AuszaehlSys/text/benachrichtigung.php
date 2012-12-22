@@ -15,17 +15,17 @@ function do_row ( $row ) {
 \documentclass{wabrief}
 
 \signature{<?=simple_query("SELECT value FROM config WHERE tag='in_charge'")?>\\
-           für den Wahlausschuss}
+           fÃ¼r den Wahlausschuss}
 
 \newcommand{\brief}[5]{
   \begin{letter}{An\\#2 #3\\#4\\[\medskipamount]#5}
-    \subject{\bf Unabhängige Wahlen -- #1}
+    \subject{\bf UnabhÃ¤ngige Wahlen -- #1}
     \opening{Hallo #2,}
-    Ich freue mich, Dir mitzuteilen, dass Du gewählt wurdest.
-    Ich gratuliere Dir herzlich und wünsche Dir viel Spaß und Erfolg in
+    Ich freue mich, Dir mitzuteilen, dass Du gewÃ¤hlt wurdest.
+    Ich gratuliere Dir herzlich und wÃ¼nsche Dir viel SpaÃŸ und Erfolg in
     der kommenden Legislaturperiode.
 
-    \closing{Mit freundlichen Grüßen,}
+    \closing{Mit freundlichen GrÃ¼ÃŸen,}
   \end{letter}
 }
 

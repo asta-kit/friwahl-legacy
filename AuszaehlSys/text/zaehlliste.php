@@ -12,16 +12,16 @@ function no_handler ( $name, $extra, $platz ) { candidate("Nein","","") ; }
 
 \begin{center}
     \Large
-    Studierendenschaft der Universität Karlsruhe (TH)
+    Studierendenschaft der UniversitÃ¤t Karlsruhe (TH)
     \bigskip
 
     \bfseries
     \Huge
-    Wahlen zu den Gremien der Unabhängigen Studierendenschaft 2011
+    Wahlen zu den Gremien der UnabhÃ¤ngigen Studierendenschaft 2011
     \bigskip
 
     \LARGE
-    Zähllisten für Urne~\hr{5cm}
+    ZÃ¤hllisten fÃ¼r Urne~\hr{5cm}
     \bigskip
     \bigskip
 
@@ -29,38 +29,38 @@ function no_handler ( $name, $extra, $platz ) { candidate("Nein","","") ; }
 
 {
 \onehalfspacing \raggedright
-Liebe Auszählhelfer,\medskip
+Liebe AuszÃ¤hlhelfer,\medskip
 
-zunächst einmal vielen Dank für Euer Engagement beim Auszählen der diesjährigen Wahl! \medskip
+zunÃ¤chst einmal vielen Dank fÃ¼r Euer Engagement beim AuszÃ¤hlen der diesjÃ¤hrigen Wahl! \medskip
 
-Um euch das Auszählen möglichst angenehm zu gestalten und doppeltes Auszählen zu vermeiden, hier ein paar Tipps und Regeln: \medskip
+Um euch das AuszÃ¤hlen mÃ¶glichst angenehm zu gestalten und doppeltes AuszÃ¤hlen zu vermeiden, hier ein paar Tipps und Regeln: \medskip
 
 \begin{itemize}
- \item Folgendes Vorgehen bei den Wahlen hat sich in den letzten Jahren bewährt:
+ \item Folgendes Vorgehen bei den Wahlen hat sich in den letzten Jahren bewÃ¤hrt:
   \begin{enumerate}
-   \item Lest die Kommentare vorne im Urnenbuch, damit könnt ihr euch ggf. Arbeit sparen. Kontrolliert bitte vor allem, ob dort als durchgestrichen angegebene Wähler (wg. fehlender Wahlberechtigung usw.) in den Listen hinten auch wirklich durchgestrichen sind.
-   \item Urne öffnen und ausleeren, dann prüfen, ob Stimmzettel auf den Boden gefallen sind
+   \item Lest die Kommentare vorne im Urnenbuch, damit kÃ¶nnt ihr euch ggf. Arbeit sparen. Kontrolliert bitte vor allem, ob dort als durchgestrichen angegebene WÃ¤hler (wg. fehlender Wahlberechtigung usw.) in den Listen hinten auch wirklich durchgestrichen sind.
+   \item Urne Ã¶ffnen und ausleeren, dann prÃ¼fen, ob Stimmzettel auf den Boden gefallen sind
    \item Alle Stimmzettel nach Art sortieren und auffalten
-   \item Die Zettel in Haufen von 10-20 Stück aufteilen
-   \item Die Wahlen nacheinander auszählen
-   \item Bei den StuPa-Wahlen: die Listenstimmen zuerst auszählen, anschließend die Kandidierenden. Bei den Kandidierenden empfiehlt es sich, die Auszählung in mehreren Etappen zu machen, sonst müsst ihr andauernd umblättern. Die ungültigen Stimmzettel könnt ihr so im ersten Durchgang direkt loswerden.
+   \item Die Zettel in Haufen von 10-20 StÃ¼ck aufteilen
+   \item Die Wahlen nacheinander auszÃ¤hlen
+   \item Bei den StuPa-Wahlen: die Listenstimmen zuerst auszÃ¤hlen, anschlieÃŸend die Kandidierenden. Bei den Kandidierenden empfiehlt es sich, die AuszÃ¤hlung in mehreren Etappen zu machen, sonst mÃ¼sst ihr andauernd umblÃ¤ttern. Die ungÃ¼ltigen Stimmzettel kÃ¶nnt ihr so im ersten Durchgang direkt loswerden.
   \end{enumerate}
- \item Beim Auszählen:
+ \item Beim AuszÃ¤hlen:
   \begin{itemize}
    \item einer liest vor, einer kontrolliert das Vorgelesene (beide kontrollieren, ob die Stimmenzahl in Ordnung ist)
-   \item Die beiden anderen führen unabhängig voneinander die Zählliste, s.u.
+   \item Die beiden anderen fÃ¼hren unabhÃ¤ngig voneinander die ZÃ¤hlliste, s.u.
   \end{itemize}
- \item Das Führen der \textbf{Zählliste} wird mit diesen Tipps etwas einfacher:
+ \item Das FÃ¼hren der \textbf{ZÃ¤hlliste} wird mit diesen Tipps etwas einfacher:
   \begin{itemize}
-   \item Vergleicht regelmäßig eure Zwischenstände und fangt danach mit einem senkrechten Strich eine neue Gruppe an
-   \item Einer der beiden Zähler kann nach jedem Namen den aktuellen Zählerstand modulo 5 (also den Abstand zum letzten vollen Fünferblock) laut sagen. Damit merkt ihr sofort, wenn ihr auseinanderdriftet, und müsst nicht am Ende alle Zettel nochmal zählen.
+   \item Vergleicht regelmÃ¤ÃŸig eure ZwischenstÃ¤nde und fangt danach mit einem senkrechten Strich eine neue Gruppe an
+   \item Einer der beiden ZÃ¤hler kann nach jedem Namen den aktuellen ZÃ¤hlerstand modulo 5 (also den Abstand zum letzten vollen FÃ¼nferblock) laut sagen. Damit merkt ihr sofort, wenn ihr auseinanderdriftet, und mÃ¼sst nicht am Ende alle Zettel nochmal zÃ¤hlen.
   \end{itemize}
- \item Die Unterscheidung zwischen \textbf{ungültigen Kandidierendenstimmen und ungültigen Zetteln} bei den Fachschafts- und UStA-Referats-Wahlen ist zwar schwierig, aber in einigen Grenzfällen sinnvoll. Generell gilt: Wenn sich Unregelmäßigkeiten erkennbar nur auf einen Kandidaten beziehen (unleserliche Zahl, Durchstreichung des Namens etc.), ist diese Kandiderendenstimme ungültig. Bei nicht erkennbarem Kandidatenbezug oder Änderungen am Zettel ist der Zettel als Ganzes ungültig. Wenn ihr dazu Fragen habt, wendet euch an den Wahlausschuss.
+ \item Die Unterscheidung zwischen \textbf{ungÃ¼ltigen Kandidierendenstimmen und ungÃ¼ltigen Zetteln} bei den Fachschafts- und UStA-Referats-Wahlen ist zwar schwierig, aber in einigen GrenzfÃ¤llen sinnvoll. Generell gilt: Wenn sich UnregelmÃ¤ÃŸigkeiten erkennbar nur auf einen Kandidaten beziehen (unleserliche Zahl, Durchstreichung des Namens etc.), ist diese Kandiderendenstimme ungÃ¼ltig. Bei nicht erkennbarem Kandidatenbezug oder Ã„nderungen am Zettel ist der Zettel als Ganzes ungÃ¼ltig. Wenn ihr dazu Fragen habt, wendet euch an den Wahlausschuss.
 \end{itemize}
 
 \bigskip
 
-Zuallerletzt wünschen wir euch noch viel Spaß beim Auszählen! \bigskip
+Zuallerletzt wÃ¼nschen wir euch noch viel SpaÃŸ beim AuszÃ¤hlen! \bigskip
 
 Der Wahlausschuss\smallskip
 

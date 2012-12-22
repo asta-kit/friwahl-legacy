@@ -20,48 +20,33 @@ function head ( $title, $file = "" ) {
 	$stimmen_done  = simple_query("SELECT sum(stimmen) FROM urne WHERE status=".
 				    $GLOBALS["ok_status"]) ;
 ?>
-<HTML>
-  <HEAD><TITLE>Unabhängige Wahlen Uni Karlsruhe - <?=$title?></TITLE>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  </HEAD>
-  <BODY bgcolor="#cccccc">
-    <TABLE width="100%" cellspacing=0 border=0 cellpadding=3>
-      <TR bgcolor="#000099">
-        <TD><IMG SRC="wahl-logo.png" alt=""></TD>
-        <TD width="100%">
-          <FONT size=+1 color="#ffffff"><B>
-            Wahlen zum Unabhängigen Modell
-            an der Universität Karlsruhe</B></FONT><BR><BR>
-          <FONT size=+2 color="#ffffff"><B>
-            <?=$title?>
-          </B></FONT>
-          </TD>
-      </TR>
-      <TR bgcolor="#6666ff">
-        <TD colspan=2><FONT color="#ffffff">
-	 Zwischenstand <?=date("j.n.Y H:i")?>, 
-         <?=$urnen_done?> von <?=$urnen_total?> Urnen,
-         ca. <?=percent($stimmen_done,$stimmen_total)?>% der Stimmzettel,
-         <A href="index.html?cache_dummy=<?=time()?>"><FONT color="#ffff00">&Uuml;bersicht</FONT></A>
-        </FONT></TD>
-      </TR>
-    </TABLE>
-    <BR>
+<html>
+  <head><title>Unabhängige Wahlen KIT - <?=$title?></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="http://www.usta.de/sites/www.usta.de/themes/usta/font.css">
+  </head>
+  <body>
+     <div id="content">
+       <div id="header">
+         <h2>Wahlen zum Unabhängigen Modell am Karlsruher Institut für Technologie (KIT)</h2>
+         <h1><?=$title?></h1>
+         <div class="orange-border">
+	   Zwischenstand <?=date("j.n.Y H:i")?>, 
+           <?=$urnen_done?> von <?=$urnen_total?> Urnen,
+           ca. <?=percent($stimmen_done,$stimmen_total)?>% der Stimmzettel,
+           <a href="index.html?cache_dummy=<?=time()?>">&Uuml;bersicht</a>
+         </div>
+       </div>
 <?php
 }
 
 function foot () {
 ?>
-    <BR>
-    <TABLE width="100%" cellspacing=0 border=0 cellpadding=3>
-      <TR bgcolor="#000099">
-        <TD width="100%"><FONT color="#ffffff">
-          Der Wahlausschuss
-        </B></FONT></TD>
-      </TR>
-    </TABLE>
-  </BODY>
-</HTML>
+    </div>
+    <div id="footer">Der Wahlausschuss</div>
+  </body>
+</html>
 <?php
 }
 ?>

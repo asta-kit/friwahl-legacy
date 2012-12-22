@@ -2,7 +2,7 @@
 \ProvidesPackage{umodell-zaehlliste}[2004/01/26 Definitionen fuer die 
                                      Unabhaengigen Wahlen, Kristof]
 
-\RequirePackage[latin1]{inputenc}
+%\RequirePackage[latin1]{inputenc}
 \RequirePackage[ngerman]{babel}
 \RequirePackage{a4ultra}
 \RequirePackage{denselist}
@@ -41,7 +41,7 @@
   \gdef\election@MaxCumulate{1}%
   \setkeys{election}{#1}%
 
-  \markright{\bfseries Zählliste: \election@Election\ --
+  \markright{\bfseries Zï¿½hlliste: \election@Election\ --
              Urne:~\protect\hr{3cm}}
   \setcounter{page}{1}
   \global\partycnt=0
@@ -56,7 +56,7 @@
   \begin{center}
     \bfseries
     \Huge
-    Zählliste
+    Zï¿½hlliste
     \bigskip
 
     \LARGE
@@ -77,117 +77,117 @@
 
   \subsection{Stimmzettel laut Urnenbuch}
 
-  Zählt die Eintragungen im Urnenbuch. Achtet bei Urnen mit verschiedenen
+  Zï¿½hlt die Eintragungen im Urnenbuch. Achtet bei Urnen mit verschiedenen
   Wahlen (z.B.\ mehrere Fachschaften) darauf, nur die zur o.g.\ Wahl zu
-  zählen.
+  zï¿½hlen.
 
   {\bigskip\large Anzahl der Stimmzettel laut Urnenbuch:~\hr{3cm}}
 
   \subsection{Stimmzettel in der Urne}
 
-%  Öffnet nun die Urne, sortiert die Stimmzettel nach Wahlen und zählt sie
-%  für jede Wahl getrennt durch. 
-  Zählt nun die Stimmzettel für diese Wahl.
+%  ï¿½ffnet nun die Urne, sortiert die Stimmzettel nach Wahlen und zï¿½hlt sie
+%  fï¿½r jede Wahl getrennt durch. 
+  Zï¿½hlt nun die Stimmzettel fï¿½r diese Wahl.
   
   {\bigskip\large Anzahl der Stimmzettel in der Urne:~\hr{3cm}}
 
-  \subsection{Erläuterung der Abweichungen}
+  \subsection{Erlï¿½uterung der Abweichungen}
 
   Falls die Stimmzettelzahlen in der Urne und im Urnenbuch voneinander
-  abweichen, bitte hier erläutern: \\ \footnotesize{Bei Fachschaftswahlen müssen
-  Abweichungen nicht erläutert werden, wenn alle FS-Zettel zusammen die gleiche
+  abweichen, bitte hier erlï¿½utern: \\ \footnotesize{Bei Fachschaftswahlen mï¿½ssen
+  Abweichungen nicht erlï¿½utert werden, wenn alle FS-Zettel zusammen die gleiche
   Summe wie im Urnenbuch ergeben.}
 
   \vspace{3cm}
 
-  \subsection{Ungültige Stimmzettel}
+  \subsection{Ungï¿½ltige Stimmzettel}
 
-  Sortiert nun die ungültigen Stimmzettel aus und zählt sie durch. Ungültig
-  sind Stimmzettel (§11(6) Wahlordnung),
+  Sortiert nun die ungï¿½ltigen Stimmzettel aus und zï¿½hlt sie durch. Ungï¿½ltig
+  sind Stimmzettel (ï¿½11(6) Wahlordnung),
   \begin{enumerate}
   \item die in Inhalt, Form und Farbe von den bereitgestellten abweichen,
   \item die ganz durchgestrichen oder ganz durchgerissen sind,
-  \item die mit Bemerkungen versehen sind, ein auf die Person des Wählenden
+  \item die mit Bemerkungen versehen sind, ein auf die Person des Wï¿½hlenden
     hinweisendes Merkmal oder einen Vorbehalt enthalten,
-  \item aus dem sich der Wille der Wählerin oder des Wählers nicht
+  \item aus dem sich der Wille der Wï¿½hlerin oder des Wï¿½hlers nicht
     zweifelsfrei ergibt,
   \item bei den Fachschaftsvorstandswahlen, wenn mehr Stimmen als
-    gemäß §1(7) zugelassen sind [hier: \election@CandidateVotes],
+    gemï¿½ï¿½ ï¿½1(7) zugelassen sind [hier: \election@CandidateVotes],
     abgegeben wurden oder wenn mehr als zwei Stimmen auf eine
     Kandidatin oder einen Kandidaten vereinigt wurden.
   \end{enumerate}
 
-  {\bigskip\large Anzahl der ungültigen Stimmzettel:~\hr{3cm}}
+  {\bigskip\large Anzahl der ungï¿½ltigen Stimmzettel:~\hr{3cm}}
 
   \ifnum\partycnt>1
 
   \section{Listenstimmen}
 
-  \subsection{Ungültige Listenstimmen}
+  \subsection{Ungï¿½ltige Listenstimmen}
 
-  Sortiert nun von den gültigen Stimmzetteln die ungültigen
-  Listenstimmen aus und zählt sie. Ungültig sind Stimmen (§11(7)
+  Sortiert nun von den gï¿½ltigen Stimmzetteln die ungï¿½ltigen
+  Listenstimmen aus und zï¿½hlt sie. Ungï¿½ltig sind Stimmen (ï¿½11(7)
   Wahlordnung),
   \begin{enumerate}
   \item bei der SP-Wahl, wenn mehr als eine Liste angekreuzt ist,
   \item\relax [\ldots]
-  \item bei denen nicht erkennbar ist, für welche Kandidatinnen oder
+  \item bei denen nicht erkennbar ist, fï¿½r welche Kandidatinnen oder
     Kandidaten sie abgegeben wurden,
-  \item wenn gegenüber der oder dem gewählten eine Verwahrung oder ein
-    Vorbehalt beigefügt ist,
-  \item welche für Personen abgegeben sind, die auf keinem Wahlvorschlag
-    aufgeführt sind
+  \item wenn gegenï¿½ber der oder dem gewï¿½hlten eine Verwahrung oder ein
+    Vorbehalt beigefï¿½gt ist,
+  \item welche fï¿½r Personen abgegeben sind, die auf keinem Wahlvorschlag
+    aufgefï¿½hrt sind
   \end{enumerate}
 
-  {\bigskip\large Anzahl der ungültigen Listenstimmen:~\hr{3cm}}
+  {\bigskip\large Anzahl der ungï¿½ltigen Listenstimmen:~\hr{3cm}}
 
   \subsection{Enthaltungen bei den Listenstimmen}
 
-  Sortiert nun von den gültigen Listenstimmen die Enthaltungen aus und
-  zählt sie. (§11(9): Nicht abgegebene [\ldots] Listenstimmen werden als
-  Enthaltungen gezählt.)
+  Sortiert nun von den gï¿½ltigen Listenstimmen die Enthaltungen aus und
+  zï¿½hlt sie. (ï¿½11(9): Nicht abgegebene [\ldots] Listenstimmen werden als
+  Enthaltungen gezï¿½hlt.)
 
   {\bigskip\large Anzahl der Enthaltungen bei den Listenstimmen:~\hr{3cm}}
 
-  \subsection{Auszählung der Listenstimmen}
+  \subsection{Auszï¿½hlung der Listenstimmen}
 
-  Zählt nun mit der Strichliste im Anhang die Listenstimmen aus.
+  Zï¿½hlt nun mit der Strichliste im Anhang die Listenstimmen aus.
 
-  Werft danach alle gültigen Stimmzettel wieder zusammen.
+  Werft danach alle gï¿½ltigen Stimmzettel wieder zusammen.
   \fi
 
   \section{Kandidierendenstimmen}
 
-  \subsection{Ungültige Kandidierendenstimmen}
-  Sortiert von den gültigen Stimmzetteln die ungültigen
-  Kandidierendenstimmen aus. Ungültig sind Stimmen (§11(7) Wahlordnung),
+  \subsection{Ungï¿½ltige Kandidierendenstimmen}
+  Sortiert von den gï¿½ltigen Stimmzetteln die ungï¿½ltigen
+  Kandidierendenstimmen aus. Ungï¿½ltig sind Stimmen (ï¿½11(7) Wahlordnung),
   \begin{enumerate}
   \item\relax [\ldots]
-  \item bei der SP-Wahl, wenn mehr als fünf Stimmen für Kandidatinnen
+  \item bei der SP-Wahl, wenn mehr als fï¿½nf Stimmen fï¿½r Kandidatinnen
    und Kandidaten abgegeben wurden. Die Listenstimme bleibt dabei
-   gültig.
-  \item bei denen nicht erkennbar ist, für welche Kandidatinnen oder
+   gï¿½ltig.
+  \item bei denen nicht erkennbar ist, fï¿½r welche Kandidatinnen oder
     Kandidaten sie abgegeben wurden,
-  \item wenn gegenüber der oder dem gewählten eine Verwahrung oder ein
-    Vorbehalt beigefügt ist,
-  \item welche für Personen abgegeben sind, die auf keinem Wahlvorschlag
-    aufgeführt sind
+  \item wenn gegenï¿½ber der oder dem gewï¿½hlten eine Verwahrung oder ein
+    Vorbehalt beigefï¿½gt ist,
+  \item welche fï¿½r Personen abgegeben sind, die auf keinem Wahlvorschlag
+    aufgefï¿½hrt sind
   \end{enumerate}
 
-  {\bigskip\large Anzahl der ungültigen Kandidierendenstimmen:~\hr{3cm}}
+  {\bigskip\large Anzahl der ungï¿½ltigen Kandidierendenstimmen:~\hr{3cm}}
 
   \ifnum\election@CandidateVotes=1
 
   \subsection{Enthaltungen bei den Kandidierendenstimmen}
-  Zählt nun die Enthaltungen bei den Kandidierendenstimmen.
+  Zï¿½hlt nun die Enthaltungen bei den Kandidierendenstimmen.
 
   {\bigskip\large Enthaltungen bei den Kandidierendenstimmen:~\hr{3cm}}
 
   \fi
 
-  \subsection{Auszählung der Kandidierendenstimmen}
+  \subsection{Auszï¿½hlung der Kandidierendenstimmen}
 
-  Zählt nun mit der folgenden Strichliste die Kandidierendenstimmen aus:
+  Zï¿½hlt nun mit der folgenden Strichliste die Kandidierendenstimmen aus:
   \bigskip
 
   \input{\jobname.uzc}
@@ -198,7 +198,7 @@
   Bitte unterschreiben und Name in Druckbuchstaben dahintersetzen:
 
   \vskip1cm
-  \underbox{Schriftführer}\hrulefill\hrulefill
+  \underbox{Schriftfï¿½hrer}\hrulefill\hrulefill
   \hfill
   \hrulefill\hrulefill
   \hfill
@@ -209,7 +209,7 @@
 
   \ifnum\partycnt>1
   \begin{landscape}
-    \subsection*{Strichliste für die Listenstimmen}
+    \subsection*{Strichliste fï¿½r die Listenstimmen}
     \headrow{\bf Liste}{\bf Summe}
     \input{\jobname.uzp}
   \end{landscape}

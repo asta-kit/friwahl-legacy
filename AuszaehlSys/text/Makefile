@@ -42,6 +42,9 @@ PRE-% : FORCE
 .DELETE_ON_ERROR:
 
 clean:
+	echo clean
+
+clean_old:
 	rm -f *.tex *.log *.aux *.bap *.bac *.dvi *.pdf *.txt *.ps
 
 TESTENV:

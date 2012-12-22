@@ -14,9 +14,9 @@ while ( <STDIN> ) {
 	    $out = "Auslaender-kandi.html";
 	}
 	open ( OUT, ">$out" ) ;
-	print "<A href='$out?cache_dummy=".time()."'>$linktext</A><BR>\n" ;
+	print "<a href='$out?cache_dummy=".time()."'>$linktext</a><br>\n" ;
     } elsif ( /^<NEWSECTION>/ ) {
-	print "<BR>\n" ;
+	#print "<BR>\n" ;
     } else {
 	print OUT $_ ;
     }

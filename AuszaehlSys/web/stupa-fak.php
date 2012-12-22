@@ -24,7 +24,7 @@ function show_stupa_fak ( $row, &$pass ) {
 	array_push ( $pass, $stimmen, $r, $g, $b ) ;
 	if ( $fakultaet_ ) {
 		print "<TD>\n" ;
-		## Wenn Fakult‰t einen Slash enth‰lt, ersetze durch Unterstrich
+		## Wenn Fakult√§t einen Slash enth√§lt, ersetze durch Unterstrich
 		$fakultaet = str_replace("/", "_", $fakultaet);
 		barchart ( 200, 15, $pass, "stupa-fak-$fakultaet.png" ) ;
 		image ( "stupa-fak-$fakultaet.png" ) ;
@@ -39,7 +39,7 @@ function show_legende ( $row ) {
 
 $pass = array() ;
 
-head ( "StuPa nach Fakult‰ten", "stupa-fak.html" ) ;
+head ( "StuPa nach Fakult&auml;ten", "stupa-fak.html" ) ;
 print "<TABLE>" ;
 do_query_pass ( "SELECT urne.fakultaet, sum(liste_urne.stimmen) AS stimmen, ".
 		"anzeige_red AS r, anzeige_green AS g, anzeige_blue AS b ".

@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    text-align: left;
+    font: normal 1em/1.5em Ubuntu, sans-serif;
+    color: black;
+    background-color: #E17900;
+    background-image: url(sternchen.svg), -webkit-linear-gradient(top, #EFBA6C, #E17900 66%);
+    background-image: url(sternchen.svg), -moz-linear-gradient(top, #EFBA6C, #E17900 66%);
+    background-image: -o-linear-gradient(top, #EFBA6C, #E17900 66%);
+    background-image: url(sternchen.svg), linear-gradient(to bottom, #EFBA6C, #E17900 66%);
+    background-attachment: fixed;
+}
+body>div {
+    background-color: white;
+}
+#content {
+    width: 85%;
+    margin: 2em auto 1em auto;
+    padding: 2em;
+    background-color: white;
+    background-color: rgba(255,255,255,.7);
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    -o-border-radius: 2em;
+    border-radius: 2em;
+    overflow: auto;
+}
+h1 {
+    margin: .5em 0 .8em 0;
+}
+h2, h3, p {
+    margin: .5em 0;
+}
+a {
+    color: #E17900;
+    text-decoration: underline;
+}
+#header {
+	padding-bottom: 1em;
+}
+.orange-border {
+	border-top: 2px solid #e17900;
+	padding-top: .5em;
+	border-bottom: 2px solid #e17900;
+	padding-bottom: .5em;
+}
+/* #efba6c */
+#navbar {
+	background-color: #e17900;
+	border-radius: .5em;
+	border-radius: 0.5em;
+	line-height: 1.5em;
+	margin-bottom: 1em;
+	moz-border-radius: 0.5em;
+	overflow: hidden;
+	padding: .5em;
+	webkit-border-radius: 0.5em;
+}
+#navbar a {
+	color: black;
+}
+#footer {
+	width: 85%;
+	margin: 2em auto 1em auto;
+	padding-left: 2em;
+	padding-right: 2em;
+	background-color: #ddd;
+	border-top: 1px solid #9f9f9f;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	-o-border-radius: 2em;
+	border-radius: 2em;
+}
+
+.auswert_tab table, .auswert_tab td, .auswert_tab th {
+	/*border:1px solid black;*/
+	border-collapse:collapse;
+	white-space: nowrap;
+}
+.auswert_tab td, .auswert_tab th {
+	/*border:1px solid #efba6c;*/
+	padding:3px 7px 2px 7px;
+}
+.auswert_tab th {
+	text-align:left;
+	padding-top:5px;
+	padding-bottom:4px;
+	/*background-color:#A7C942;*/
+	background-color: #EA8F17;
+	color:#ffffff;
+}
+.auswert_tab tr.odd td {
+	background-color: #ffffff;
+}
+.auswert_tab tr.even td {
+	background-color: #FFC699;
+}
+
+.tabelle table, .tabelle td, .tabelle th {
+	border:1px solid black;
+	border-collapse:collapse;
+}
+.tabelle td, .tabelle th {
+	border:1px solid #efba6c;
+	padding:3px 7px 2px 7px;
+}
+.tabelle th {
+	text-align:left;
+	padding-top:5px;
+	padding-bottom:4px;
+	/*background-color:#A7C942;*/
+	background-color: #EA8F17;
+	color:#ffffff;
+}
+.tabelle tr.odd td {
+	background-color: #ffffff;
+}
+.tabelle tr.even td {
+	background-color: #FFC699;
+}
+
+
