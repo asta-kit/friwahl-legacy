@@ -1,8 +1,7 @@
-# $Id: PKGBUILD 476 2011-11-23 20:33:33Z mariop $
 # Maintainer: Mario Prausa
 
 pkgname=libcdk-perl
-pkgver=20031210
+pkgver=20120324
 pkgrel=1
 pkgdesc="Perl interface for a curses widget library"
 arch=(i686)
@@ -12,12 +11,12 @@ depends=('libcdk')
 makedepends=()
 source=(ftp://invisible-island.net/cdk/cdk-perl.tar.gz)
 
-md5sums=('d5814507d7d2b5e3e7e5ababfa9e7d86')
+md5sums=('6e967d60423e508ab71e94d068d7d195')
 
 build() {
   cd ${srcdir}/cdk-perl-${pkgver}
 
-  sed -i 's|/usr/local/lib|/usr/lib|g;s|/usr/local/include/cdk|/usr/include/cdk|g' Makefile.PL
+  LIBS="-lcdk -lncurses" ./configure
 
   perl Makefile.PL
 
