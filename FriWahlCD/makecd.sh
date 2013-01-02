@@ -66,7 +66,7 @@ echo -e $RED"Setze IRC User und Passwort..."$BLACK
 sed "s|__irc_password__|`cat usta/data/ircpassword`|g;s|__urne__|$urne|g" usta/data/irssi.conf > $DEST/home/irc/.irssi/config
 
 echo -e $RED"Setze Hostname zu $urne"$BLACK
-sed -i "s/HOSTNAME=\".*\"/HOSTNAME=\"$urne\"/g" $DEST/etc/rc.conf
+echo $urne > $DEST/etc/hostname
 
 echo -e $RED"Kopiere Key in die authorized_keys-Datei der Urne..."$BLACK
 echo -n "command=\"/usr/local/FriCardWahl/clearing.pl\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding " > "$HOME/keys/$urne/ssh_key"

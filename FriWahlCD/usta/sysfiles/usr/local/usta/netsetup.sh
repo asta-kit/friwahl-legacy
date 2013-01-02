@@ -1,9 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright (C) 2010-2011 Mario Prausa
-#
-# $Id: netsetup.sh 434 2011-01-13 23:18:52Z mariop $
+# Copyright (C) 2010-2012 Mario Prausa
 #
 
 . /etc/friwahl/rzaccount.sh
@@ -44,7 +42,7 @@ for dev in $lans; do
 		up=1
 	else
 		ifconfig $dev up
-		sleep 5
+		sleep 15
 		if [ `cat /sys/class/net/$dev/operstate` != "down" ]; then
 			up=1
 		fi

@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=UStA
+Description=UStA Wahl CD Theme
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/usta
+ScriptFile=/usr/share/plymouth/themes/usta/usta.script

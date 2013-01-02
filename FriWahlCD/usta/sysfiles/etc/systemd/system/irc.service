@@ -1,0 +1,13 @@
+[Unit]
+Description=Logging Console
+After=systemd-user-sessions.service plymouth-quit-wait.service
+After=rc-local.service
+
+[Service]
+ExecStart=-/usr/bin/openvt -f -w -c4 /usr/local/usta/irssi.sh
+Type=idle
+Restart=always
+RestartSec=0
+
+[Install]
+WantedBy=multi-user.target
