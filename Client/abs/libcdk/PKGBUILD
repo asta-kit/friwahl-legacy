@@ -1,0 +1,44 @@
+# Maintainer: Alexander Rødseth <rodseth@gmail.com>
+# Contributor: Gerhard Brauer <gerhard.brauer@web.de>
+
+pkgname=libcdk
+pkgver=5.0.20120323
+pkgrel=1
+pkgdesc="Curses Development Kit - widget library, enhanced version"
+arch=('x86_64' 'i686')
+url="http://invisible-island.net/cdk/"
+license=('custom')
+depends=('bash')
+options=(!emptydirs)
+source=("ftp://invisible-island.net/cdk/cdk.tar.gz")
+sha256sums=('a7a8210a85b1505f3f9e794cd11afad1c66f42306e6387b197bd006b24534c74')
+
+build() {
+  cd "$srcdir/cdk-`echo $pkgver | sed 's|\.2|-2|'`"
+
+  msg2 "Configuring..."
+  ./configure --prefix=/usr --mandir=/usr/share/man
+
+  msg2 "Compiling..."
+  make
+}
+  
+package() {
+  cd "$srcdir/cdk-`echo $pkgver | sed 's|\.2|-2|'`"
+
+  msg2 "Packaging..."
+  make \
+    DOCUMENT_DIR="$pkgdir/usr/share/doc/cdk" \
+    DESTDIR="$pkgdir/" \
+    install
+  make \
+    DESTDIR="$pkgdir/" \
+    installCDKSHLibrary
+
+  chmod a+x $pkgdir/usr/bin/cdk5-config
+
+  msg2 "Packaging license..."
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+}
+
+# vim:set ts=2 sw=2 et:

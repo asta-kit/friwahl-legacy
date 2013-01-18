@@ -1,11 +1,6 @@
 #!/bin/bash
 
-#
-# $Id: friwahl-run.sh 401 2011-01-09 18:33:05Z mariop $
-#
-
 export PATH=/usr/local/usta/:$PATH
-export LANG=de_DE.utf8
 
 SERVER=`cat /etc/friwahl/server`
 

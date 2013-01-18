@@ -1,12 +1,25 @@
 #!/bin/bash
 
 #
-# $Id: irssi.sh 401 2011-01-09 18:33:05Z mariop $
+# Copyright (C) 2010-2012 Mario Prausa
 #
 
-export LANG=de_DE.utf8
+export TERM=linux
 
-sleep 5
+IRCSERVER=fachschaft.physik.uni-karlsruhe.de
+
+. /etc/profile
+
+echo "Warte auf IRC-Server..."
+
+while : ; do
+	while [ $(route | sed '1,2d' | wc -l) -eq 0 ]; do
+		sleep 1
+	done
+	if fping -q -r1 -t100 "$IRCSERVER"; then 
+		break
+	fi
+done
 
 su -c irssi -- irc
 

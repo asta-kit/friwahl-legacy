@@ -3,7 +3,7 @@
 # Trouble System for the UStA Wahl 
 #
 # (c) 2005-2006 by Fabian Franz
-# (c) 2008-2010 by Mario Prausa
+# (c) 2008-2012 by Mario Prausa
 #
 # License: GPL, version 2
 #
@@ -12,9 +12,12 @@
 
 # Dependencies: expect, fping
 
+export TERM=linux
+
+. /etc/profile
+
 cd $(dirname $0)
 
-export LANG=de_DE.utf8
 
 STATUSFILE=/tmp/wahl-status
 TIMEFILE=/tmp/timefile.tmp

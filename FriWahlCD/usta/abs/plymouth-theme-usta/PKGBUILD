@@ -1,0 +1,27 @@
+pkgname=plymouth-theme-usta
+pkgver=0.7
+pkgrel=1
+pkgdesc="UStA-Wahl theme for Plymouth"
+arch=('any')
+url="http://www.usta.de"
+license=('GPL')
+depends=('plymouth')
+makedepends=()
+source=(background.png
+        shutdown.png
+        stern.png
+        usta.plymouth
+        usta.script)
+md5sums=('c69a97f3774aefe4a8d49ece41e038c3'
+         'c1c784842433c81a5349e93fa2a07754'
+         'ecde94507739c43e2dc0d4e905572183'
+         'f2e126de3f858d275331a987ba33a670'
+         'c53cc26a3070031c0892313f4416b221')
+
+build() {
+	install -D -m644 ${startdir}/background.png ${startdir}/pkg/usr/share/plymouth/themes/usta/background.png
+	install -D -m644 ${startdir}/shutdown.png ${startdir}/pkg/usr/share/plymouth/themes/usta/shutdown.png
+	install -D -m644 ${startdir}/stern.png ${startdir}/pkg/usr/share/plymouth/themes/usta/stern.png
+	install -D -m644 ${startdir}/usta.plymouth ${startdir}/pkg/usr/share/plymouth/themes/usta/usta.plymouth
+	install -D -m644 ${startdir}/usta.script ${startdir}/pkg/usr/share/plymouth/themes/usta/usta.script
+}

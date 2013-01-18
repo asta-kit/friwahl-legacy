@@ -1,0 +1,37 @@
+if (Plymouth.GetMode() == "boot") {
+	bg_image = Image("background.png");
+} else {
+	bg_image = Image("shutdown.png");
+}
+bg_image_scaled = bg_image.Scale(Window.GetWidth(),Window.GetHeight());
+
+scale_x = Window.GetWidth()/bg_image.GetWidth();
+scale_y = Window.GetHeight()/bg_image.GetHeight();
+
+bg_sprite = Sprite(bg_image_scaled);
+bg_sprite.SetPosition(0,0,-1000);
+
+stern = Image("stern.png");
+
+stern_sprite = Sprite(stern);
+stern_sprite.SetPosition(754*scale_x,554*scale_y,0);
+
+angle = 0;
+
+fun refresh_callback() {
+	angle -= 0.1396;
+	stern_sprite.SetImage(stern.Rotate(angle));	
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);
+
+message_sprite = Sprite();
+message_sprite.SetPosition(10, 10, 10000);
+
+fun message_callback (text)
+{
+  my_image = Image.Text(text, 1, 1, 1);
+  message_sprite.SetImage(my_image);
+}
+
+Plymouth.SetMessageFunction(message_callback);
