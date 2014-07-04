@@ -797,17 +797,27 @@ sub realsleep {
 sub dialog_info {
 	my ( $title, $text, @opt ) = @_;
 	call_dialog(
-		'--backtitle', $backtitle, '--cr-wrap', '--title',
-		$title,		@opt,	   '--infobox', $text,
-		-1,			-1
+		'--backtitle', $backtitle,
+		'--cr-wrap',
+		'--title',
+		$title,
+		@opt,
+		'--infobox', $text,
+		-1, -1
 	);
 }
 
 sub dialog_message {
 	my ( $title, $text, @opt ) = @_;
-	call_dialog( '--backtitle', $backtitle,
+	call_dialog(
+		'--backtitle', $backtitle,
 		'--backfoot', 'RETURN zum Bestaetigen',
-		'--cr-wrap', '--title', $title, @opt, '--msgbox', $text, -1, -1 );
+		'--cr-wrap',
+		'--title', $title,
+		@opt,
+		'--msgbox', $text,
+		-1, -1
+	);
 }
 
 sub dialog_yesno {
@@ -815,12 +825,12 @@ sub dialog_yesno {
 	return call_dialog(
 		'--backtitle', $backtitle,
 		'--backfoot',  'Pfeiltasten zum Wechseln, RETURN zum Bestaetigen',
-		'--cr-wrap',   '--title',
-		$title,		'--yes-label',
-		'Ja',		  '--no-label',
-		'Nein',		@opt,
-		'--yesno',	 $text,
-		-1,			-1
+		'--cr-wrap',
+		'--title', $title,
+		'--yes-label', 'Ja',
+		'--no-label', 'Nein',
+		@opt,
+		'--yesno', $text, -1, -1
 	);
 }
 
@@ -831,7 +841,7 @@ sub dialog_input {
 		'--backfoot',
 		'Text eingeben, RETURN zum Bestaetigen, ESC zum Abbrechen',
 		'--cr-wrap',
-		'--title',		$title,
+		'--title', $title,
 		'--cancel-label', 'Abbruch',
 		@opt,
 		'--inputbox', $text, -1, -1
@@ -850,8 +860,7 @@ sub dialog_checklist {
 	}
 
 	return call_dialog(
-		'--backtitle',
-		$backtitle,
+		'--backtitle', $backtitle,
 		'--backfoot',
 		'[*]=ausgew., '
 		  . 'Zahlen/Buchst. zum Auswaehlen, '
@@ -860,10 +869,8 @@ sub dialog_checklist {
 		'--cr-wrap',
 		'--separate-output',
 		'--auto-toggle',
-		'--title',
-		$title,
-		'--cancel-label',
-		'Abbruch',
+		'--title', $title,
+		'--cancel-label', 'Abbruch',
 		'--checklist',
 		$text,
 		$height + 8,
@@ -885,17 +892,14 @@ sub dialog_menu {
 	}
 
 	return call_dialog(
-		'--backtitle',
-		$backtitle,
+		'--backtitle', $backtitle,
 		'--backfoot',
 		'Zahlen/Buchst./Pfeiltasten zum Auswaehlen, '
 		  . 'RETURN zum Bestaetigen, '
 		  . 'ESC zum Abbrechen',
 		'--cr-wrap',
-		'--title',
-		$title,
-		'--cancel-label',
-		'Abbruch',
+		'--title', $title,
+		'--cancel-label', 'Abbruch',
 		'--menu',
 		$text,
 		$height + $txtheight + 7,
@@ -923,8 +927,7 @@ sub dialog_menu_nocancel {
 		  . 'RETURN zum Bestaetigen, '
 		  . 'ESC zum Abbrechen',
 		'--cr-wrap',
-		'--title',
-		$title,
+		'--title', $title,
 		'--no-cancel',
 		'--menu',
 		$text,
