@@ -149,32 +149,57 @@ sub new_voter {
 	if ( !defined $vid ) {
 		return;
 	}
-	my (@el) = ask_elections($vid);
-	if ( scalar(@el) == 0 ) {
+
+	my ($valid, @voter_votings) = check_voter($vid);
+
+	my (@votings) = ask_elections($vid, @voter_votings);
+	if ( scalar(@votings) == 0 ) {
 		return;
 	}
 
 	my $ok = 0;
 
-	do {
-		my $bibnr = ask_bibNum($vid);
-
-		if ( defined $bibnr ) {
-			if ( $bibnr != -1 ) {
-				$ok = server_send_info(
-					"Vormerkung wird zum Server übermittelt...",
+	if ( defined $valid ) {
+		$ok = server_send_info(
+			"Vormerkung wird zum Server übermittelt...",
 "Der Wähler wurde vorgemerkt\n\nBitte den Ausweis des Wählers behalten, bis er gewählt hat!",
-					"insert-queue-element",
-					$vid,
-					$bibnr,
-					@el
-				);
-			}
-			else {
-				$ok = 1;
-			}
+			"insert-queue-element",
+			$vid,
+			@votings
+		);
+	}
+}
+
+sub check_voter {
+	my ( $vid ) = @_;
+	my ( $ok, @tmp ) = server_list("check-voter", $vid);
+	if ( !$ok ) {
+		# Voter not found, return
+		return (0);
+	}
+
+	my ( $givenName, $familyName ) = split /,/, shift(@tmp), 2;
+	my $department = shift(@tmp);
+
+	my @voter_votings;
+	foreach (@tmp) {
+		my ( $tag, $name ) = split / /, $_, 2;
+		if ( !defined $name ) {
+			dialog_message( "Problem", "Formatfehler bei Servermeldung" );
+			exit -1;
 		}
-	} while ( !$ok );
+		push @voter_votings, [ $tag, $name ];
+		$voter_votings{$tag} = $name;
+	}
+
+	dialog_message( "Information",
+		"Folgende Informationen wurden fuer Waehler vom Server erhalten:\n\n"
+		  . "Name: " . $givenName . " " . $familyName . "\n"
+		  . "Fakultät: " . $department . "\n\n"
+		  . join( ", ", map { $_->[1] } @voter_votings ) );
+
+	return ( true, @voter_votings );
+
 }
 
 #################### ask for voter
@@ -550,7 +575,7 @@ sub handle_voter {
 ################ Ask for choices
 
 sub ask_elections {
-	my ($vid) = @_;
+	my ($vid, @votings) = @_;
 	for ( ; ; ) {
 		my ( $rv, @el ) = sigchild_wrapper(
 			sub {
@@ -560,7 +585,7 @@ sub ask_elections {
 					  . "eingeben.\n"
 					  . "Waehler: "
 					  . $vid . "\n",
-					\@elections
+					\@votings
 				);
 			}
 		);
