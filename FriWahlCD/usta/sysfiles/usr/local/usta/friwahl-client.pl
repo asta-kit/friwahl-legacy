@@ -38,7 +38,7 @@ elsif ( scalar(@ARGV) == 2 ) {
 	dialog_message( "FriWahl TESTMODUS",
 		"Start im Testmodus\nmit TCP-Verbindung\n" );
 	$serverpid = open3( \*SERVER_OUT, \*SERVER_IN, \*SERVER_ERR,
-		'socket', '-q', $ARGV[0], $ARGV[1] );
+		'nc', $ARGV[0], $ARGV[1] );
 	realsleep(1);
 
 }
