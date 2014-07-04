@@ -199,15 +199,6 @@ sub ask_voter {
 		return;
 	}
 	my ($matnr) = ( $vid =~ /^(\d+)/ );
-	if ( !valid_matnr($matnr) ) {
-		dialog_message(
-			"Fehleingabe",
-			"Pruefsumme der Matrikelnummer ist falsch. "
-			  . "Wahrscheinlich liegt ein Fehler bei der Eingabe " . "vor.",
-			"--beep"
-		);
-		return;
-	}
 
 	################ Retype
 	my ( $rv2, $vid2 ) = sigchild_wrapper(
