@@ -54,7 +54,7 @@ elsif ( scalar(@ARGV) == 3 ) {
 		'-o',		 'BatchMode yes',
 		'-o',		 'HostKeyAlias asta-wahl.asta.uni-karlsruhe.de',
 		'-i',		 $ARGV[2],
-		'-l',		 $ARGV[1],
+		'-l',		 'urne',
 		$ARGV[0],	 'false'
 	);
 	realsleep(2);
