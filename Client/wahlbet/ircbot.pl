@@ -6,15 +6,15 @@ use strict;
 my $irc = new Net::IRC;
 
 my $conn = $irc->newconn(
-	Server 		=> '127.0.0.1',
+	Server 		=> 'fachschaft.physik.uni-karlsruhe.de',
 	Port		=> '6667', 
 	Nick		=> 'WahlBot',
 	Ircname		=> 'Wahlbeteiligungs-Bot - say hello to me!',
 	Username	=> 'wahlbot',
-	Password	=> 'EimaCh7i'
+	Password	=> 'Eic0ien2'
 );
 
-$conn->{channel} = '#uwahl';
+$conn->{channel} = '#wahl';
 
 sub get_wahlbet {
 	system('ssh -i ~/.ssh/wahlbet_key wahlprognose@asta-wahl.asta.uni-karlsruhe.de wahl/Client/wahlbet/wahlbet.py wahl/Client/wahlbet/templates/wahlbet.irc.txt > /tmp/wahlbet.irc.txt');
