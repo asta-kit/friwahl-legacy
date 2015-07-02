@@ -49,12 +49,10 @@ mv $ROOTFS/boot/vmlinuz-linux work/iso/arch/boot/i686/vmlinuz
 
 mkdir work/iso/arch/boot/syslinux
 
-cp $ROOTFS/usr/lib/syslinux/bios/menu.c32 work/iso/arch/boot/syslinux
 
 mkdir work/iso/isolinux
 
-cp $ROOTFS/usr/lib/syslinux/isolinux.bin work/iso/isolinux
-cp $ROOTFS/usr/lib/syslinux/isohdpfx.bin work/iso/isolinux
+cp $ROOTFS/usr/lib/syslinux/bios/* work/iso/isolinux
 cp usta/data/isolinux.cfg work/iso/isolinux/isolinux.cfg
 
 cp usta/data/aitab work/iso/arch
