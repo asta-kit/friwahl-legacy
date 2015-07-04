@@ -21,7 +21,8 @@ mkarchiso -v -C /tmp/pacman.conf init
 mkarchiso -v -C /tmp/pacman.conf -p base install
 mkarchiso -v -C /tmp/pacman.conf -p syslinux install
 
-mkarchiso -v -C /tmp/pacman.conf -p "openssh unzip zip irssi ipw2100-fw ipw2200-fw rfkill wireless_tools zd1211-firmware broadcom-wl b43-firmware wpa_supplicant net-tools openssl openvpn perl iptables dhcp dhclient fping curl perl-www-curl expect netcfg pygobject vim wavemon dialog-usta plymouth plymouth-theme-usta net-tools" install
+mkarchiso -v -C /tmp/pacman.conf -p "openssh unzip zip irssi ipw2100-fw ipw2200-fw rfkill wireless_tools zd1211-firmware broadcom-wl b43-firmware wpa_supplicant openssl openvpn perl iptables dhcp dhclient fping curl perl-www-curl expect pygobject vim wavemon dialog-usta dnsutils" install 
+# TODO plymount, plymouth-theme-usta hinzufügen
 
 #fehlende pakete: madwifi madwifi-utils
 
