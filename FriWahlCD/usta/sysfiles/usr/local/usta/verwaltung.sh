@@ -22,6 +22,7 @@ cd $(dirname $0)
 STATUSFILE=/tmp/wahl-status
 TIMEFILE=/tmp/timefile.tmp
 SERVER=$(cat /etc/friwahl/server)
+COMMON_DIALOG_OPTIONS="--title "Status" --begin 2 5 --tailboxbg "$STATUSFILE" 4 78 --and-widget --title "Uhrzeit" --begin 29 5 --tailboxbg "$TIMEFILE" 4 35"
 export BACKTITLE="VS-Wahlen 2015 - Verwaltung"
 
 # Accountdaten einlesen
@@ -111,7 +112,7 @@ function expert_gui
 	dialog --backtitle "$BACKTITLE" --title "Experten-Menü?" --timeout 10 --yesno "Experten-Menü aufrufen?" 0 0 || { reset -I; return; }
 	while true;
 	do
-		EXP_CHOICE=$(dialog --title "Status" --begin 2 5 --tailboxbg "$STATUSFILE" 4 78 --and-widget --title "Uhrzeit" --begin 29 5 --tailboxbg "$TIMEFILE" 4 35 --and-widget --default-item "$EXP_CHOICE" --stdout --nocancel --backtitle "$BACKTITLE" --title "erweiterte Problemlösung" --timeout 10 --menu "Auswahl" 0 35 5 "1" "automatische VPN-Einwahl" "2" "manuelle VPN-Einwahl" "3" "VPN beenden" "4" "manuelle wKIT/WPA-Einwahl" "5" "Zurück") || { reset -I; return; }
+		EXP_CHOICE=$(dialog $COMMON_DIALOG_OPTIONS --and-widget --default-item "$EXP_CHOICE" --stdout --nocancel --backtitle "$BACKTITLE" --title "erweiterte Problemlösung" --timeout 10 --menu "Auswahl" 0 35 5 "1" "automatische VPN-Einwahl" "2" "manuelle VPN-Einwahl" "3" "VPN beenden" "4" "manuelle wKIT/WPA-Einwahl" "5" "Zurück") || { reset -I; return; }
 
 		case "$EXP_CHOICE"
 		in
@@ -141,7 +142,7 @@ killall status.sh 2> /dev/null
 
 while true;
 do
-	CHOICE=$(dialog --title "Status" --begin 2 5 --tailboxbg "$STATUSFILE" 4 78 --and-widget --title "Uhrzeit" --begin 29 5 --tailboxbg "$TIMEFILE" 4 35 --and-widget --stdout --nocancel --backtitle "$BACKTITLE" --title "Problemlösung" --menu "Auswahl" 0 40 5 "1" "automatisches Verbinden" "2" "Netzwerk Probleme beheben" "3" "WLAN Probleme beheben" "4" "Experten Menü") || { CHOICE="-1"; reset -I; }
+	CHOICE=$(dialog $COMMON_DIALOG_OPTIONS --and-widget --stdout --nocancel --backtitle "$BACKTITLE" --title "Problemlösung" --menu "Auswahl" 0 40 5 "1" "automatisches Verbinden" "2" "Netzwerk-Probleme beheben" "3" "WLAN-Probleme beheben" "4" "Experten-Menü") || { CHOICE="-1"; reset -I; }
 
 	case "$CHOICE"
 	in
