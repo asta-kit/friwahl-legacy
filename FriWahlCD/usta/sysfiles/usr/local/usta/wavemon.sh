@@ -8,7 +8,7 @@
 
 
 while : ; do
-	WLDEV=$(route | gawk "/*/ { print \$NF; exit }\\")
+	WLDEV=$(ip route | gawk "/*/ { print \$NF; exit }\\")
 
 	if [ -d "/sys/class/net/$WLDEV/wireless" ]; then
 		wavemon -i $WLDEV

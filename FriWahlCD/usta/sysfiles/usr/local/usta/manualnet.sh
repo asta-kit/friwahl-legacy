@@ -101,7 +101,7 @@ if isip "$ip"; then
 	exit 1
 fi
 
-options="$intf $ip "
+options="$ip "
 
 if [[ $netmask != "" ]]; then
 	if isip "$netmask"; then
@@ -110,6 +110,7 @@ if [[ $netmask != "" ]]; then
 	fi
 	options+=" netmask $netmask"
 fi
+options+=" dev $intf"
 
 if [[ "$gateway" != "" ]]; then
 	if isip "$gateway"; then
@@ -118,11 +119,11 @@ if [[ "$gateway" != "" ]]; then
 	fi
 fi
 
-ifconfig $intf up
-ifconfig $options
+ip link set $intf up
+ip addr add $options
 
 if [[ $gateway != "" ]]; then
-	route add default gw $gateway
+	ip route add default via $gateway
 fi
 
 nameserver=""

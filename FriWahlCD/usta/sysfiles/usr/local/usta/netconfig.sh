@@ -25,7 +25,7 @@ while true ; do
     for devdir in /sys/class/net/*; do
         dev=`echo $devdir | sed "s|/sys/class/net/||g"`
         if [ `cat $devdir/type` = "1" ]; then
-            ifconfig $dev down
+            ip link set $dev down
         fi
     done
 
@@ -34,7 +34,8 @@ while true ; do
 	exit 0
     else
 	netcfg -a
-	ifconfig eth0 up
+        # TODO fix device name!
+	ip link set eth0 up
 	echo "waiting for device eth0"
 	for i in `seq 1 20`; do sleep 1; echo -n "."; done
 	echo

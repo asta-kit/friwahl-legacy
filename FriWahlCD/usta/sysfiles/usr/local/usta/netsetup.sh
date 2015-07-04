@@ -37,30 +37,36 @@ con=0
 for dev in $lans; do
 	up=0
 	dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche über $dev eine Verbindung herzustellen.." 3 60
-	
+	logger "Connecting via $dev"
+
 	if [ `cat /sys/class/net/$dev/operstate` != "down" ]; then
 		up=1
+		logger "Device $dev is up"
 	else
-		ifconfig $dev up
+		ip link set $dev up
 		sleep 15
 		if [ `cat /sys/class/net/$dev/operstate` != "down" ]; then
 			up=1
+			logger "Device $dev was down, is now up"
 		fi
 	fi
 	if [ $up = 1 ]; then
+		logger "Configuring device $dev"
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.." 3 60
-		dhclient $dev
-		ifconfig $dev | grep "inet .*\..*\..*\..*" > /dev/null
+		dhclient $dev || logger "Could not start dhclient for $dev"
+		ip addr show $dev | grep "inet .*\..*\..*\..*" > /dev/null
 		if [ $? -eq 0 ]; then
 			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. Erfolg" 3 60			 
 			con=1
+			logger "Device $dev now has an IP address"
 			break
 		else
-			ifconfig $dev down
+			ip link set $dev down
 			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. fehlgeschlagen" 3 60
+			logger "Could not get IP address for device $dev"
 		fi
 	else
-		ifconfig $dev down
+		ip link set $dev down
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Kein Netzwerkkabel in $dev eingesteckt" 3 60
 	fi
 done
@@ -68,21 +74,21 @@ done
 if [ $con = 0 ]; then
 	for dev in $wlans; do
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche über $dev eine Verbindung herzustellen.." 3 60
-		ifconfig $dev up
+		ip link set $dev up
 		sleep 5
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche über $dev mit wkit-802.1x zu verbinden.." 3 60
 		wpa_supplicant -c /tmp/wpa_supplicant.conf -i$dev -B
 		sleep 5
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.." 3 60
-		dhclient $dev
-		ifconfig $dev | grep "inet .*\..*\..*\..*" > /dev/null
+		dhclient $dev || logger "Could not start dhclient for $dev"
+		ip addr show $dev | grep "inet .*\..*\..*\..*" > /dev/null
 		if [ $? -eq 0 ]; then
 			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. Erfolg" 3 60
 			con=1
 			break
 		else
 			killall wpa_supplicant
-			ifconfig $dev down
+			ip link set $dev down
 			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. fehlgeschlagen" 3 60
 		fi
 	done

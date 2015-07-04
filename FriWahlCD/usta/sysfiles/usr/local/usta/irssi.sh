@@ -13,7 +13,7 @@ IRCSERVER=fachschaft.physik.uni-karlsruhe.de
 echo "Warte auf IRC-Server..."
 
 while : ; do
-	while [ $(route | sed '1,2d' | wc -l) -eq 0 ]; do
+	while [ $(ip route | wc -l) -eq 0 ]; do
 		sleep 1
 	done
 	if fping -q -r1 -t100 "$IRCSERVER"; then 

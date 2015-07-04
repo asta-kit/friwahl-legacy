@@ -20,17 +20,18 @@ while : ; do
 	fi
 	
 	SERVER_STATUS="erreichbar"
-	if [ $(route | sed '1,2d' | wc -l) -eq 0 ]; then
+	if [ $(ip route | wc -l) -eq 0 ]; then
 		SERVER_STATUS="nicht erreichbar"
 		INTF=""
 		IP="0.0.0.0"
 	else 
 		fping -q -r1 -t100 "$SERVER" &>/dev/null || SERVER_STATUS="nicht erreichbar"
-		INTF=$(route | gawk "/*/ { print \$NF; exit }\\")
-		IP=$(ifconfig $INTF | gawk -F"[ :]+" '/inet / { print $3 }')
+		# extract the interface from ip's output. This relies on the device name being in the fifth position
+		INTF=$(ip -o route show | grep "^default via" | cut -d" " -f 5)
+		IP=$(ip addr show $INTF | gawk -F"[ :]+" '/inet / { print $3 }')
 	fi
 
-	echo "$VPN_STATUS, Server: $SERVER_STATUS, IP: $INTF/$IP" >> $STATUSFILE
+	echo "$VPN_STATUS, Server: $SERVER_STATUS, IP: $INTF - $IP" >> $STATUSFILE
 	sleep 1
 done
 

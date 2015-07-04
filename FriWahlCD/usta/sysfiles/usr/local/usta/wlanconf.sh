@@ -62,10 +62,10 @@ killall wpa_supplicant 2> /dev/null
 
 echo "Schalte $WLDEV ab..."
 iwconfig $WLDEV essid any
-ifconfig $WLDEV down
+ip link set $WLDEV down
 sleep 5
 echo "... um es danach wieder einzuschalten."
-ifconfig $WLDEV up
+ip link set $WLDEV up
 sleep 5
 
 choice=$($DIALOG \
