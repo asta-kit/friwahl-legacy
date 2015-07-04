@@ -46,7 +46,7 @@ if [ ! -f "$HOME/accounts/$urne/rzaccount.sh" ]; then
         echo '} & openssl base64 -d -in fin -out encode_out & openssl rsautl -inkey /etc/friwahl/key -decrypt -in encode_out -out fout & cat fout && rm -f fin fout encode_out; }`' >> $HOME/accounts/$urne/rzaccount.sh
 fi
 
-DEST=$(pwd)/work/root-image
+DEST=$(pwd)/work/airootfs
 
 echo -e $RED"Kopiere Keys in das Arbeitsverzeichnis..."$BLACK
 mkdir -p "$DEST/etc/friwahl"
