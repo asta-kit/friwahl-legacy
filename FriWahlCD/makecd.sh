@@ -65,7 +65,7 @@ cp -v usta/data/server "$DEST/etc/friwahl/server"
 mkdir -p "$DEST/etc/ssh"
 # asta-wahl.asta.uni-karlsruhe.de is entered as the HostKeyAlias, it will also
 # work if the server is on another IP Adress (ie. inside the UStA subnet)
-echo -n "asta-wahl.asta.uni-karlsruhe.de ssh-rsa " > "$DEST/etc/ssh/ssh_known_hosts"
+echo -n "wahl.asta.kit.edu ssh-rsa " > "$DEST/etc/ssh/ssh_known_hosts"
 cut -f2 -d' ' /etc/ssh/ssh_host_rsa_key.pub >> "$DEST/etc/ssh/ssh_known_hosts"
 chmod -w "$DEST/etc/friwahl"
 
