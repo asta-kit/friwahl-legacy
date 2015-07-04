@@ -8,7 +8,10 @@ export TERM=linux
 
 . /etc/profile
 
+sleep 5
+
 if [ ! -f /tmp/netsetup ]; then 
+	logger "Running network setup"
 	/usr/local/usta/netsetup.sh
 	touch /tmp/netsetup
 fi
