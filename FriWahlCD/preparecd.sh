@@ -5,6 +5,12 @@ BLACK="\033[0m"
 
 ROOTFS=work/airootfs
 
+# NOTE: this requires the script to be executed from its very location
+# WARNING: set the path so we get the correct version of mkarchiso; otherwise, the wrong architecture might be used
+# you need to manually set the architecture (arch=i686) in ./archiso/archiso/mkarchiso, otherwise the image will be
+# built with your machine's architecture, which might be wrong (x86_64 will cause problems with the live CDs)
+export PATH=./archiso/archiso:$PATH
+
 rm -rf work
 
 sed "s|%ustarepo%|$(readlink -f usta/repo)|g" usta/data/pacman.conf > /tmp/pacman.conf
