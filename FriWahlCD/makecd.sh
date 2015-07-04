@@ -35,7 +35,7 @@ esac
 [ -d "$HOME/keys/$urne" ] || mkdir -p "$HOME/keys/$urne"
 if [ ! -f "$HOME/keys/$urne/key" ]; then
 	echo -e $RED"Generiere Key in $HOME/keys/$urne/key..."$BLACK
-	ssh-keygen -q -t rsa -N '' -f "$HOME/keys/$urne/key"
+	ssh-keygen -q -t rsa -N '' -C "$urne" -f "$HOME/keys/$urne/key"
 fi
 
 [ -d "$HOME/accounts/$urne" ] || mkdir -p "$HOME/accounts/$urne"
