@@ -22,7 +22,7 @@ cd $(dirname $0)
 STATUSFILE=/tmp/wahl-status
 TIMEFILE=/tmp/timefile.tmp
 SERVER=$(cat /etc/friwahl/server)
-export BACKTITLE="UStA Wahl 2012 - Verwaltung"
+export BACKTITLE="VS-Wahlen 2015 - Verwaltung"
 
 # Accountdaten einlesen
 . /etc/friwahl/rzaccount.sh
