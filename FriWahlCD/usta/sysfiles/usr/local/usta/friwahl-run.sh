@@ -26,5 +26,5 @@ while ! ./friwahl-client.pl \
   fi
 done
 #chvt 4
-halt
+shutdown -h now
 
