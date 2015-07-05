@@ -1,6 +1,7 @@
 #!/bin/bash
 
 INFO="\033[42;1m"
+ERROR="\033[41;1m"
 BLACK="\033[0m"
 
 # NOTE: this requires the script to be executed from its very location
@@ -70,7 +71,12 @@ cut -f2 -d' ' /etc/ssh/ssh_host_rsa_key.pub >> "$DEST/etc/ssh/ssh_known_hosts"
 chmod -w "$DEST/etc/friwahl"
 
 echo -e $INFO"Setze IRC-User und -Passwort..."$BLACK
-sed "s|__irc_password__|`cat usta/data/ircpassword`|g;s|__urne__|$urne|g" usta/data/irssi.conf > $DEST/home/irc/.irssi/config
+ircpassword=$(cat usta/data/ircpasswords | grep "^$urne" | cut -d"," -f 2)
+if [ -z "$ircpassword" ] ; then
+	echo -e $ERROR"Kein IRC-Passwort gefunden fuer $urne"$BLACK
+	exit 1
+fi
+sed "s|{irc_passwd}|$ircpassword|g;s|{irc_user}|$urne|g" usta/data/irssi.conf > $DEST/home/irc/.irssi/config
 
 echo -e $INFO"Setze Hostname zu $urne"$BLACK
 echo $urne > $DEST/etc/hostname
