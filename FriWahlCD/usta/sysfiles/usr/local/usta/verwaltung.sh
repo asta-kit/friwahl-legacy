@@ -65,7 +65,7 @@ function wkit_gui
 	done
 
 	if [ -z "$WLDEV" ]; then
-		dialog --backtitle "$BACKTITLE" --title "wKIT/WPA Einwahl" --timeout 10 --msgbox "keine WLAN Karte gefunden" 0 0
+		dialog --backtitle "$BACKTITLE" --title "wKIT/WPA-Einwahl" --timeout 10 --msgbox "keine WLAN-Karte gefunden" 0 0
 		return
 	fi
 
@@ -90,13 +90,13 @@ function wkit_gui
 
 function network_gui 
 {
-	dialog --backtitle "$BACKTITLE" --title "Netzwerk Probleme" --timeout 10 --yesno "Das Netzwerk (re)konfigurieren?" 0 0 || { reset -I; return; }
+	dialog --backtitle "$BACKTITLE" --title "Netzwerk-Probleme" --timeout 10 --yesno "Das Netzwerk (re)konfigurieren?" 0 0 || { reset -I; return; }
 	./netconfig.sh
 }
 
 function wlan_gui 
 {
-	dialog --backtitle "$BACKTITLE" --title "WLAN Probleme" --timeout 10 --yesno "WLAN-Karte (re)konfigurieren?" 0 0 || { reset -I; return; }
+	dialog --backtitle "$BACKTITLE" --title "WLAN-Probleme" --timeout 10 --yesno "WLAN-Karte (re)konfigurieren?" 0 0 || { reset -I; return; }
 	./wlanconf.sh
 }
 
