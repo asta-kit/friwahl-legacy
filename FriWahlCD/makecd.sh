@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RED="\033[40;1;31m"
+INFO="\033[42;1m"
 BLACK="\033[0m"
 
 # NOTE: this requires the script to be executed from its very location
@@ -34,7 +34,7 @@ esac
 
 [ -d "$HOME/keys/$urne" ] || mkdir -p "$HOME/keys/$urne"
 if [ ! -f "$HOME/keys/$urne/key" ]; then
-	echo -e $RED"Generiere Key in $HOME/keys/$urne/key..."$BLACK
+	echo -e $INFO"Generiere Key in $HOME/keys/$urne/key..."$BLACK
 	ssh-keygen -q -t rsa -N '' -C "$urne" -f "$HOME/keys/$urne/key"
 fi
 
@@ -45,7 +45,7 @@ if [ ! -f "$HOME/accounts/$urne/rzaccount.sh" ]; then
 		exit 1
 	fi
 	konf_pw=`echo $konf_pw | sed 's/(/\\(/g;s/)/\\)/g'`
-	echo -e $RED"Erstelle RZ-Accountdatei in $HOME/accounts/$urne/rzaccount.sh..."$BLACK
+	echo -e $INFO"Erstelle RZ-Accountdatei in $HOME/accounts/$urne/rzaccount.sh..."$BLACK
 	echo RZACCOUNT=$konf_account > $HOME/accounts/$urne/rzaccount.sh
 	echo 'RZPASSWORD=`mkfifo fin && mkfifo fout && mkfifo encode_out && { { cat > fin << EOT ' >> $HOME/accounts/$urne/rzaccount.sh
 	mkfifo fin && mkfifo fout && mkfifo encode_out && { echo $konf_pw > fin & openssl rsautl -inkey $HOME/keys/$urne/key -encrypt -in fin -out fout & openssl base64 -in fout -out encode_out & cat encode_out && rm -f fin fout encode_out; } >> $HOME/accounts/$urne/rzaccount.sh
@@ -55,27 +55,27 @@ fi
 
 DEST=$(pwd)/work/airootfs
 
-echo -e $RED"Kopiere Keys in das Arbeitsverzeichnis..."$BLACK
+echo -e $INFO"Kopiere Keys in das Arbeitsverzeichnis..."$BLACK
 mkdir -p "$DEST/etc/friwahl"
 chmod +w "$DEST/etc/friwahl"
 cp -v "$HOME/keys/$urne/key" "$DEST/etc/friwahl"
-cp -v "$HOME/accounts/$urne/rzaccount.sh" "$DEST/etc/friwahl/rzaccount.sh"
+#cp -v "$HOME/accounts/$urne/rzaccount.sh" "$DEST/etc/friwahl/rzaccount.sh"
 echo "$urne" > "$DEST/etc/friwahl/user"
 cp -v usta/data/server "$DEST/etc/friwahl/server"
 mkdir -p "$DEST/etc/ssh"
-# asta-wahl.asta.uni-karlsruhe.de is entered as the HostKeyAlias, it will also
+# wahl.asta.kit.edu is entered as the HostKeyAlias in friwahl-client.pl, it will also
 # work if the server is on another IP Adress (ie. inside the UStA subnet)
 echo -n "wahl.asta.kit.edu ssh-rsa " > "$DEST/etc/ssh/ssh_known_hosts"
 cut -f2 -d' ' /etc/ssh/ssh_host_rsa_key.pub >> "$DEST/etc/ssh/ssh_known_hosts"
 chmod -w "$DEST/etc/friwahl"
 
-echo -e $RED"Setze IRC User und Passwort..."$BLACK
+echo -e $INFO"Setze IRC-User und -Passwort..."$BLACK
 sed "s|__irc_password__|`cat usta/data/ircpassword`|g;s|__urne__|$urne|g" usta/data/irssi.conf > $DEST/home/irc/.irssi/config
 
-echo -e $RED"Setze Hostname zu $urne"$BLACK
+echo -e $INFO"Setze Hostname zu $urne"$BLACK
 echo $urne > $DEST/etc/hostname
 
-echo -e $RED"Kopiere Key in die authorized_keys-Datei der Urne..."$BLACK
+echo -e $INFO"Kopiere Key in die authorized_keys-Datei der Urne..."$BLACK
 echo -n "command=\"/data/friwahl/Packages/Application/AstaKit.FriWahl.BallotBoxBackend/Scripts/BallotBoxSession.sh $urne\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding " > "$HOME/keys/$urne/ssh_key"
 cat "$HOME/keys/$urne/key.pub" >>"$HOME/keys/$urne/ssh_key"
 mkdir -p "/home/urnen/$urne/.ssh"
@@ -83,8 +83,8 @@ cp "$HOME/keys/$urne/ssh_key" "/home/urnen/$urne/.ssh/authorized_keys"
 
 sed "s|%ISOLABEL%|WAHLCD_$urne|g" usta/data/syslinux.cfg > work/iso/arch/boot/syslinux/syslinux.cfg
 
-echo -e $RED"Bereite ISO vor..."$BLACK
+echo -e $INFO"Bereite ISO vor..."$BLACK
 mkarchiso prepare
-echo -e $RED"Erstelle ISO unter out/WAHL-CD.$urne.iso..."$BLACK
-mkarchiso -L "WAHLCD_$urne" -P "Wahlausschuss der VS" -A "Wahl-CD" iso WAHL-CD.$urne.iso
+echo -e $INFO"Erstelle ISO unter out/WAHL-CD.$urne.iso..."$BLACK
+mkarchiso -L "WAHLCD_$urne" -P "Wahlausschuss der VS" -A "Wahl-CD $urne" iso WAHL-CD.$urne.iso
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RED="\033[40;1;31m"
+INFO="\033[42;1m"
 BLACK="\033[0m"
 
 ROOTFS=work/airootfs
@@ -15,7 +15,7 @@ rm -rf work
 
 sed "s|%ustarepo%|$(readlink -f usta/repo)|g" usta/data/pacman.conf > /tmp/pacman.conf
 
-echo -e $RED"Installiere Pakete..."$BLACK
+echo -e $INFO"Installiere Pakete..."$BLACK
 
 mkarchiso -v -C /tmp/pacman.conf init
 mkarchiso -v -C /tmp/pacman.conf -p base install
@@ -26,36 +26,35 @@ mkarchiso -v -C /tmp/pacman.conf -p "openssh unzip zip irssi ipw2100-fw ipw2200-
 
 #fehlende pakete: madwifi madwifi-utils
 
-echo -e $RED"Kopiere System Dateien..."$BLACK
+echo -e $INFO"Kopiere System Dateien..."$BLACK
 
 rm -f $ROOTFS/etc/systemd/system/getty.target.wants/getty\@tty1.service
 
 cp -a usta/sysfiles/* $ROOTFS
 chown -R 1000:100 $ROOTFS/home/irc
 
-echo -e $RED"Generiere Locales..."$BLACK
+echo -e $INFO"Generiere Locales..."$BLACK
 mkarchiso -r "locale-gen" run
 
 mkdir -p work/iso/arch/boot/i686
 
-echo -e $RED"Installiere ArchISO Hooks..."$BLACK
+echo -e $INFO"Installiere ArchISO Hooks..."$BLACK
 make -C archiso DESTDIR=$(readlink -f $ROOTFS) install-initcpio
 
-echo -e $RED"Erstelle Wahl-Splash..."$BLACK
+echo -e $INFO"Erstelle Wahl-Splash..."$BLACK
 cp $ROOTFS/etc/splash/usta/images/background.png /tmp
 usta/scripts/splash.sh people.dat /tmp/background.png $ROOTFS/etc/splash/usta/images/background.png
 rm /tmp/background.png
 
-echo -e $RED"Erstelle InitCPIO..."$BLACK
+echo -e $INFO"Erstelle InitCPIO..."$BLACK
 mkarchiso -r "mkinitcpio -k /boot/vmlinuz-linux -g /boot/archiso.img" run
 
-echo -e $RED"Installiere Kernel, InitCPIO und Bootloader..."$BLACK
+echo -e $INFO"Installiere Kernel, InitCPIO und Bootloader..."$BLACK
 
 mv $ROOTFS/boot/archiso.img work/iso/arch/boot/i686
 mv $ROOTFS/boot/vmlinuz-linux work/iso/arch/boot/i686/vmlinuz
 
 mkdir work/iso/arch/boot/syslinux
-
 
 mkdir work/iso/isolinux
 
