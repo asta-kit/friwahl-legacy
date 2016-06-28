@@ -1,12 +1,12 @@
-[submodule "FriWahlCD/usta/abs/b43-firmware"]
-	path = FriWahlCD/usta/abs/b43-firmware
+[submodule "FriWahlCD/custom/abs/b43-firmware"]
+	path = FriWahlCD/custom/abs/b43-firmware
 	url = https://aur.archlinux.org/b43-firmware.git
-[submodule "FriWahlCD/usta/abs/broadcom-wl"]
-	path = FriWahlCD/usta/abs/broadcom-wl
+[submodule "FriWahlCD/custom/abs/broadcom-wl"]
+	path = FriWahlCD/custom/abs/broadcom-wl
 	url = https://aur.archlinux.org/broadcom-wl.git
-[submodule "FriWahlCD/usta/abs/miscsplashutils"]
-	path = FriWahlCD/usta/abs/miscsplashutils
+[submodule "FriWahlCD/custom/abs/miscsplashutils"]
+	path = FriWahlCD/custom/abs/miscsplashutils
 	url = https://aur.archlinux.org/miscsplashutils.git
-[submodule "FriWahlCD/usta/abs/plymouth"]
-	path = FriWahlCD/usta/abs/plymouth
+[submodule "FriWahlCD/custom/abs/plymouth"]
+	path = FriWahlCD/custom/abs/plymouth
 	url = https://aur.archlinux.org/plymouth.git
