@@ -3,23 +3,24 @@
 INFO="\033[42;1m"
 BLACK="\033[0m"
 
-LIVEFS=wahllive
-ROOTFS=$LIVEFS/airootfs
+BUILDDIR=build
+ROOTFS=$BUILDDIR/airootfs
 OVERLAY=custom/overlay
 DATA=custom/data
 
 # TODO Cleanup build directory before working on it
 
-cp -r /usr/share/archiso/configs/baseline/* $LIVEFS/
-mkdir $LIVEFS/airootfs
+cp -r /usr/share/archiso/configs/baseline/* $BUILDDIR/
+mkdir $BUILDDIR/airootfs
 cp -a $OVERLAY/* $ROOTFS/
-cp $DATA/packages.* $LIVEFS/ 
+cp $DATA/packages.* $BUILDDIR/ 
 
-sed "s|%customrepo%|$(readlink -f custom/repo)|g" custom/data/pacman.conf > $LIVEFS/pacman.conf
+sed "s|%customrepo%|$(readlink -f custom/repo)|g" custom/data/pacman.conf > $BUILDDIR/pacman.conf
 
 echo -e $INFO"Installiere Pakete..."$BLACK
-mkdir $LIVEFS/out
-pushd $LIVEFS > /dev/null 2>&1
+mkdir $BUILDDIR/out
+pushd $BUILDDIR > /dev/null 2>&1
+# TODO Replace ./build.sh with custom build - scripts (as before)
 ./build.sh -v
 popd > /dev/null 2>&1
 
