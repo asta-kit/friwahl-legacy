@@ -1,0 +1,4 @@
+deps: 
+ - sed
+ - imagemagick
+ - openssh

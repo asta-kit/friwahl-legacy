@@ -21,7 +21,7 @@ mkarchiso -v -C /tmp/pacman.conf init
 mkarchiso -v -C /tmp/pacman.conf -p base install
 mkarchiso -v -C /tmp/pacman.conf -p syslinux install
 
-mkarchiso -v -C /tmp/pacman.conf -p "openssh unzip zip irssi ipw2100-fw ipw2200-fw rfkill wireless_tools zd1211-firmware broadcom-wl b43-firmware wpa_supplicant openssl openvpn perl iptables dhcp dhclient fping curl perl-www-curl expect pygobject vim wavemon dialog-usta dnsutils" install || (echo "Fehler beim Installieren zusaetzlicher Pakete" && exit 1)
+mkarchiso -v -C /tmp/pacman.conf -p "openssh unzip zip irssi ipw2100-fw ipw2200-fw rfkill wireless_tools zd1211-firmware broadcom-wl b43-firmware wpa_supplicant openssl openvpn perl iptables dhcp dhclient fping curl perl-www-curl expect pygobject vim wavemon dialog-usta dnsutils plymouth-theme-usta" install || (echo "Fehler beim Installieren zusaetzlicher Pakete" && exit 1)
 # TODO plymount, plymouth-theme-usta hinzufügen
 
 #fehlende pakete: madwifi madwifi-utils
@@ -36,7 +36,7 @@ chown -R 1000:100 $ROOTFS/home/irc
 echo -e $INFO"Generiere Locales..."$BLACK
 mkarchiso -r "locale-gen" run
 
-mkdir -p work/iso/arch/boot/i686
+mkdir -p work/iso/arch/boot/x86_64
 
 echo -e $INFO"Installiere ArchISO Hooks..."$BLACK
 make -C archiso DESTDIR=$(readlink -f $ROOTFS) install-initcpio
@@ -51,8 +51,8 @@ mkarchiso -r "mkinitcpio -k /boot/vmlinuz-linux -g /boot/archiso.img" run
 
 echo -e $INFO"Installiere Kernel, InitCPIO und Bootloader..."$BLACK
 
-mv $ROOTFS/boot/archiso.img work/iso/arch/boot/i686
-mv $ROOTFS/boot/vmlinuz-linux work/iso/arch/boot/i686/vmlinuz
+mv $ROOTFS/boot/archiso.img work/iso/arch/boot/x86_64
+mv $ROOTFS/boot/vmlinuz-linux work/iso/arch/boot/x86_64/vmlinuz
 
 mkdir work/iso/arch/boot/syslinux
 

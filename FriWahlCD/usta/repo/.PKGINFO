@@ -7,7 +7,7 @@ url = http://www.freedesktop.org/wiki/Software/hal
 builddate = 1228538740
 packager = Unknown Packager
 size = 2125824
-arch = i686
+arch =('x86_64' 'i686')
 license = GPL
 license = custom
 depend = dbus-glib>=0.76
