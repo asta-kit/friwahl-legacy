@@ -4,7 +4,7 @@ INFO="\033[42;1m"
 BLACK="\033[0m"
 
 BUILDDIR=build
-ROOTFS=$BUILDDIR/airootfs
+ROOTFS=$BUILDDIR/work/airootfs
 OVERLAY=custom/overlay
 DATA=custom/data
 SCRIPTS=custom/scripts
@@ -13,7 +13,7 @@ SCRIPTS=custom/scripts
 
 mkdir $BUILDDIR/
 cp -r /usr/share/archiso/configs/baseline/* $BUILDDIR/
-mkdir $BUILDDIR/airootfs
+mkdir -p $ROOTFS
 cp -a $OVERLAY/* $ROOTFS/
 cp $DATA/packages.* $BUILDDIR/ 
 cp $SCRIPTS/*.sh $BUILDDIR/

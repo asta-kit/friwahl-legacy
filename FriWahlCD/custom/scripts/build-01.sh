@@ -61,6 +61,6 @@ make_isolinux() {
 
 run_once make_basefs
 run_once make_setup_mkinitcpio
-run once make_boot
-run once make_syslinux
-run once make_isolinux
+run_once make_boot
+run_once make_syslinux
+run_once make_isolinux
