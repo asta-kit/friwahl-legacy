@@ -4,7 +4,7 @@ INFO="\033[42;1m"
 BLACK="\033[0m"
 
 BUILDDIR=build
-ROOTFS=$BUILDDIR/work/airootfs
+ROOTFS=$BUILDDIR/airootfs
 OVERLAY=custom/overlay
 DATA=custom/data
 SCRIPTS=custom/scripts

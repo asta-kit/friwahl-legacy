@@ -4,6 +4,12 @@ INFO="\033[42;1m"
 ERROR="\033[41;1m"
 BLACK="\033[0m"
 
+BUILDDIR=build
+ROOTFS=$BUILDDIR/airootfs
+OVERLAY=custom/overlay
+DATA=custom/data
+SCRIPTS=custom/scripts
+
 usage() {
        echo "Usage: $1 urne [konf_account konf_pw]"
        exit 1
@@ -25,13 +31,14 @@ case $# in
 		usage $0
 		;;
 esac
-
+#Generate SSH-Keys
 [ -d "$HOME/keys/$urne" ] || mkdir -p "$HOME/keys/$urne"
 if [ ! -f "$HOME/keys/$urne/key" ]; then
 	echo -e $INFO"Generiere Key in $HOME/keys/$urne/key..."$BLACK
 	ssh-keygen -q -t rsa -N '' -C "$urne" -f "$HOME/keys/$urne/key"
 fi
 
+#Lese RZ-Account für Spätere WLAN-Konfiguration? ein
 [ -d "$HOME/accounts/$urne" ] || mkdir -p "$HOME/accounts/$urne"
 if [ ! -f "$HOME/accounts/$urne/rzaccount.sh" ]; then
 	if ([ "$konf_account" = "" ] || [ "$konf_pw" = "" ]); then
@@ -47,7 +54,8 @@ if [ ! -f "$HOME/accounts/$urne/rzaccount.sh" ]; then
         echo '} & openssl base64 -d -in fin -out encode_out & openssl rsautl -inkey /etc/friwahl/key -decrypt -in encode_out -out fout & cat fout && rm -f fin fout encode_out; }`' >> $HOME/accounts/$urne/rzaccount.sh
 fi
 
-DEST=$(pwd)/work/airootfs
+#Finalisiere personalisierte Urnen-Erstellung
+DEST=$ROOTFS
 
 echo -e $INFO"Kopiere Keys in das Arbeitsverzeichnis..."$BLACK
 mkdir -p "$DEST/etc/friwahl"
@@ -55,21 +63,21 @@ chmod +w "$DEST/etc/friwahl"
 cp -v "$HOME/keys/$urne/key" "$DEST/etc/friwahl"
 #cp -v "$HOME/accounts/$urne/rzaccount.sh" "$DEST/etc/friwahl/rzaccount.sh"
 echo "$urne" > "$DEST/etc/friwahl/user"
-cp -v usta/data/server "$DEST/etc/friwahl/server"
+cp -v $DATA/server "$DEST/etc/friwahl/server"
 mkdir -p "$DEST/etc/ssh"
 # wahl.asta.kit.edu is entered as the HostKeyAlias in friwahl-client.pl, it will also
 # work if the server is on another IP Adress (ie. inside the UStA subnet)
-echo -n "wahl.asta.kit.edu ssh-rsa " > "$DEST/etc/ssh/ssh_known_hosts"
+echo -n "wahlserver.asta.kit.edu ssh-rsa " > "$DEST/etc/ssh/ssh_known_hosts"
 cut -f2 -d' ' /etc/ssh/ssh_host_rsa_key.pub >> "$DEST/etc/ssh/ssh_known_hosts"
 chmod -w "$DEST/etc/friwahl"
 
 echo -e $INFO"Setze IRC-User und -Passwort..."$BLACK
-ircpassword=$(cat usta/data/ircpasswords | grep "^$urne" | cut -d"," -f 2)
+ircpassword=$(cat $DATA/ircpasswords | grep "^$urne" | cut -d"," -f 2)
 if [ -z "$ircpassword" ] ; then
 	echo -e $ERROR"Kein IRC-Passwort gefunden fuer $urne"$BLACK
 	exit 1
 fi
-sed "s|{irc_passwd}|$ircpassword|g;s|{irc_user}|$urne|g" usta/data/irssi.conf > $DEST/home/irc/.irssi/config
+sed "s|{irc_passwd}|$ircpassword|g;s|{irc_user}|$urne|g" $DATA/irssi.conf > $DEST/home/irc/.irssi/config
 
 echo -e $INFO"Setze Hostname zu $urne"$BLACK
 echo $urne > $DEST/etc/hostname
@@ -80,10 +88,7 @@ cat "$HOME/keys/$urne/key.pub" >>"$HOME/keys/$urne/ssh_key"
 mkdir -p "/home/urnen/$urne/.ssh"
 cp "$HOME/keys/$urne/ssh_key" "/home/urnen/$urne/.ssh/authorized_keys"
 
-sed "s|%ISOLABEL%|WAHLCD_$urne|g" usta/data/syslinux.cfg > work/iso/arch/boot/syslinux/syslinux.cfg
-
-echo -e $INFO"Bereite ISO vor..."$BLACK
-mkarchiso prepare
-echo -e $INFO"Erstelle ISO unter out/WAHL-CD.$urne.iso..."$BLACK
-mkarchiso -L "WAHLCD_$urne" -P "Wahlausschuss der VS" -A "Wahl-CD $urne" iso WAHL-CD.$urne.iso
-
+echo -e $INFO"Bereite ISO vor und erstelle ISO unter ${BUILDDIR}/out/WAHL-CD-$urne.iso..."$BLACK
+pushd $BUIlDDIR > /dev/null 2>&1
+./build-02.sh -N "Wahl-CD" -V "$urne" -v
+popd > /dev/null 2>&1
