@@ -11,6 +11,7 @@ SCRIPTS=custom/scripts
 
 # TODO Cleanup build directory before working on it
 
+mkdir $BUILDDIR/
 cp -r /usr/share/archiso/configs/baseline/* $BUILDDIR/
 mkdir $BUILDDIR/airootfs
 cp -a $OVERLAY/* $ROOTFS/
