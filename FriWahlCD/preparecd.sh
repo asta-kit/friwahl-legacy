@@ -12,7 +12,7 @@ SCRIPTS=custom/scripts
 # TODO Cleanup build directory before working on it
 
 mkdir $BUILDDIR/
-cp -r /usr/share/archiso/configs/baseline/* $BUILDDIR/
+cp -r /usr/share/archiso/configs/releng/* $BUILDDIR/
 mkdir -p $ROOTFS
 cp -a $OVERLAY/* $ROOTFS/
 cp $DATA/packages.* $BUILDDIR/ 
