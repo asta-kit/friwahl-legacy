@@ -7,6 +7,7 @@ BUILDDIR=build
 ROOTFS=$BUILDDIR/airootfs
 OVERLAY=custom/overlay
 DATA=custom/data
+SCRIPTS=custom/scripts
 
 # TODO Cleanup build directory before working on it
 
@@ -14,6 +15,7 @@ cp -r /usr/share/archiso/configs/baseline/* $BUILDDIR/
 mkdir $BUILDDIR/airootfs
 cp -a $OVERLAY/* $ROOTFS/
 cp $DATA/packages.* $BUILDDIR/ 
+cp $SCRIPTS/*.sh $BUILDDIR/
 
 sed "s|%customrepo%|$(readlink -f custom/repo)|g" custom/data/pacman.conf > $BUILDDIR/pacman.conf
 
@@ -21,7 +23,7 @@ echo -e $INFO"Installiere Pakete..."$BLACK
 mkdir $BUILDDIR/out
 pushd $BUILDDIR > /dev/null 2>&1
 # TODO Replace ./build.sh with custom build - scripts (as before)
-./build.sh -v
+./build-01.sh -v
 popd > /dev/null 2>&1
 
 #fehlende pakete: madwifi madwifi-utils
