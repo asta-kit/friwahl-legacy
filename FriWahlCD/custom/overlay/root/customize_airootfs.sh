@@ -16,3 +16,4 @@ if [ -d "/etc/systemd/system/getty@tty1.service.d/" ]; then
     rm -rf /etc/systemd/system/getty@tty1.service.d/
 fi
 chown -R 1000:100 $ROOTFS/home/irc
+locale-gen
