@@ -15,7 +15,7 @@ mkdir $BUILDDIR/
 cp -r /usr/share/archiso/configs/releng/* $BUILDDIR/
 mkdir -p $ROOTFS
 cp -a $OVERLAY/* $ROOTFS/
-cp $DATA/packages.* $BUILDDIR/ 
+cp -a $DATA/build/* $BUILDDIR/ 
 cp $SCRIPTS/*.sh $BUILDDIR/
 
 sed "s|%customrepo%|$(readlink -f custom/repo)|g" custom/data/pacman.conf > $BUILDDIR/pacman.conf

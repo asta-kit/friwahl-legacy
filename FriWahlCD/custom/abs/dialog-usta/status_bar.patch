@@ -1,7 +1,72 @@
-diff -Nur dialog-1.1-20100428/checklist.c dialog-1.1-20100428.patched/checklist.c
---- dialog-1.1-20100428/checklist.c	2010-01-17 20:32:17.000000000 +0100
-+++ dialog-1.1-20100428.patched/checklist.c	2010-12-25 02:37:10.954616762 +0100
-@@ -145,7 +145,8 @@
+commit b0b13f8267130de083f4315561523998caf0c6d2
+Author: Andreas Wolf <dev@a-w.io>
+Date:   Sat Jul 2 13:46:08 2016 +0200
+
+    [TASK] Additional fixes for dialog 1.3
+
+diff --git a/dialog.c b/dialog.c
+index a227ab7..d1b786a 100644
+--- a/dialog.c
++++ b/dialog.c
+@@ -757,7 +757,8 @@ call_inputmenu(CALLARGS)
+ 			 numeric_arg(av, 2),
+ 			 numeric_arg(av, 3),
+ 			 numeric_arg(av, 4),
+-			 tags, av + 5);
++			 tags, av + 5,
++			 dialog_vars.auto_toggle);
+     if (free_extra_label) {
+ 	free(dialog_vars.extra_label);
+ 	dialog_vars.extra_label = 0;
+@@ -777,7 +778,8 @@ call_checklist(CALLARGS)
+ 			    numeric_arg(av, 2),
+ 			    numeric_arg(av, 3),
+ 			    numeric_arg(av, 4),
+-			    tags, av + 5, FLAG_CHECK);
++			    tags, av + 5, FLAG_CHECK,
++			    dialog_vars.auto_toggle);
+     return code;
+ }
+ 
+diff --git a/dialog.h b/dialog.h
+index 4ce3031..824a014 100644
+--- a/dialog.h
++++ b/dialog.h
+@@ -604,7 +604,7 @@ extern int dialog_fselect(const char * /*title*/, const char * /*path*/, int /*h
+ extern int dialog_gauge(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*percent*/);
+ extern int dialog_helpfile(const char * /*title*/, const char * /*file*/, int /*height*/, int /*width*/);
+ extern int dialog_inputbox(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, const char * /*init*/, const int /*password*/);
+-extern int dialog_menu(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*menu_height*/, int /*item_no*/, char ** /*items*/);
++extern int dialog_menu(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*menu_height*/, int /*item_no*/, char ** /*items*/, int /*auto_toggle*/);
+ extern int dialog_mixedform(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*form_height*/, int /*item_no*/, char ** /*items*/);
+ extern int dialog_mixedgauge(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*percent*/, int /*item_no*/, char ** /*items*/);
+ extern int dialog_msgbox(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*pauseopt*/);
+diff --git a/menubox.c b/menubox.c
+index 19f3d5a..ab16617 100644
+--- a/menubox.c
++++ b/menubox.c
+@@ -741,7 +741,8 @@ dialog_menu(const char *title,
+ 	    int width,
+ 	    int menu_height,
+ 	    int item_no,
+-	    char **items)
++	    char **items,
++	    int auto_toggle)
+ {
+     int result;
+     int choice;
+
+commit 20ab4d3abd6bd1993a6506eac9a33dfbd85fd6a6
+Author: Andreas Wolf <dev@a-w.io>
+Date:   Sat Jul 2 12:06:21 2016 +0200
+
+    [TASK] Add changes for FriWahl
+
+diff --git a/checklist.c b/checklist.c
+index 2273eee..afceca2 100644
+--- a/checklist.c
++++ b/checklist.c
+@@ -158,7 +158,8 @@ dlg_checklist(const char *title,
  	      DIALOG_LISTITEM * items,
  	      const char *states,
  	      int flag,
@@ -11,17 +76,17 @@ diff -Nur dialog-1.1-20100428/checklist.c dialog-1.1-20100428.patched/checklist.
  {
      /* *INDENT-OFF* */
      static DLG_KEYS_BINDING binding[] = {
-@@ -177,6 +178,7 @@
- #endif
-     int i, j, key2, found, x, y, cur_x, cur_y, box_x, box_y;
+@@ -192,6 +193,7 @@ dlg_checklist(const char *title,
+     ALL_DATA all;
+     int i, j, key2, found, x, y, cur_x, cur_y;
      int key = 0, fkey;
 +    int nextkey = -1;
-     int button = dialog_state.visit_items ? -1 : dlg_defaultno_button();
+     int button = dialog_state.visit_items ? -1 : dlg_default_button();
      int choice = dlg_default_listitem(items);
      int scrollamt = 0;
-@@ -312,7 +314,18 @@
+@@ -368,7 +370,18 @@ dlg_checklist(const char *title,
  	if (button < 0)		/* --visit-items */
- 	    wmove(dialog, box_y + choice + 1, box_x + check_x + 2);
+ 	    wmove(dialog, all.box_y + choice + 1, all.box_x + all.check_x + 2);
  
 -	key = dlg_mouse_wgetch(dialog, &fkey);
 +	/* 
@@ -39,23 +104,23 @@ diff -Nur dialog-1.1-20100428/checklist.c dialog-1.1-20100428.patched/checklist.
  	if (dlg_result_key(key, fkey, &result))
  	    break;
  
-@@ -406,6 +419,7 @@
- 		    if (dlg_match_char(dlg_last_getc(), items[j].name)) {
+@@ -449,6 +462,7 @@ dlg_checklist(const char *title,
+ 		    if (check_hotkey(items, j)) {
  			found = TRUE;
  			i = j - scrollamt;
 +			if (auto_toggle) nextkey=' ';
  			break;
  		    }
  		}
-@@ -414,6 +428,7 @@
- 			if (dlg_match_char(dlg_last_getc(), items[j].name)) {
+@@ -457,6 +471,7 @@ dlg_checklist(const char *title,
+ 			if (check_hotkey(items, j)) {
  			    found = TRUE;
  			    i = j - scrollamt;
 +			    if (auto_toggle) nextkey=' ';
  			    break;
  			}
  		    }
-@@ -437,6 +452,7 @@
+@@ -480,6 +495,7 @@ dlg_checklist(const char *title,
  	    && (key - '1' < max_choice)) {
  	    found = TRUE;
  	    i = key - '1';
@@ -63,7 +128,7 @@ diff -Nur dialog-1.1-20100428/checklist.c dialog-1.1-20100428.patched/checklist.
  	}
  
  	if (!found) {
-@@ -622,7 +638,8 @@
+@@ -600,7 +616,8 @@ dialog_checklist(const char *title,
  		 int list_height,
  		 int item_no,
  		 char **items,
@@ -72,8 +137,8 @@ diff -Nur dialog-1.1-20100428/checklist.c dialog-1.1-20100428.patched/checklist.
 +		 int auto_toggle)
  {
      int result;
-     int i;
-@@ -654,7 +671,8 @@
+     int i, j;
+@@ -635,7 +652,8 @@ dialog_checklist(const char *title,
  			   listitems,
  			   NULL,
  			   flag,
@@ -83,10 +148,11 @@ diff -Nur dialog-1.1-20100428/checklist.c dialog-1.1-20100428.patched/checklist.
  
      switch (result) {
      case DLG_EXIT_OK:		/* FALLTHRU */
-diff -Nur dialog-1.1-20100428/dialog.1 dialog-1.1-20100428.patched/dialog.1
---- dialog-1.1-20100428/dialog.1	2010-01-18 11:19:07.000000000 +0100
-+++ dialog-1.1-20100428.patched/dialog.1	2010-12-25 02:37:10.954616762 +0100
-@@ -142,11 +142,20 @@
+diff --git a/dialog.1 b/dialog.1
+index 620fa68..3cab9e6 100644
+--- a/dialog.1
++++ b/dialog.1
+@@ -160,11 +160,20 @@ sizing (specifying 0 for height and width).
  It represents width / height.
  The default is 9, which means 9 characters wide to every 1 line high.
  .
@@ -107,10 +173,11 @@ diff -Nur dialog-1.1-20100428/dialog.1 dialog-1.1-20100428.patched/dialog.1
  .IP "\fB--begin \fIy x"
  Specify the position of the upper left corner of a dialog box on the screen.
  .
-diff -Nur dialog-1.1-20100428/dialog.3 dialog-1.1-20100428.patched/dialog.3
---- dialog-1.1-20100428/dialog.3	2010-02-23 11:33:59.000000000 +0100
-+++ dialog-1.1-20100428.patched/dialog.3	2010-12-25 02:37:10.954616762 +0100
-@@ -195,6 +195,12 @@
+diff --git a/dialog.3 b/dialog.3
+index 7304c4e..e851850 100644
+--- a/dialog.3
++++ b/dialog.3
+@@ -279,6 +279,12 @@ It specifies a
  \fIbacktitle\fP
  string to be displayed on the backdrop, at the top of the screen.
  .\" ---------------------------------------------------------------------------
@@ -120,13 +187,14 @@ diff -Nur dialog-1.1-20100428/dialog.3 dialog-1.1-20100428.patched/dialog.3
 +\fIbackfoot\fP
 +string to be displayed on the backdrop, at the bottom of the screen.
 +.\" ---------------------------------------------------------------------------
- .IP \fIDIALOG_VARS.beep_after_signal
+ .SS .beep_after_signal
  This corresponds to the command-line option "\fB--beep-after\fP".
  If true, beep after a user has completed a widget by pressing one of the buttons.
-diff -Nur dialog-1.1-20100428/dialog.c dialog-1.1-20100428.patched/dialog.c
---- dialog-1.1-20100428/dialog.c	2010-01-18 10:21:14.000000000 +0100
-+++ dialog-1.1-20100428.patched/dialog.c	2010-12-25 02:37:11.077951706 +0100
-@@ -44,7 +44,9 @@
+diff --git a/dialog.c b/dialog.c
+index c4d6879..a227ab7 100644
+--- a/dialog.c
++++ b/dialog.c
+@@ -44,7 +44,9 @@ typedef enum {
      ,o_ascii_lines
      ,o_aspect
      ,o_auto_placement
@@ -136,26 +204,26 @@ diff -Nur dialog-1.1-20100428/dialog.c dialog-1.1-20100428.patched/dialog.c
      ,o_beep
      ,o_beep_after
      ,o_begin
-@@ -182,6 +184,8 @@
+@@ -209,6 +211,8 @@ static const Options options[] = {
+     { "ascii-lines",	o_ascii_lines, 		1, "" },
      { "aspect",		o_aspect,		1, "<ratio>" },
      { "auto-placement", o_auto_placement,	1, NULL },
-     { "backtitle",	o_backtitle,		1, "<backtitle>" },
 +    { "auto-toggle",	o_auto_toggle,		1, "" },
 +    { "backfoot",	o_backfoot,		1, "<backfoot>" },
-     { "beep",		o_beep,			1, NULL },
-     { "beep-after",	o_beep_after,		1, NULL },
-     { "begin",		o_begin,		1, "<y> <x>" },
-@@ -774,7 +778,8 @@
- 			    numeric_arg(av, 2),
- 			    numeric_arg(av, 3),
- 			    numeric_arg(av, 4),
--			    tags, av + 5, FLAG_CHECK);
-+			    tags, av + 5, FLAG_CHECK,
-+			    dialog_vars.auto_toggle);
-     dialog_vars.quoted = save_quoted;
-     return code;
+     { "backtitle",	o_backtitle,		1, "<backtitle>" },
+     { "beep",		o_beep,			1, "" },
+     { "beep-after",	o_beep_after,		1, "" },
+@@ -724,7 +728,8 @@ call_menu(CALLARGS)
+ 		       numeric_arg(av, 2),
+ 		       numeric_arg(av, 3),
+ 		       numeric_arg(av, 4),
+-		       tags, av + 5);
++		       tags, av + 5,
++		       dialog_vars.auto_toggle);
  }
-@@ -789,7 +794,8 @@
+ 
+ static int
+@@ -786,7 +791,8 @@ call_radiolist(CALLARGS)
  			    numeric_arg(av, 2),
  			    numeric_arg(av, 3),
  			    numeric_arg(av, 4),
@@ -165,7 +233,7 @@ diff -Nur dialog-1.1-20100428/dialog.c dialog-1.1-20100428.patched/dialog.c
  }
  
  static int
-@@ -1211,9 +1217,15 @@
+@@ -1409,9 +1415,15 @@ process_common_options(int argc, char **argv, int offset, bool output)
  	case o_title:
  	    dialog_vars.title = optionString(argv, &offset);
  	    break;
@@ -181,7 +249,7 @@ diff -Nur dialog-1.1-20100428/dialog.c dialog-1.1-20100428.patched/dialog.c
  	case o_separate_widget:
  	    dialog_state.separate_str = optionString(argv, &offset);
  	    break;
-@@ -1609,6 +1621,7 @@
+@@ -1898,6 +1910,7 @@ main(int argc, char *argv[])
  	    dialog_state.aspect_ratio = DEFAULT_ASPECT_RATIO;
  
  	dlg_put_backtitle();
@@ -189,18 +257,19 @@ diff -Nur dialog-1.1-20100428/dialog.c dialog-1.1-20100428.patched/dialog.c
  
  	/* use a table to look for the requested mode, to avoid code duplication */
  
-@@ -1650,6 +1663,7 @@
+@@ -1939,6 +1952,7 @@ main(int argc, char *argv[])
  	    case o_unknown:
  	    case o_title:
  	    case o_backtitle:
 +	    case o_backfoot:
+ 	    case o_help_line:
+ 	    case o_help_file:
  		break;
- 	    default:
- 		if (argv[j] != 0) {
-diff -Nur dialog-1.1-20100428/dialog.h dialog-1.1-20100428.patched/dialog.h
---- dialog-1.1-20100428/dialog.h	2010-04-28 23:11:49.000000000 +0200
-+++ dialog-1.1-20100428.patched/dialog.h	2010-12-25 02:37:11.167952881 +0100
-@@ -293,6 +293,7 @@
+diff --git a/dialog.h b/dialog.h
+index 38b3983..4ce3031 100644
+--- a/dialog.h
++++ b/dialog.h
+@@ -337,6 +337,7 @@ extern WINDOW * dlg_wgetparent(WINDOW * /*win*/);
  #define print_autowrap(win,s,h,w)         dlg_print_autowrap(win,s,h,w)
  #define print_size(h,w)                   dlg_print_size(h,w)
  #define put_backtitle()                   dlg_put_backtitle()
@@ -208,7 +277,7 @@ diff -Nur dialog-1.1-20100428/dialog.h dialog-1.1-20100428.patched/dialog.h
  #define strclone(cprompt)                 dlg_strclone(cprompt)
  #define sub_window(win,h,w,y,x)           dlg_sub_window(win,h,w,y,x)
  #define tab_correct_str(s)                dlg_tab_correct_str(s)
-@@ -397,6 +398,7 @@
+@@ -457,6 +458,7 @@ extern DIALOG_STATE dialog_state;
   * Global variables, which dialog resets before each widget
   */
  typedef struct {
@@ -216,7 +285,7 @@ diff -Nur dialog-1.1-20100428/dialog.h dialog-1.1-20100428.patched/dialog.h
      bool beep_after_signal;	/* option "--beep-after" */
      bool beep_signal;		/* option "--beep" */
      bool begin_set;		/* option "--begin y x" was used */
-@@ -421,6 +423,7 @@
+@@ -481,6 +483,7 @@ typedef struct {
      bool tab_correct;		/* option "--tab-correct" */
      bool trim_whitespace;	/* option "--trim" */
      char *backtitle;		/* option "--backtitle backtitle" */
@@ -224,16 +293,16 @@ diff -Nur dialog-1.1-20100428/dialog.h dialog-1.1-20100428.patched/dialog.h
      char *cancel_label;		/* option "--cancel-label string" */
      char *default_item;		/* option "--default-item string" */
      char *exit_label;		/* option "--exit-label string" */
-@@ -502,7 +505,7 @@
- 
+@@ -593,7 +596,7 @@ extern const char *dialog_version(void);
  /* widgets, each in separate files */
+ extern int dialog_buildlist(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*list_height*/, int /*item_no*/, char ** /*items*/, int /*order_mode*/);
  extern int dialog_calendar(const char * /*title*/, const char * /*subtitle*/, int /*height*/, int /*width*/, int /*day*/, int /*month*/, int /*year*/);
 -extern int dialog_checklist(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*list_height*/, int /*item_no*/, char ** /*items*/, int /*flag*/);
 +extern int dialog_checklist(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*list_height*/, int /*item_no*/, char ** /*items*/, int /*flag*/, int /*auto_toggle*/);
  extern int dialog_dselect(const char * /*title*/, const char * /*path*/, int /*height*/, int /*width*/);
  extern int dialog_editbox(const char * /*title*/, const char * /*file*/, int /*height*/, int /*width*/);
  extern int dialog_form(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*form_height*/, int /*item_no*/, char ** /*items*/);
-@@ -548,7 +551,7 @@
+@@ -643,7 +646,7 @@ typedef struct {
  
  typedef	int (DIALOG_INPUTMENU) (DIALOG_LISTITEM * /*items*/, int /*current*/, char * /*newtext*/);
  
@@ -241,8 +310,8 @@ diff -Nur dialog-1.1-20100428/dialog.h dialog-1.1-20100428.patched/dialog.h
 +extern int dlg_checklist(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*list_height*/, int /*item_no*/, DIALOG_LISTITEM * /*items*/, const char * /*states*/, int /*flag*/, int * /*current_item*/, int /*auto_toggle*/);
  extern int dlg_form(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*form_height*/, int /*item_no*/, DIALOG_FORMITEM * /*items*/, int * /*current_item*/);
  extern int dlg_menu(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*menu_height*/, int /*item_no*/, DIALOG_LISTITEM * /*items*/, int * /*current_item*/, DIALOG_INPUTMENU /*rename_menu*/);
- 
-@@ -661,6 +664,7 @@
+ extern int dlg_progressbox(const char * /*title*/, const char * /*cprompt*/, int /*height*/, int /*width*/, int /*pauseopt*/, FILE * /* fp */);
+@@ -792,6 +795,7 @@ extern void dlg_print_listitem(WINDOW * /*win*/, const char * /*text*/, int /*cl
  extern void dlg_print_size(int /*height*/, int /*width*/);
  extern void dlg_print_text(WINDOW * /*win*/, const char * /*txt*/, int /*len*/, chtype * /*attr*/);
  extern void dlg_put_backtitle(void);
@@ -250,10 +319,11 @@ diff -Nur dialog-1.1-20100428/dialog.h dialog-1.1-20100428.patched/dialog.h
  extern void dlg_restore_vars(DIALOG_VARS * /* save */);
  extern void dlg_save_vars(DIALOG_VARS * /* save */);
  extern void dlg_set_focus(WINDOW * /*parent*/, WINDOW * /*win*/);
-diff -Nur dialog-1.1-20100428/util.c dialog-1.1-20100428.patched/util.c
---- dialog-1.1-20100428/util.c	2010-04-28 23:12:42.000000000 +0200
-+++ dialog-1.1-20100428.patched/util.c	2010-12-25 02:37:11.257954055 +0100
-@@ -129,6 +129,31 @@
+diff --git a/util.c b/util.c
+index 6431be8..374bc30 100644
+--- a/util.c
++++ b/util.c
+@@ -207,6 +207,31 @@ dlg_put_backtitle(void)
  }
  
  /*

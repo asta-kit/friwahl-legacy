@@ -68,16 +68,16 @@ mkdir -p "$DEST/etc/ssh"
 # wahl.asta.kit.edu is entered as the HostKeyAlias in friwahl-client.pl, it will also
 # work if the server is on another IP Adress (ie. inside the UStA subnet)
 echo -n "wahlserver.asta.kit.edu ssh-rsa " > "$DEST/etc/ssh/ssh_known_hosts"
-cut -f2 -d' ' /etc/ssh/ssh_host_rsa_key.pub >> "$DEST/etc/ssh/ssh_known_hosts"
+cut -f2 -d' ' $DATA/ssh_host_rsa_key.pub >> "$DEST/etc/ssh/ssh_known_hosts"
 chmod -w "$DEST/etc/friwahl"
 
 echo -e $INFO"Setze IRC-User und -Passwort..."$BLACK
-ircpassword=$(cat $DATA/ircpasswords | grep "^$urne" | cut -d"," -f 2)
+ircpassword=$(cat $DATA/ircpasswords | grep "^wahl$urne" | cut -d"," -f 2)
 if [ -z "$ircpassword" ] ; then
 	echo -e $ERROR"Kein IRC-Passwort gefunden fuer $urne"$BLACK
 	exit 1
 fi
-sed "s|{irc_passwd}|$ircpassword|g;s|{irc_user}|$urne|g" $DATA/irssi.conf > $DEST/home/irc/.irssi/config
+sed "s|{irc_passwd}|$ircpassword|g;s|{irc_user}|wahl$urne|g" $DATA/irssi.conf > $DEST/home/irc/.irssi/config
 
 echo -e $INFO"Setze Hostname zu $urne"$BLACK
 echo $urne > $DEST/etc/hostname
@@ -89,6 +89,6 @@ mkdir -p "/home/urnen/$urne/.ssh"
 cp "$HOME/keys/$urne/ssh_key" "/home/urnen/$urne/.ssh/authorized_keys"
 
 echo -e $INFO"Bereite ISO vor und erstelle ISO unter ${BUILDDIR}/out/WAHL-CD-$urne.iso..."$BLACK
-pushd $BUIlDDIR > /dev/null 2>&1
+pushd $BUILDDIR > /dev/null 2>&1
 ./build-02.sh -N "Wahl-CD" -V "$urne" -v
 popd > /dev/null 2>&1

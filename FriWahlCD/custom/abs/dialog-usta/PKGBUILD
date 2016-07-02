@@ -1,10 +1,9 @@
 # $Id: PKGBUILD 17070 2008-10-24 18:45:53Z andyrtr $
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
-
 pkgname=dialog-usta
-pkgver=1.1_20100428
+pkgver=1.3-20160424
 _pkgname=dialog
-_pkgver=1.1-20100428
+_pkgver=1.3-20160424
 pkgrel=1
 pkgdesc="A tool to display dialog boxes from shell scripts"
 arch=('i686' 'x86_64')
@@ -16,13 +15,13 @@ depends=('ncurses')
 url="http://invisible-island.net/dialog/"
 
 source=(ftp://invisible-island.net/${_pkgname}/${_pkgname}-$_pkgver.tgz
-        usta.patch)
+        status_bar.patch)
 md5sums=('519c0a0cbac28ddb992111ec2c3f82aa'
          '08083eaf561e1abfeeab45b33cbd96b8')
 
 build() {
   cd ${srcdir}/${_pkgname}-$_pkgver
-  patch -Np1 -i ${srcdir}/usta.patch
+  patch -Np1 -i ${srcdir}/status_bar.patch
   ./configure --prefix=/usr --with-ncursesw --mandir=/usr/share/man
   make || return 1
   make DESTDIR=${pkgdir} install install-lib

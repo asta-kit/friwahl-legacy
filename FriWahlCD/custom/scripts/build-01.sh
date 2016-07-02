@@ -65,6 +65,29 @@ make_packages_efi() {
     setarch ${arch} mkarchiso ${verbose} -w "${work_dir}/${arch}" -C "${work_dir}/pacman.conf" -D "${install_dir}" -p "efitools" install
 }
 
+# Copy mkinitcpio archiso hooks and build initramfs (airootfs)
+make_setup_mkinitcpio() {
+    local _hook
+    mkdir -p ${work_dir}/${arch}/airootfs/etc/initcpio/hooks
+    mkdir -p ${work_dir}/${arch}/airootfs/etc/initcpio/install
+    for _hook in archiso archiso_shutdown archiso_loop_mnt; do
+        cp /usr/lib/initcpio/hooks/${_hook} ${work_dir}/${arch}/airootfs/etc/initcpio/hooks
+        cp /usr/lib/initcpio/install/${_hook} ${work_dir}/${arch}/airootfs/etc/initcpio/install
+    done
+    sed -i "s|/usr/lib/initcpio/|/etc/initcpio/|g" ${work_dir}/${arch}/airootfs/etc/initcpio/install/archiso_shutdown
+    cp /usr/lib/initcpio/archiso_shutdown ${work_dir}/${arch}/airootfs/etc/initcpio
+    cp ${script_path}/mkinitcpio.conf ${work_dir}/${arch}/airootfs/etc/mkinitcpio-archiso.conf
+    gnupg_fd=
+    if [[ ${gpg_key} ]]; then
+      gpg --export ${gpg_key} >${work_dir}/gpgkey
+      exec 17<>${work_dir}/gpgkey
+    fi
+    ARCHISO_GNUPG_FD=${gpg_key:+17} setarch ${arch} mkarchiso ${verbose} -w "${work_dir}/${arch}" -C "${work_dir}/pacman.conf" -D "${install_dir}" -r 'mkinitcpio -c /etc/mkinitcpio-archiso.conf -k /boot/vmlinuz-linux -g /boot/archiso.img' run
+    if [[ ${gpg_key} ]]; then
+      exec 17<&-
+    fi
+}
+
 
 
 
@@ -109,3 +132,6 @@ done
 
 run_once make_packages_efi
 
+for arch in i686 x86_64; do
+    run_once make_setup_mkinitcpio
+done

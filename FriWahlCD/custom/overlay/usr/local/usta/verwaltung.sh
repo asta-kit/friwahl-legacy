@@ -23,7 +23,7 @@ STATUSFILE=/tmp/wahl-status
 TIMEFILE=/tmp/timefile.tmp
 SERVER=$(cat /etc/friwahl/server)
 COMMON_DIALOG_OPTIONS="--title "Status" --begin 2 5 --tailboxbg "$STATUSFILE" 4 78 --and-widget --title "Uhrzeit" --begin 29 5 --tailboxbg "$TIMEFILE" 4 35"
-export BACKTITLE="VS-Wahlen 2015 - Verwaltung"
+export BACKTITLE="VS-Wahlen 2016 - Verwaltung"
 
 # Accountdaten einlesen
 . /etc/friwahl/rzaccount.sh
