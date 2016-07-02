@@ -8,10 +8,6 @@ echo -e $INFO"Installation anpassen..."$BLACK
 if [ -f "/etc/systemd/system/getty.target.wants/getty@tty1.service" ]; then
     rm -rf /etc/systemd/system/getty.target.wants/getty@tty1.service
 fi
-if [-f "/usr/lib/systemd/system/dhcpcd.service" ]; then
-    rm -rf /usr/lib/systemd/system/dhcpcd.service
-    rm -rf /usr/lib/systemd/system/dhcpcd@.service
-fi
 if [ -d "/etc/systemd/system/getty@tty1.service.d/" ]; then
     rm -rf /etc/systemd/system/getty@tty1.service.d/
 fi

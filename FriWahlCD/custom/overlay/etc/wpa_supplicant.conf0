@@ -4,13 +4,6 @@ ap_scan=1
 fast_reauth=1
 
 network={
-    ssid="wkit-802.1x"
-    key_mgmt=WPA-EAP
-    pairwise=CCMP TKIP
-    group=CCMP TKIP
-    eap=PEAP
-    phase2="auth=MSCHAPV2"
-    identity="__rzaccount__"
-    password="__rzpassword__"
-    ca_cert="/usr/share/ca-certificates/mozilla/Deutsche_Telekom_Root_CA_2.crt"
+    ssid="vpn/web/belwue"
+    key_mgmt=NONE
 }
