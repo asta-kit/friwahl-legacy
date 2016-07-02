@@ -75,7 +75,6 @@ echo -e $INFO"Setze IRC-User und -Passwort..."$BLACK
 ircpassword=$(cat $DATA/ircpasswords | grep "^wahl$urne" | cut -d"," -f 2)
 if [ -z "$ircpassword" ] ; then
 	echo -e $ERROR"Kein IRC-Passwort gefunden fuer $urne"$BLACK
-	exit 1
 fi
 sed "s|{irc_passwd}|$ircpassword|g;s|{irc_user}|wahl$urne|g" $DATA/irssi.conf > $DEST/home/irc/.irssi/config
 
