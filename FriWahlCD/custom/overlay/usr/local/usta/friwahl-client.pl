@@ -49,7 +49,7 @@ elsif ( scalar(@ARGV) == 3 ) {
 		\*SERVER_OUT, \*SERVER_IN,
 		\*SERVER_ERR, 'ssh',
 		'-o',		 'BatchMode yes',
-		'-o',		 'HostKeyAlias wahl.asta.kit.edu',
+		'-o',		 'HostKeyAlias wahlserver.asta.kit.edu',
 		'-i',		 $ARGV[2],
 		'-l',		 'urne',
 		$ARGV[0],	 'false'
