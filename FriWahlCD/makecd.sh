@@ -84,10 +84,12 @@ echo $urne > $DEST/etc/hostname
 echo -e $INFO"Kopiere Key in die authorized_keys-Datei der Urne..."$BLACK
 echo -n "command=\"/data/friwahl/Packages/Application/AstaKit.FriWahl.BallotBoxBackend/Scripts/BallotBoxSession.sh $urne\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding " > "$HOME/keys/$urne/ssh_key"
 cat "$HOME/keys/$urne/key.pub" >>"$HOME/keys/$urne/ssh_key"
-mkdir -p "/home/urnen/$urne/.ssh"
-cp "$HOME/keys/$urne/ssh_key" "/home/urnen/$urne/.ssh/authorized_keys"
+#mkdir -p "/home/urnen/$urne/.ssh"
+#cp "$HOME/keys/$urne/ssh_key" "/home/urnen/$urne/.ssh/authorized_keys"
+echo -e $INFO"Kopiere ssh_key in gemeinsame authorized_keys-Datei für den Urnenuser"$BLACK
+cat "$HOME/keys/$urne/ssh_key" >> "$HOME/keys/authorized_keys_urne"
 
 echo -e $INFO"Bereite ISO vor und erstelle ISO unter ${BUILDDIR}/out/WAHL-CD-$urne.iso..."$BLACK
 pushd $BUILDDIR > /dev/null 2>&1
-./build-02.sh -N "Wahl-CD" -V "$urne" -v
+./build-02.sh -N "Wahl-CD" -V "$urne" -L "FriWahlCD_$urne" -v
 popd > /dev/null 2>&1
