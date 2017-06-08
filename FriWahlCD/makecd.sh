@@ -47,10 +47,7 @@ if [ ! -f "$HOME/accounts/$urne/rzaccount.sh" ]; then
 		konf_pw=`echo $konf_pw | sed 's/(/\\(/g;s/)/\\)/g'`
 		echo -e $INFO"Erstelle RZ-Accountdatei in $HOME/accounts/$urne/rzaccount.sh..."$BLACK
 		echo RZACCOUNT=$konf_account > $HOME/accounts/$urne/rzaccount.sh
-		echo 'RZPASSWORD=`mkfifo fin && mkfifo fout && mkfifo encode_out && { { cat > fin << EOT ' >> $HOME/accounts/$urne/rzaccount.sh
-		mkfifo fin && mkfifo fout && mkfifo encode_out && { echo $konf_pw > fin & openssl rsautl -inkey $HOME/keys/$urne/key -encrypt -in fin -out fout & openssl base64 -in fout -out encode_out & cat encode_out && rm -f fin fout encode_out; } >> $HOME/accounts/$urne/rzaccount.sh
-		echo 'EOT' >> $HOME/accounts/$urne/rzaccount.sh
-        	echo '} & openssl base64 -d -in fin -out encode_out & openssl rsautl -inkey /etc/friwahl/key -decrypt -in encode_out -out fout & cat fout && rm -f fin fout encode_out; }`' >> $HOME/accounts/$urne/rzaccount.sh
+		echo RZPASSWORD=$konf_pw >> $HOME/accounts/$urne/rzaccount.sh
 	fi
 fi
 
