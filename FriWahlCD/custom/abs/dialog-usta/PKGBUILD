@@ -1,7 +1,7 @@
 # $Id: PKGBUILD 17070 2008-10-24 18:45:53Z andyrtr $
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 pkgname=dialog-usta
-pkgver=1.3-20160424
+pkgver=1.3_20160424
 _pkgname=dialog
 _pkgver=1.3-20160424
 pkgrel=1
@@ -16,13 +16,17 @@ url="http://invisible-island.net/dialog/"
 
 source=(ftp://invisible-island.net/${_pkgname}/${_pkgname}-$_pkgver.tgz
         status_bar.patch)
-md5sums=('519c0a0cbac28ddb992111ec2c3f82aa'
-         '08083eaf561e1abfeeab45b33cbd96b8')
+md5sums=('582d804252205f73df2d892ebdc5212e'
+	 '7061588c0ea76541f7f4e57e3446e964')
 
 build() {
   cd ${srcdir}/${_pkgname}-$_pkgver
   patch -Np1 -i ${srcdir}/status_bar.patch
   ./configure --prefix=/usr --with-ncursesw --mandir=/usr/share/man
   make || return 1
+}
+
+package() {
+  cd ${srcdir}/${_pkgname}-$_pkgver
   make DESTDIR=${pkgdir} install install-lib
 }
