@@ -37,7 +37,7 @@ _usage ()
 # Helper function to run make_*() only one time per architecture.
 run_once() {
     if [[ ! -e ${work_dir}/build.${1}_${arch} ]]; then
-        $1
+        $1 2>&1 | tee ${work_dir}/build.${1}_${arch}.log
         touch ${work_dir}/build.${1}_${arch}
     fi
 }
