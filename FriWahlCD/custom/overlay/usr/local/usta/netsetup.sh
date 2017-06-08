@@ -8,14 +8,7 @@
 
 setterm -blank 0
 
-sed "s|__rzaccount__|$RZACCOUNT@uni-karlsruhe.de|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
-
-#Zugangsdaten für openvpn anlegen.
-OVPNPWD="/tmp/openvpn.passwd"
-touch $OVPNPWD
-chmod 400 $OVPNPWD
-echo "$RZACCOUNT@usta/cs" > $OVPNPWD
-echo "$RZPASSWORD" >> $OVPNPWD
+sed "s|__rzaccount__|$RZACCOUNT@kit.edu|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
 
 for devdir in /sys/class/net/*; do
 	dev=`echo $devdir | sed "s|/sys/class/net/||g"`
@@ -28,7 +21,6 @@ for devdir in /sys/class/net/*; do
 	fi
 done
 
-killall openvpn 2> /dev/null
 killall wpa_supplicant 2> /dev/null
 killall dhclient 2> /dev/null
 
@@ -82,9 +74,10 @@ if [ $con = 0 ]; then
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.." 3 60
 		dhclient $dev || logger "Could not start dhclient for $dev"
 		ip addr show $dev | grep "inet .*\..*\..*\..*" > /dev/null
+		curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "Anmeldung erfolgreich"
 		if [ $? -eq 0 ]; then
-			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. Erfolg" 3 60
 			con=1
+			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. Erfolg" 3 60
 			break
 		else
 			killall wpa_supplicant
