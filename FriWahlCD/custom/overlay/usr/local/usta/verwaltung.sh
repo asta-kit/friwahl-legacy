@@ -45,14 +45,14 @@ function vpn_belwue_gui
 			return
 		fi
 
-    iwconfig "$WLDEV" essid "vpn/web/belwue" || { dialog --backtitle "$BACKTITLE" --title "vpn/web/belwue Einwahl" --timout 10 --msgbox "Konnte keine Verbindung zu vpn/web/belwue herstellen" 0 0; exit 1 }
+    iwconfig "$WLDEV" essid "vpn/web/belwue" || { dialog --backtitle "$BACKTITLE" --title "vpn/web/belwue Einwahl" --timeout 10 --msgbox "Konnte keine Verbindung zu vpn/web/belwue herstellen" 0 0; exit 1; }
 
 		echo
 		echo -n "Suche Netz auf $WLDEV ..."
 
 		dhclient $WLDEV || { echo "fehlgeschlagen"; echo "Beliebige Taste um fortzufahren."; read -n1; exit 1; }
 
-		curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "Anmeldung erfolgreich" || { dialog --backtitle "$BACKTITLE" --title "vpn/web/belwue Einwahl" --timeout 10 --msgbox "Konnte mich nicht am Captive Portal authentifizieren." 0 0; exit 1 }
+		curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "Anmeldung erfolgreich" || { dialog --backtitle "$BACKTITLE" --title "vpn/web/belwue Einwahl" --timeout 10 --msgbox "Konnte mich nicht am Captive Portal authentifizieren." 0 0; exit 1; }
 
 		echo "OK"
 }
