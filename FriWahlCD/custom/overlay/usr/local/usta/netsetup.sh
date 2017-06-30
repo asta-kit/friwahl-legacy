@@ -69,7 +69,7 @@ if [ $con = 0 ]; then
 		ip link set $dev up
 		sleep 5
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche über $dev mit /vpn/web/belwue zu verbinden.." 3 60
-		wpa_supplicant -c /tmp/wpa_supplicant.conf -i$dev -B
+		iwconfig "$WLDEV" essid "vpn/web/belwue" || logger "Konnte keine Verbindung zu vpn/web/belwue herstellen"
 		sleep 5
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.." 3 60
 		dhclient $dev || logger "Could not start dhclient for $dev"
@@ -80,7 +80,6 @@ if [ $con = 0 ]; then
 			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. Erfolg" 3 60
 			break
 		else
-			killall wpa_supplicant
 			ip link set $dev down
 			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. fehlgeschlagen" 3 60
 		fi
