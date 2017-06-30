@@ -43,20 +43,41 @@ for dev in $lans; do
 		fi
 	fi
 	if [ $up = 1 ]; then
+		addr=0
 		logger "Configuring device $dev"
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.." 3 60
 		dhclient $dev || logger "Could not start dhclient for $dev"
 		ip addr show $dev | grep "inet .*\..*\..*\..*" > /dev/null
+
 		if [ $? -eq 0 ]; then
-			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. Erfolg" 3 60			 
-			con=1
+			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. Erfolg" 3 60
+			addr=1
 			logger "Device $dev now has an IP address"
-			break
 		else
 			ip link set $dev down
 			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. fehlgeschlagen" 3 60
 			logger "Could not get IP address for device $dev"
+			continue
 		fi
+		if [ $addr = 1]; then
+			ping captive-portal.scc.kit.edu -c 1 -W 5
+			if [ $? -eq 0]; then
+				curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "Anmeldung erfolgreich"
+			else
+				logger "Not in the LTA network"
+			fi
+
+			if [ $? -eq 0]; then
+				con=1
+				break
+			else
+					ip link set $dev down
+					dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche am Captive Portal einzuloggen ... fehlgeschlagen" 3 60
+					logger "Could register at captive portal"
+			fi
+
+		fi
+
 	else
 		ip link set $dev down
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Kein Netzwerkkabel in $dev eingesteckt" 3 60
