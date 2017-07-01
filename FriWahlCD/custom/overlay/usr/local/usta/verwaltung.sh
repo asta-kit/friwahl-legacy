@@ -45,6 +45,9 @@ function vpn_belwue_gui
 			return
 		fi
 
+		ip addr flush $WLDEV
+		ip route flush $WLDEV
+
     iwconfig "$WLDEV" essid "vpn/web/belwue" || { dialog --backtitle "$BACKTITLE" --title "vpn/web/belwue Einwahl" --timeout 10 --msgbox "Konnte keine Verbindung zu vpn/web/belwue herstellen" 0 0; exit 1; }
 
 		echo

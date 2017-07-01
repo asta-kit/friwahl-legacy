@@ -45,6 +45,8 @@ for dev in $lans; do
 	if [ $up = 1 ]; then
 		addr=0
 		logger "Configuring device $dev"
+		ip addr flush $dev
+		ip route flush $dev
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.." 3 60
 		dhclient $dev || logger "Could not start dhclient for $dev"
 		ip addr show $dev | grep "inet .*\..*\..*\..*" > /dev/null
@@ -89,6 +91,8 @@ if [ $con = 0 ]; then
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche über $dev eine Verbindung herzustellen.." 3 60
 		ip link set $dev up
 		sleep 5
+		ip addr flush $dev
+		ip route flush $dev
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche über $dev mit /vpn/web/belwue zu verbinden.." 3 60
 		iwconfig "$dev" essid "vpn/web/belwue" || logger "Konnte keine Verbindung zu vpn/web/belwue herstellen"
 		sleep 5
