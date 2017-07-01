@@ -38,6 +38,14 @@ if [ ! -f "$HOME/keys/$urne/key" ]; then
 	ssh-keygen -q -t rsa -N '' -C "$urne" -f "$HOME/keys/$urne/key"
 fi
 
+if ([ -f "$DATA/wlanpasswords" ] && [ "$konf_pw" = "" ] &&  [ "$konf_account" = "" ]); then
+	echo "getting wlanpassword configuration"
+	konf_account=$(cat $DATA/wlanpasswords | grep "^wahl$urne" | cut -d";" -f 2)
+	konf_pw=$(cat $DATA/wlanpasswords | grep "^wahl$urne" | cut -d";" -f 3)
+else
+	echo "wlanpasswords not available"
+fi
+
 #Lese RZ-Account für Spätere WLAN-Konfiguration? ein
 [ -d "$HOME/accounts/$urne" ] || mkdir -p "$HOME/accounts/$urne"
 if [ ! -f "$HOME/accounts/$urne/rzaccount.sh" ]; then
@@ -58,7 +66,7 @@ echo -e $INFO"Kopiere Keys in das Arbeitsverzeichnis..."$BLACK
 mkdir -p "$DEST/etc/friwahl"
 chmod +w "$DEST/etc/friwahl"
 cp -v "$HOME/keys/$urne/key" "$DEST/etc/friwahl"
-#cp -v "$HOME/accounts/$urne/rzaccount.sh" "$DEST/etc/friwahl/rzaccount.sh"
+cp -v "$HOME/accounts/$urne/rzaccount.sh" "$DEST/etc/friwahl/rzaccount.sh"
 echo "$urne" > "$DEST/etc/friwahl/user"
 cp -v $DATA/server "$DEST/etc/friwahl/server"
 mkdir -p "$DEST/etc/ssh"
