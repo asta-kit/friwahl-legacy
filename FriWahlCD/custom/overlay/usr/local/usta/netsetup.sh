@@ -64,7 +64,7 @@ for dev in $lans; do
 		if [ $addr = 1]; then
 			ping captive-portal.scc.kit.edu -c 1 -W 5
 			if [ $? -eq 0]; then
-				curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "Anmeldung erfolgreich"
+				curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "erfolgreich"
 			else
 				logger "Not in the LTA network"
 			fi
@@ -94,12 +94,14 @@ if [ $con = 0 ]; then
 		ip addr flush $dev
 		ip route flush $dev
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche über $dev mit /vpn/web/belwue zu verbinden.." 3 60
+		logger "Trying to connect to vpn/web/belwue"
 		iwconfig "$dev" essid "vpn/web/belwue" || logger "Konnte keine Verbindung zu vpn/web/belwue herstellen"
 		sleep 5
 		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.." 3 60
 		dhclient $dev || logger "Could not start dhclient for $dev"
 		ip addr show $dev | grep "inet .*\..*\..*\..*" > /dev/null
-		curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "Anmeldung erfolgreich"
+		logger "Trying to authenticate with username: $RZACCOUNT and password: $RZPASSWORD"
+		curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "erfolgreich"
 		if [ $? -eq 0 ]; then
 			con=1
 			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. Erfolg" 3 60

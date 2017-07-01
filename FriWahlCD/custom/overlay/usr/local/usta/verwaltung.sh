@@ -55,7 +55,7 @@ function vpn_belwue_gui
 
 		dhclient $WLDEV || { echo "fehlgeschlagen"; echo "Beliebige Taste um fortzufahren."; read -n1; exit 1; }
 
-		curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "Anmeldung erfolgreich" || { dialog --backtitle "$BACKTITLE" --title "vpn/web/belwue Einwahl" --timeout 10 --msgbox "Konnte mich nicht am Captive Portal authentifizieren." 0 0; exit 1; }
+		curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "erfolgreich" || { dialog --backtitle "$BACKTITLE" --title "vpn/web/belwue Einwahl" --timeout 10 --msgbox "Konnte mich nicht am Captive Portal authentifizieren." 0 0; exit 1; }
 
 		echo "OK"
 }
