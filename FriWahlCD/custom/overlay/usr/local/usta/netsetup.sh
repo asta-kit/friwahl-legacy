@@ -42,7 +42,7 @@ for dev in $lans; do
 			logger "Device $dev was down, is now up"
 		fi
 	fi
-	if [ $up = 1 ]; then
+	if [ $up -eq 1 ]; then
 		addr=0
 		logger "Configuring device $dev"
 		ip addr flush $dev
@@ -61,15 +61,17 @@ for dev in $lans; do
 			logger "Could not get IP address for device $dev"
 			continue
 		fi
-		if [ $addr = 1]; then
+		if [ $addr = 1 ]; then
+			logger "test if device is in LTA network"
 			ping captive-portal.scc.kit.edu -c 1 -W 5
-			if [ $? -eq 0]; then
+			if [ $? -eq 0 ]; then
+				logger "In the LTA network and trying to authenticate..."
 				curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "erfolgreich"
 			else
 				logger "Not in the LTA network"
 			fi
 
-			if [ $? -eq 0]; then
+			if [ $? -eq 0 ]; then
 				con=1
 				break
 			else
