@@ -8,7 +8,7 @@ ipw2100-fw
 rfkill
 wireless_tools
 zd1211-firmware
-broadcom-wl
+broadcom-wl-dkms
 b43-firmware
 wpa_supplicant
 openssl
