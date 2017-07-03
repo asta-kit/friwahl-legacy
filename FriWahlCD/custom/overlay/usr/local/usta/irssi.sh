@@ -6,7 +6,7 @@
 
 export TERM=linux
 
-IRCSERVER=fachschaft.physik.uni-karlsruhe.de
+IRCSERVER=localhost
 
 . /etc/profile
 
