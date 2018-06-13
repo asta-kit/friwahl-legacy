@@ -183,11 +183,11 @@ while getopts 'N:V:L:D:w:o:g:vh' arg; do
            ;;
     esac
 done
-for arch in i686 x86_64; do
+for arch in x86_64; do
     make_customize_airootfs
 done
 
-for arch in i686 x86_64; do
+for arch in x86_64; do
     make_boot
 done
 
@@ -197,7 +197,7 @@ make_isolinux
 make_efi
 make_efiboot
 
-for arch in i686 x86_64; do
+for arch in x86_64; do
     make_prepare
 done
 
