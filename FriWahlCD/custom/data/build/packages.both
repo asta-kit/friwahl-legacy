@@ -21,7 +21,7 @@ fping
 curl
 perl-www-curl
 expect
-pygobject
+python-gobject
 vim
 wavemon
 dialog-usta
