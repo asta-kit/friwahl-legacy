@@ -95,15 +95,19 @@ if [ $con = 0 ]; then
 		sleep 5
 		ip addr flush $dev
 		ip route flush $dev
-		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche über $dev mit /vpn/web/belwue zu verbinden.." 3 60
-		logger "Trying to connect to vpn/web/belwue"
-		iwconfig "$dev" essid "vpn/web/belwue" || logger "Konnte keine Verbindung zu vpn/web/belwue herstellen"
-		sleep 5
-		dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.." 3 60
+
+		killall wpa_supplicant 2> /dev/null
+		sleep 2
+
+		sed "s|__rzaccount__|$RZACCOUNT@kit.edu|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
+		wpa_supplicant -c /tmp/wpa_supplicant.conf -i$WLDEV -B
+
+		echo
+		echo -n "Suche Netz auf $WLDEV ..."
+
 		dhclient $dev || logger "Could not start dhclient for $dev"
 		ip addr show $dev | grep "inet .*\..*\..*\..*" > /dev/null
-		logger "Trying to authenticate with username: $RZACCOUNT and password: $RZPASSWORD"
-		curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "erfolgreich"
+
 		if [ $? -eq 0 ]; then
 			con=1
 			dialog --stdout --backtitle "$BACKTITLE" --title "Netzwerkverbindung wird hergestellt" --infobox "Versuche IP von $dev zu beziehen.. Erfolg" 3 60
@@ -130,4 +134,3 @@ if [ $con = 0 ]; then
 fi
 
 exit 0
-

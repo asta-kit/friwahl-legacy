@@ -1,6 +1,6 @@
 #!/bin/bash
-# 
-# Trouble System for the UStA Wahl 
+#
+# Trouble System for the UStA Wahl
 #
 # (c) 2005-2006 by Fabian Franz
 # (c) 2008-2012 by Mario Prausa
@@ -28,36 +28,34 @@ export BACKTITLE="VS-Wahlen 2017 - Verwaltung"
 # Accountdaten einlesen
 . /etc/friwahl/rzaccount.sh
 
-function vpn_belwue_gui
+function wkit_guest
 {
-		echo "Versuche Verbindung herzustellen"
-		for devdir in /sys/class/net/*; do
-				if [ `cat $devdir/type` = "1" ]; then
-					if [ -d "$devdir/wireless" ]; then
-						WLDEV=`echo $devdir | sed "s|/sys/class/net/||g"`
-						break
-					fi
-				fi
-		done
-
-		if [ -z "$WLDEV" ]; then
-			dialog --backtitle "$BACKTITLE" --title "vpn/web/belwue Einwahl" --timeout 10 --msgbox "keine WLAN-Karte gefunden" 0 0
-			return
+	for devdir in /sys/class/net/*; do
+		if [ `cat $devdir/type` = "1" ]; then
+		if [ -d "$devdir/wireless" ]; then
+		WLDEV=`echo $devdir | sed "s|/sys/class/net/||g"`
+		break
 		fi
+		fi
+	done
 
-		ip addr flush $WLDEV
-		ip route flush $WLDEV
+	if [ -z "$WLDEV" ]; then
+	dialog --backtitle "$BACKTITLE" --title "automatische wKIT/WPA-Einwahl" --timeout 10 --msgbox "keine WLAN-Karte gefunden" 0 0
+	return
+	fi
 
-    iwconfig "$WLDEV" essid "vpn/web/belwue" || { dialog --backtitle "$BACKTITLE" --title "vpn/web/belwue Einwahl" --timeout 10 --msgbox "Konnte keine Verbindung zu vpn/web/belwue herstellen" 0 0; exit 1; }
+	killall wpa_supplicant 2> /dev/null
+	sleep 2
 
-		echo
-		echo -n "Suche Netz auf $WLDEV ..."
+	sed "s|__rzaccount__|$RZACCOUNT@kit.edu|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
+	wpa_supplicant -c /tmp/wpa_supplicant.conf -i$WLDEV -B
 
-		dhclient $WLDEV || { echo "fehlgeschlagen"; echo "Beliebige Taste um fortzufahren."; read -n1; exit 1; }
+	echo
+	echo -n "Suche Netz auf $WLDEV ..."
 
-		curl -s --request POST 'https://captive-portal.scc.kit.edu/login' --data-urlencode "username=$RZACCOUNT" --data-urlencode "password=$RZPASSWORD" | grep -q "erfolgreich" || { dialog --backtitle "$BACKTITLE" --title "vpn/web/belwue Einwahl" --timeout 10 --msgbox "Konnte mich nicht am Captive Portal authentifizieren." 0 0; exit 1; }
+	dhclient $WLDEV || { echo "fehlgeschlagen"; echo "Beliebige Taste um fortzufahren."; read -n1; exit 1; }
 
-		echo "OK"
+	echo "OK"
 }
 
 function wkit_gui
@@ -95,42 +93,10 @@ function wkit_gui
 	echo "OK"
 }
 
-function network_gui 
-{
-	dialog --backtitle "$BACKTITLE" --title "Netzwerk-Probleme" --timeout 10 --yesno "Das Netzwerk (re)konfigurieren?" 0 0 || { reset -I; return; }
-	./netconfig.sh
-}
-
-function wlan_gui 
-{
-	dialog --backtitle "$BACKTITLE" --title "WLAN-Probleme" --timeout 10 --yesno "WLAN-Karte (re)konfigurieren?" 0 0 || { reset -I; return; }
-	./wlanconf.sh
-}
-
 function pause
 {
 	echo "Beliebige Taste um fortzufahren."
 	read -n1
-}
-
-function expert_gui
-{
-	EXP_CHOICE="1"
-	dialog --backtitle "$BACKTITLE" --title "Experten-Menü?" --timeout 10 --yesno "Experten-Menü aufrufen?" 0 0 || { reset -I; return; }
-	while true;
-	do
-		EXP_CHOICE=$(dialog $COMMON_DIALOG_OPTIONS --and-widget --default-item "$EXP_CHOICE" --stdout --nocancel --backtitle "$BACKTITLE" --title "erweiterte Problemlösung" --timeout 10 --menu "Auswahl" 0 35 5 "1" "manuelle wKIT/WPA-Einwahl" "2" "Zurück") || { reset -I; return; }
-
-		case "$EXP_CHOICE"
-		in
-			1)
-				wkit_gui
-			;;
-			2)
-				return
-			;;
-		esac
-	done
 }
 
 killall uhrzeit.sh 2> /dev/null
@@ -140,7 +106,7 @@ killall status.sh 2> /dev/null
 
 while true;
 do
-	CHOICE=$(dialog $COMMON_DIALOG_OPTIONS --and-widget --stdout --nocancel --backtitle "$BACKTITLE" --title "Problemlösung" --menu "Auswahl" 0 40 5 "1" "automatisches Verbinden" "2" "Netzwerk-Probleme beheben" "3" "WLAN-Probleme beheben" "4" "automatische Einwahl vpn/web/belwue" "5" "Experten-Menü") || { CHOICE="-1"; reset -I; }
+	CHOICE=$(dialog $COMMON_DIALOG_OPTIONS --and-widget --stdout --nocancel --backtitle "$BACKTITLE" --title "Problemlösung" --menu "Auswahl" 0 40 5 "1" "automatisches Verbinden" "2" "automatische Einwahl wKIT" "3" "manuelle Einwahl wKIT") || { CHOICE="-1"; reset -I; }
 
 	case "$CHOICE"
 	in
@@ -148,17 +114,10 @@ do
 			./netsetup.sh -x
 		;;
 		2)
-			network_gui
+			wkit_guest
 		;;
 		3)
-			wlan_gui
-		;;
-		4)
-			vpn_belwue_gui
-		;;
-		5)
-			expert_gui
+			wkit_gui
 		;;
 	esac
 done
-
