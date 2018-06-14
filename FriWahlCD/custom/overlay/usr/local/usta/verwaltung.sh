@@ -4,6 +4,7 @@
 #
 # (c) 2005-2006 by Fabian Franz
 # (c) 2008-2012 by Mario Prausa
+# (c) 2016-2018 by Andrej Rode
 #
 # License: GPL, version 2
 #
@@ -23,7 +24,7 @@ STATUSFILE=/tmp/wahl-status
 TIMEFILE=/tmp/timefile.tmp
 SERVER=$(cat /etc/friwahl/server)
 COMMON_DIALOG_OPTIONS="--title "Status" --begin 2 5 --tailboxbg "$STATUSFILE" 4 78 --and-widget --title "Uhrzeit" --begin 29 5 --tailboxbg "$TIMEFILE" 4 35"
-export BACKTITLE="VS-Wahlen 2017 - Verwaltung"
+export BACKTITLE="VS-Wahlen 2018 - Verwaltung"
 
 # Accountdaten einlesen
 . /etc/friwahl/rzaccount.sh

@@ -52,7 +52,7 @@ elsif ( scalar(@ARGV) == 3 ) {
 		'-o',		 'HostKeyAlias wahlserver.asta.kit.edu',
 		'-i',		 $ARGV[2],
 		'-l',		 'urne',
-		'-L',    '6667:irc1.hadiko.de:6667',
+		# '-L',    '6667:irc1.hadiko.de:6667',
 		$ARGV[0],	 'false'
 	);
 	realsleep(2);

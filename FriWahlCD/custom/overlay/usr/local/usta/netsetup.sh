@@ -100,10 +100,10 @@ if [ $con = 0 ]; then
 		sleep 2
 
 		sed "s|__rzaccount__|$RZACCOUNT@kit.edu|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
-		wpa_supplicant -c /tmp/wpa_supplicant.conf -i$WLDEV -B
+		wpa_supplicant -c /tmp/wpa_supplicant.conf -i$dev -B
 
 		echo
-		echo -n "Suche Netz auf $WLDEV ..."
+		echo -n "Suche Netz auf $dev ..."
 
 		dhclient $dev || logger "Could not start dhclient for $dev"
 		ip addr show $dev | grep "inet .*\..*\..*\..*" > /dev/null
