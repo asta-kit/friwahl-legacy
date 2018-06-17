@@ -87,7 +87,6 @@ echo -e $INFO"Setze Hostname zu $urne"$BLACK
 echo $urne > $DEST/etc/hostname
 
 echo -e $INFO"Kopiere Key in die authorized_keys-Datei der Urne..."$BLACK
-/srv/apps/friwahl/Packages/Application/AstaKit.FriWahl.BallotBoxBackend/Scripts/BallotBoxSession.sh
 echo -n "command=\"/srv/apps/friwahl/Packages/Application/AstaKit.FriWahl.BallotBoxBackend/Scripts/BallotBoxSession.sh $urne\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding " > "$HOME/keys/$urne/ssh_key"
 cat "$HOME/keys/$urne/key.pub" >>"$HOME/keys/$urne/ssh_key"
 #mkdir -p "/home/urnen/$urne/.ssh"
