@@ -77,17 +77,18 @@ cut -f2 -d' ' $DATA/ssh_host_rsa_key.pub >> "$DEST/etc/ssh/ssh_known_hosts"
 chmod -w "$DEST/etc/friwahl"
 
 echo -e $INFO"Setze IRC-User und -Passwort..."$BLACK
-ircpassword=$(cat $DATA/ircpasswords | grep "^wahl$urne" | cut -d"," -f 2)
+ircpassword=$(cat $DATA/ircpasswords | grep "^$urne" | cut -d"," -f 2)
 if [ -z "$ircpassword" ] ; then
 	echo -e $ERROR"Kein IRC-Passwort gefunden fuer $urne"$BLACK
 fi
-sed "s|{irc_passwd}|$ircpassword|g;s|{irc_user}|wahl$urne|g" $DATA/irssi.conf > $DEST/home/irc/.irssi/config
+sed "s|{irc_passwd}|$ircpassword|g;s|{irc_user}|$urne|g" $DATA/irssi.conf > $DEST/home/irc/.irssi/config
 
 echo -e $INFO"Setze Hostname zu $urne"$BLACK
 echo $urne > $DEST/etc/hostname
 
 echo -e $INFO"Kopiere Key in die authorized_keys-Datei der Urne..."$BLACK
-echo -n "command=\"/data/friwahl/Packages/Application/AstaKit.FriWahl.BallotBoxBackend/Scripts/BallotBoxSession.sh $urne\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding " > "$HOME/keys/$urne/ssh_key"
+/srv/apps/friwahl/Packages/Application/AstaKit.FriWahl.BallotBoxBackend/Scripts/BallotBoxSession.sh
+echo -n "command=\"/srv/apps/friwahl/Packages/Application/AstaKit.FriWahl.BallotBoxBackend/Scripts/BallotBoxSession.sh $urne\",no-port-forwarding,no-X11-forwarding,no-agent-forwarding " > "$HOME/keys/$urne/ssh_key"
 cat "$HOME/keys/$urne/key.pub" >>"$HOME/keys/$urne/ssh_key"
 #mkdir -p "/home/urnen/$urne/.ssh"
 #cp "$HOME/keys/$urne/ssh_key" "/home/urnen/$urne/.ssh/authorized_keys"
