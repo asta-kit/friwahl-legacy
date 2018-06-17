@@ -8,7 +8,7 @@
 
 setterm -blank 0
 
-sed "s|__rzaccount__|$RZACCOUNT@kit.edu|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
+sed "s|__rzaccount__|$RZACCOUNT|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
 
 for devdir in /sys/class/net/*; do
 	dev=`echo $devdir | sed "s|/sys/class/net/||g"`
@@ -99,7 +99,7 @@ if [ $con = 0 ]; then
 		killall wpa_supplicant 2> /dev/null
 		sleep 2
 
-		sed "s|__rzaccount__|$RZACCOUNT@kit.edu|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
+		sed "s|__rzaccount__|$RZACCOUNT|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
 		wpa_supplicant -c /tmp/wpa_supplicant.conf -i$dev -B
 
 		echo

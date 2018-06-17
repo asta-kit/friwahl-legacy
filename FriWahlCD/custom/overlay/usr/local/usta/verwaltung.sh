@@ -48,7 +48,7 @@ function wkit_guest
 	killall wpa_supplicant 2> /dev/null
 	sleep 2
 
-	sed "s|__rzaccount__|$RZACCOUNT@kit.edu|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
+	sed "s|__rzaccount__|$RZACCOUNT|g;s|__rzpassword__|${RZPASSWORD/&/\\&}|g" /etc/wpa_supplicant.conf0 > /tmp/wpa_supplicant.conf
 	wpa_supplicant -c /tmp/wpa_supplicant.conf -i$WLDEV -B
 
 	echo
