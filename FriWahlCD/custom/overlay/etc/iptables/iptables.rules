@@ -3,17 +3,16 @@
 :INPUT DROP [0:0]
 :FORWARD DROP [0:0]
 :OUTPUT ACCEPT [961:122166]
--A INPUT -p icmp -j ACCEPT 
--A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT 
--A INPUT -i lo -j ACCEPT 
--A INPUT -p tcp -j REJECT --reject-with tcp-reset 
--A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable 
--A INPUT -j REJECT --reject-with icmp-proto-unreachable 
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p tcp -j REJECT --reject-with tcp-reset
+-A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+-A INPUT -j REJECT --reject-with icmp-proto-unreachable
 
--A OUTPUT -d 172.20.65.116 -p tcp --dport 6667 -j ACCEPT
--A OUTPUT -d 172.20.65.121 -p tcp --dport 6667 -j ACCEPT
+-A OUTPUT -d 141.70.44.24 -p tcp --dport 6667 -j ACCEPT
+-A OUTPUT -d 2001:7c7:20f0:3::60 -p tcp --dport 6667 -j ACCEPT
 
--A OUTPUT -d 193.197.62.25 -p tcp --dport 1194 -j ACCEPT
--A OUTPUT ! -o lo -p tcp --dport 1024:65535 -j DROP 
+-A OUTPUT ! -o lo -p tcp --dport 1024:65535 -j DROP
 COMMIT
 # Completed on Mon Dec 27 18:05:53 2010
